@@ -1,0 +1,11 @@
+{
+  "scanned_at": "2026-06-25",
+  "findings": {
+    "font_stack": null,
+    "palette": null,
+    "motion": "motion-cut",
+    "spacing": null,
+    "framework": "vanilla-html"
+  },
+  "summary": "No pre-flight signals — proceeding with full Hallmark stack."
+}
