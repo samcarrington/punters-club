@@ -1,0 +1,17 @@
+---
+import type { Show } from '../lib/mixcloud';
+
+const { shows } = Astro.props as { shows: Show[] };
+---
+
+<div class="archive-grid">
+  {shows.map((show) => (
+    <a href={show.url} target="_blank" rel="noreferrer">
+      {show.artwork ? <img class="poster-placeholder poster-sm archive-artwork" src={show.artwork} alt="" loading="lazy" /> : <div class="poster-placeholder poster-sm" aria-hidden="true"></div>}
+      <span class="archive-item-title">{show.title}</span>
+    </a>
+  ))}
+  <a class="archive-profile-link" href="https://www.mixcloud.com/radiowaters/" target="_blank" rel="noreferrer">
+    <span class="archive-item-title">Radio Waters on Mixcloud - more DJs and other shows</span>
+  </a>
+</div>

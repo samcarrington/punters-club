@@ -1,0 +1,17 @@
+---
+import MixcloudWidget from './MixcloudWidget.astro';
+import type { Show } from '../lib/mixcloud';
+
+const { show } = Astro.props as { show: Show };
+---
+
+<article class="feature-card">
+  <div class="feature-card-body">
+    <div class="feature-card-info">
+      <h3>{show.title}</h3>
+      <p>{show.description || 'Latest Mixcloud broadcast.'}</p>
+    </div>
+    <MixcloudWidget show={show} />
+    <a href={show.url} target="_blank" rel="noreferrer" class="btn btn-primary">Open on Mixcloud</a>
+  </div>
+</article>

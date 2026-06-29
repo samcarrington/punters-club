@@ -1,0 +1,13 @@
+---
+import { widgetUrl, type Show } from '../lib/mixcloud';
+
+const { show } = Astro.props as { show: Show };
+---
+
+<iframe
+  class="mixcloud-widget"
+  src={widgetUrl(show.url)}
+  title={`Mixcloud player for ${show.title}`}
+  loading="lazy"
+  allow="autoplay"
+></iframe>

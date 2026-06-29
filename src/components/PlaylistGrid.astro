@@ -1,0 +1,16 @@
+---
+const { playlists } = Astro.props as { playlists: Array<{ title: string; description: string; url: string; thumbnail_url?: string }> };
+---
+
+<div class="playlist-grid">
+  {playlists.map((playlist) => (
+    <article class="playlist-card">
+      {playlist.thumbnail_url ? <img class="poster-placeholder archive-artwork" src={playlist.thumbnail_url} alt="" loading="lazy" /> : <div class="poster-placeholder" aria-hidden="true"></div>}
+      <div class="playlist-card-body">
+        <h3>{playlist.title}</h3>
+        <p>{playlist.description}</p>
+        <a href={playlist.url} target="_blank" rel="noreferrer">Open playlist</a>
+      </div>
+    </article>
+  ))}
+</div>
