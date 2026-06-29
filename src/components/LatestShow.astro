@@ -12,6 +12,6 @@ const { show } = Astro.props as { show: Show };
       <p>{show.description || 'Latest Mixcloud broadcast.'}</p>
     </div>
     <MixcloudWidget show={show} />
-    <a href={show.url} target="_blank" rel="noreferrer" class="btn btn-primary">Open on Mixcloud</a>
+    <a href={show.url} target="_blank" rel="noreferrer" class="external">Open on Mixcloud</a>
   </div>
 </article>

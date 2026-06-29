@@ -2,16 +2,48 @@
 import type { Show } from '../lib/mixcloud';
 
 const { shows } = Astro.props as { shows: Show[] };
+const visibleShowCount = 6;
+const hasOverflowShows = shows.length > visibleShowCount;
 ---
 
-<div class="archive-grid">
-  {shows.map((show) => (
-    <a href={show.url} target="_blank" rel="noreferrer">
+<script is:inline>
+  document.documentElement.classList.add('has-js');
+</script>
+
+<div class="archive-grid" data-show-archive>
+  {shows.map((show, index) => (
+    <a class="archive-show-link" href={show.url} target="_blank" rel="noreferrer" data-show-archive-extra={index >= visibleShowCount ? '' : undefined}>
       {show.artwork ? <img class="poster-placeholder poster-sm archive-artwork" src={show.artwork} alt="" loading="lazy" /> : <div class="poster-placeholder poster-sm" aria-hidden="true"></div>}
-      <span class="archive-item-title">{show.title}</span>
+      <span class="archive-show-copy">
+        <span class="archive-item-title">{show.title}</span>
+        {show.tags && show.tags.length > 0 && (
+          <span class="archive-genre-list" aria-label="Genres">
+            {show.tags.map((tag) => <span class="archive-genre-pill">{tag.name}</span>)}
+          </span>
+        )}
+      </span>
     </a>
   ))}
-  <a class="archive-profile-link" href="https://www.mixcloud.com/radiowaters/" target="_blank" rel="noreferrer">
+  {hasOverflowShows && (
+    <button class="archive-more-button" type="button" data-show-archive-more>
+      More shows
+    </button>
+  )}
+  <a class="archive-profile-link" href="https://www.mixcloud.com/radiowaters/" target="_blank" rel="noreferrer" data-show-archive-profile data-show-archive-profile-hidden={hasOverflowShows ? '' : undefined}>
     <span class="archive-item-title">Radio Waters on Mixcloud - more DJs and other shows</span>
   </a>
 </div>
+
+<script is:inline>
+  document.querySelectorAll('[data-show-archive]').forEach((archive) => {
+    const moreButton = archive.querySelector('[data-show-archive-more]');
+    const profileLink = archive.querySelector('[data-show-archive-profile]');
+    const hiddenShows = archive.querySelectorAll('[data-show-archive-extra]');
+
+    moreButton?.addEventListener('click', () => {
+      hiddenShows.forEach((show) => show.removeAttribute('data-show-archive-extra'));
+      profileLink?.removeAttribute('data-show-archive-profile-hidden');
+      moreButton.setAttribute('hidden', '');
+    });
+  });
+</script>
