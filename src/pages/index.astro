@@ -6,6 +6,7 @@ import '../styles/global.css';
 import LatestShow from '../components/LatestShow.astro';
 import PlaylistGrid from '../components/PlaylistGrid.astro';
 import ShowArchive from '../components/ShowArchive.astro';
+import AppFooter from '../components/AppFooter.astro';
 
 const latestShow = shows.at(-1);
 const archiveShows = shows.slice(0, -1).reverse();
@@ -59,16 +60,6 @@ const archiveShows = shows.slice(0, -1).reverse();
         <PlaylistGrid playlists={playlists} />
       </section>
     </main>
-    <section id="about" class="pre-footer band" aria-labelledby="about-title">
-      <h2 id="about-title">The ethos</h2>
-      <div class="about-copy">
-        <p>We are punters first: listeners, dancers, and lifers around sound systems. No DJ mystique, no industry gloss, just years of love for records and the thrill of sharing them.</p>
-        <p>The Punters' Club flips the script: amateurs entertaining the professionals for an hour, with joy, taste, and a lot of fun.</p>
-      </div>
-    </section>
-    <footer class="site-footer band footer-statement">
-      <p>The Punters' Club · on Radio Waters</p>
-      <p><a href="https://www.mixcloud.com/radiowaters/" target="_blank" rel="noreferrer">mixcloud.com/radiowaters</a></p>
-    </footer>
+    <AppFooter />
   </body>
 </html>
