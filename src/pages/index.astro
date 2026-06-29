@@ -1,65 +1,42 @@
 ---
-import shows from '../data/shows.generated.json';
-import playlists from '../data/playlists.generated.json';
-import '../styles/tokens.css';
-import '../styles/global.css';
-import LatestShow from '../components/LatestShow.astro';
-import PlaylistGrid from '../components/PlaylistGrid.astro';
-import ShowArchive from '../components/ShowArchive.astro';
-import AppFooter from '../components/AppFooter.astro';
+import "../styles/global.css";
+import "../styles/tokens.css";
+import LatestShow from "../components/LatestShow.astro";
+import PlaylistGrid from "../components/PlaylistGrid.astro";
+import ShowArchive from "../components/ShowArchive.astro";
+import playlists from "../data/playlists.generated.json";
+import shows from "../data/shows.generated.json";
+import PuntersLayout from "../layouts/PuntersLayout.astro";
 
 const latestShow = shows.at(-1);
 const archiveShows = shows.slice(0, -1).reverse();
 ---
 
-<!doctype html>
-<html lang="en-GB">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Punters' Club | Radio Waters</title>
-    <meta name="description" content="The Punters' Club: disco and modern electronic selections from a husband-and-wife DJ duo on Radio Waters." />
-  </head>
-  <body>
-    <header class="site-header">
-      <nav class="nav nav-floating-pill" aria-label="Primary navigation">
-        <a class="wordmark" href="#top">The Punters' Club</a>
-        <div class="nav-links">
-          <a href="#archive">Archive</a>
-          <a href="#playlists">Playlists</a>
-          <a href="#about">About</a>
-        </div>
-        <a class="btn btn-primary" href="#latest-show">Listen now</a>
-      </nav>
+<PuntersLayout title="The Punters' Club | Radio Waters">
+  <section class="hero marquee-hero" aria-labelledby="hero-title">
+    <p class="hero-kicker" style="display: none">Disco and House to modern electronic on Radio Waters</p>
+    <h1 id="hero-title">Seasoned amateurs, serious records.</h1>
+    <p class="hero-copy">A husband-and-wife duo with a dancer's ear, a punter's instinct, and a crate-digging habit. Every show is a warm, late-night blend of disco, house, and left-field electronic.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#latest-show">Play latest show</a>
+      <a class="btn btn-secondary" href="#archive">Browse Mixcloud archive</a>
+    </div>
+  </section>
+  <section id="latest-show" class="band band-latest" aria-labelledby="latest-title">
+    <header class="band-header">
+      <h2 id="latest-title">Latest show</h2>
+      <p class="band-note">New episodes are posted after broadcast.</p>
     </header>
-    <main id="top">
-      <section class="hero marquee-hero" aria-labelledby="hero-title">
-        <p class="hero-kicker" style="display: none">Disco and House to modern electronic on Radio Waters</p>
-        <h1 id="hero-title">Seasoned amateurs, serious records.</h1>
-        <p class="hero-copy">A husband-and-wife duo with a dancer's ear, a punter's instinct, and a crate-digging habit. Every show is a warm, late-night blend of disco, house, and left-field electronic.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#latest-show">Play latest show</a>
-          <a class="btn btn-secondary" href="#archive">Browse Mixcloud archive</a>
-        </div>
-      </section>
-      <section id="latest-show" class="band band-latest" aria-labelledby="latest-title">
-        <header class="band-header">
-          <h2 id="latest-title">Latest show</h2>
-          <p class="band-note">New episodes are posted after broadcast.</p>
-        </header>
-        <div class="band-content">
-          {latestShow && <LatestShow show={latestShow} />}
-        </div>
-      </section>
-      <section id="archive" class="panel" aria-labelledby="archive-title">
-        <h2 id="archive-title">Archive shows</h2>
-        <ShowArchive shows={archiveShows} />
-      </section>
-      <section id="playlists" class="panel" aria-labelledby="playlist-title">
-        <h2 id="playlist-title">Playlists</h2>
-        <PlaylistGrid playlists={playlists} />
-      </section>
-    </main>
-    <AppFooter />
-  </body>
-</html>
+    <div class="band-content">
+      {latestShow && <LatestShow show={latestShow} />}
+    </div>
+  </section>
+  <section id="archive" class="panel" aria-labelledby="archive-title">
+    <h2 id="archive-title">Archive shows</h2>
+    <ShowArchive shows={archiveShows} />
+  </section>
+  <section id="playlists" class="panel" aria-labelledby="playlist-title">
+    <h2 id="playlist-title">Playlists</h2>
+    <PlaylistGrid playlists={playlists} />
+  </section>
+</PuntersLayout>

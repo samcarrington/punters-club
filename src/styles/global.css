@@ -399,7 +399,7 @@ h1 {
 }
 
 .pre-footer {
-  padding-block: var(--space-4xl) var(--space-xl);
+  padding-block: var(--space-3xl) var(--space-3xl);
   background: var(--color-paper-3);
   border-top: var(--rule-thin) solid var(--color-rule);
   display: grid;
