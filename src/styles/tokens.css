@@ -45,7 +45,7 @@
   --rule-thin: 1px;
   --rule-thick: 2px;
 
-  --dur-fast: 120ms;
+  --dur-fast: 150ms;
   --dur-mid: 220ms;
   --dur-slow: 340ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

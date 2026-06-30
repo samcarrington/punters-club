@@ -10,10 +10,10 @@ Static Astro site for The Punters' Club on Radio Waters: latest Mixcloud show, a
 ## Commands
 
 ```sh
-npm install
-npm run dev      # local Astro dev server
-npm run build    # refresh generated show/playlist metadata, then build
-npm run preview  # preview the built static site
+pnpm install
+pnpm run dev      # local Astro dev server
+pnpm run build    # refresh generated show/playlist metadata, then build
+pnpm run preview  # preview the built static site
 ```
 
 For UI-only validation without refreshing generated metadata:
