@@ -15,7 +15,7 @@
   --content-half-width: calc(var(--content-max-width) / 2);
 
   --font-display:
-    "Space Grotesk", "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+    "Instrument Serif", "Crimson Text", "Libre Baskerville", Georgia, serif;
   --font-body: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
   --space-2xs: 0.25rem;
@@ -43,7 +43,7 @@
   --rule-thin: 1px;
   --rule-thick: 2px;
 
-  --dur-fast: 120ms;
+  --dur-fast: 150ms;
   --dur-mid: 220ms;
   --dur-slow: 340ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

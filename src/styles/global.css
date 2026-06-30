@@ -217,10 +217,17 @@ h1 {
 }
 
 .panel {
-  padding: var(--space-xl);
+  padding: var(--space-2xl) var(--space-xl);
   border: var(--rule-thin) solid var(--color-rule);
   border-radius: var(--radius-lg);
   background: var(--color-paper-2);
+}
+
+.panel-flush {
+  background: transparent;
+  border: none;
+  padding-inline: 0;
+  padding-block: var(--space-xl);
 }
 
 .panel h2 {
@@ -286,6 +293,12 @@ h1 {
   .playlist-card {
     grid-template-columns: 5rem minmax(0, 1fr);
     align-items: start;
+  }
+}
+
+@media (min-width: 920px) {
+  .playlist-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -601,6 +614,25 @@ h1 {
 
   .btn {
     min-height: 2.5rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .panel {
+    padding: var(--space-md);
+  }
+
+  .panel-flush {
+    padding-block: var(--space-md);
+  }
+
+  .playlist-card {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: var(--space-sm);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
   }
 }
 
