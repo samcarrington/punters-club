@@ -55,10 +55,18 @@ const main = async () => {
       return previousByUrl.get(source.url) ?? normalizeTidalPlaylist(source);
     }
     try {
-      const response = await fetch(buildTidalEmbedUrl(playlistId));
+      const embedUrl = buildTidalEmbedUrl(playlistId);
+      console.log(
+        `Fetching Tidal embed page for ${source.title} (${embedUrl})`,
+      );
+      const response = await fetch(embedUrl);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const html = await response.text();
       const thumbnailUrl = scrapeTidalThumbnail(html) ?? undefined;
+      console.log(
+        `Scraped thumbnail URL for ${source.title}: ${thumbnailUrl ?? "none"}`,
+      );
+      
       return normalizeTidalPlaylist(source, thumbnailUrl);
     } catch {
       return previousByUrl.get(source.url) ?? normalizeTidalPlaylist(source);
