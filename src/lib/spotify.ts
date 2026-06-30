@@ -1,16 +1,6 @@
-export type PlaylistSource = {
-  title: string;
-  description?: string;
-  url: string;
-};
+import type { Playlist, PlaylistSource } from "./playlist";
 
-export type Playlist = PlaylistSource & {
-  author_name?: string;
-  provider_name?: string;
-  thumbnail_url?: string;
-  thumbnail_width?: number;
-  thumbnail_height?: number;
-};
+export type { Playlist, PlaylistSource };
 
 export const buildSpotifyOEmbedUrl = (url: string) =>
   `https://open.spotify.com/oembed?url=${encodeURIComponent(url)}`;

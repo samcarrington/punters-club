@@ -1,23 +1,52 @@
 ---
+import { detectPlatform, platformIconSvg, platformName } from "../lib/platform";
+
 const { playlists } = Astro.props as {
   playlists: Array<{
     title: string;
     description: string;
     url: string;
     thumbnail_url?: string;
+    provider_name?: string;
   }>;
 };
 ---
 
 <div class="playlist-grid">
-  {playlists.map((playlist) => (
-    <article class="playlist-card">
-      {playlist.thumbnail_url ? <img class="poster-placeholder archive-artwork" src={playlist.thumbnail_url} alt="" loading="lazy" /> : <div class="poster-placeholder" aria-hidden="true"></div>}
-      <div class="playlist-card-body">
-        <h3>{playlist.title}</h3>
-        <p>{playlist.description}</p>
-        <a href={playlist.url} target="_blank" rel="noreferrer">Open playlist</a>
-      </div>
-    </article>
-  ))}
+  {playlists.map((playlist) => {
+    const platform = detectPlatform(playlist.url);
+    const iconSvg = platformIconSvg(platform);
+    const name = platformName(platform) || "External site";
+    return (
+      <article class="playlist-card">
+        {playlist.thumbnail_url ? (
+          <img
+            class="poster-placeholder archive-artwork"
+            src={playlist.thumbnail_url}
+            alt=""
+            loading="lazy"
+          />
+        ) : (
+          <div class="poster-placeholder" aria-hidden="true"></div>
+        )}
+        <div class="playlist-card-body">
+          <h3>{playlist.title}</h3>
+          <p>{playlist.description}</p>
+          <a
+            class="link-external"
+            href={playlist.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {iconSvg && (
+              <span class="platform-icon" aria-hidden="true" set:html={iconSvg}>
+              </span>
+            )}
+            <span>Open on {name}</span>
+            <span class="sr-only">(opens in new tab)</span>
+          </a>
+        </div>
+      </article>
+    );
+  })}
 </div>

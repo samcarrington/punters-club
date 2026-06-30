@@ -25,5 +25,21 @@
     "thumbnail_url": "https://mosaic.scdn.co/300/ab67616d00001e02259ac2ec8cda93ab8ce194f4ab67616d00001e025871d0f59d3a9b44e66feda4ab67616d00001e02a432cc9742c5a1ab14b7f08bab67616d00001e02f2b30025dc4bb9aba50d35ce",
     "thumbnail_width": 300,
     "thumbnail_height": 300
+  },
+  {
+    "title": "Cam and Kruder",
+    "description": "Revisiting some Trip Hop classics with a new lens",
+    "url": "https://tidal.com/playlist/c7db223a-6940-46ea-bf84-e758f5fce676",
+    "provider_name": "Tidal",
+    "thumbnail_url": "https://resources.tidal.com/images/6d20243b/b407/4646/8a53/327152d07347/640x640.jpg"
+  },
+  {
+    "title": "Cindy and Nina get married!",
+    "description": "Joyful early-evening wedding reception playlist",
+    "url": "https://open.spotify.com/playlist/5RxJmYQzRMQ3ixcSWPNhs7?si=c931916f2f174601",
+    "provider_name": "Spotify",
+    "thumbnail_url": "https://mosaic.scdn.co/300/ab67616d00001e0296c05bb21deb89979f9acebbab67616d00001e02d173b9edd7ecdf1385aabc23ab67616d00001e02d3cce3383d2c8130414ac95cab67616d00001e02e121ad66c91b492c8475a82e",
+    "thumbnail_width": 300,
+    "thumbnail_height": 300
   }
 ]
