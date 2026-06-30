@@ -6,8 +6,8 @@
     "dev": "astro dev",
     "enrich:shows": "tsx scripts/enrich-shows.ts",
     "enrich:playlists": "tsx scripts/enrich-playlists.ts",
-    "enrich": "npm run enrich:shows && npm run enrich:playlists",
-    "build": "npm run enrich && astro build",
+    "enrich": "pnpm run enrich:shows && npm run enrich:playlists",
+    "build": "pnpm run enrich && astro build",
     "preview": "astro preview"
   },
   "devDependencies": {
