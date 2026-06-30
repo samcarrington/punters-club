@@ -1,4 +1,6 @@
 ---
+
+import { Icon } from "astro-icon/components";
 import type { Show } from "../lib/mixcloud";
 
 const { shows } = Astro.props as { shows: Show[] };
@@ -30,7 +32,7 @@ const hasOverflowShows = shows.length > visibleShowCount;
     </button>
   )}
   <a class="archive-profile-link link-external" href="https://www.mixcloud.com/radiowaters/" target="_blank" rel="noreferrer" data-show-archive-profile data-show-archive-profile-hidden={hasOverflowShows ? '' : undefined}>
-    <span class="archive-item-title">Radio Waters on Mixcloud - more DJs and other shows</span>
+    <span class="archive-item-title">Radio Waters on Mixcloud - more DJs and other shows <Icon height=".8em"name="gridicons:external" /></span>
   </a>
 </div>
 

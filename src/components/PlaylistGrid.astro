@@ -1,5 +1,6 @@
 ---
 import { detectPlatform, platformIconSvg, platformName } from "../lib/platform";
+import { Icon } from "astro-icon/components";
 
 const { playlists } = Astro.props as {
   playlists: Array<{
@@ -42,7 +43,7 @@ const { playlists } = Astro.props as {
               <span class="platform-icon" aria-hidden="true" set:html={iconSvg}>
               </span>
             )}
-            <span>Open on {name}</span>
+            <span>Open on {name} <Icon height=".8em" name="gridicons:external" /></span>
             <span class="sr-only">(opens in new tab)</span>
           </a>
         </div>

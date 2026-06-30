@@ -404,13 +404,13 @@ h1 {
 }
 
 .link-external::after {
-  content: "↗";
+  /* content: "↗";
   color: var(--color-accent-alt);
   font-size: 0.8em;
   line-height: 1;
   display: inline-flex;
   align-items: center;
-  text-decoration: none;
+  text-decoration: none; */
 }
 
 .sr-only {

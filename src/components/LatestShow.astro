@@ -1,6 +1,7 @@
 ---
 import type { Show } from "../lib/mixcloud";
 import MixcloudWidget from "./MixcloudWidget.astro";
+import { Icon } from "astro-icon/components";
 
 const { show } = Astro.props as { show: Show };
 ---
@@ -12,6 +13,6 @@ const { show } = Astro.props as { show: Show };
       <p>{show.description || 'Latest Mixcloud broadcast.'}</p>
     </div>
     <MixcloudWidget show={show} />
-    <a href={show.url} target="_blank" rel="noreferrer" class="link-external">Open on Mixcloud<span class="sr-only"> (opens in new tab)</span></a>
+    <a href={show.url} target="_blank" rel="noreferrer" class="link-external">Open on Mixcloud<span class="sr-only"> (opens in new tab)</span> <Icon height=".8em" name="gridicons:external" /></a>
   </div>
 </article>
