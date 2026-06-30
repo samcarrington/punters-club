@@ -640,9 +640,9 @@ h1 {
   *,
   *::before,
   *::after {
-    animation-duration: 150ms !important;
+    animation-duration: var(--dur-fast) !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 150ms !important;
+    transition-duration: var(--dur-fast) !important;
     scroll-behavior: auto !important;
   }
 

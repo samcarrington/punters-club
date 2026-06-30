@@ -15,7 +15,7 @@
   --content-half-width: calc(var(--content-max-width) / 2);
 
   --font-display:
-    "Instrument Serif", "Crimson Text", "Libre Baskerville", Georgia, serif;
+    "Space Grotesk", "Avenir Next", "Avenir", "Segoe UI", sans-serif;
   --font-body: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
   --space-2xs: 0.25rem;
