@@ -15,8 +15,10 @@
   --content-half-width: calc(var(--content-max-width) / 2);
 
   --font-display:
-    "Space Grotesk", "Avenir Next", "Avenir", "Segoe UI", sans-serif;
+    "Funnel Sans", "Avenir Next", "Avenir", "Segoe UI", sans-serif;
   --font-body: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-weight-body: 200;
+  --font-weight-title: 700;
 
   --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
