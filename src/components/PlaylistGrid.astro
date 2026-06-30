@@ -1,5 +1,12 @@
 ---
-const { playlists } = Astro.props as { playlists: Array<{ title: string; description: string; url: string; thumbnail_url?: string }> };
+const { playlists } = Astro.props as {
+  playlists: Array<{
+    title: string;
+    description: string;
+    url: string;
+    thumbnail_url?: string;
+  }>;
+};
 ---
 
 <div class="playlist-grid">

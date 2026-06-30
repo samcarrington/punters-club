@@ -1,13 +1,18 @@
-import { readFile, writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
-import { buildSpotifyOEmbedUrl, isSpotifyUrl, normalizePlaylist, type Playlist } from '../src/lib/spotify';
+import { readFile, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import {
+  buildSpotifyOEmbedUrl,
+  isSpotifyUrl,
+  normalizePlaylist,
+  type Playlist,
+} from "../src/lib/spotify";
 
-const sourcePath = resolve('src/data/playlist-sources.json');
-const generatedPath = resolve('src/data/playlists.generated.json');
+const sourcePath = resolve("src/data/playlist-sources.json");
+const generatedPath = resolve("src/data/playlists.generated.json");
 
 const readJson = async <T>(path: string): Promise<T | null> => {
   try {
-    return JSON.parse(await readFile(path, 'utf8')) as T;
+    return JSON.parse(await readFile(path, "utf8")) as T;
   } catch {
     return null;
   }
@@ -16,7 +21,9 @@ const readJson = async <T>(path: string): Promise<T | null> => {
 const main = async () => {
   const sources = (await readJson<Playlist[]>(sourcePath)) ?? [];
   const previous = (await readJson<Playlist[]>(generatedPath)) ?? [];
-  const previousByUrl = new Map(previous.map((playlist) => [playlist.url, playlist]));
+  const previousByUrl = new Map(
+    previous.map((playlist) => [playlist.url, playlist]),
+  );
 
   const generated = await Promise.all(
     sources.map(async (source) => {
