@@ -90,6 +90,7 @@ a:not(.btn).is-focus {
 .nav-links a {
   text-decoration: none;
   font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-ink-muted);
   white-space: nowrap;
 }
@@ -337,6 +338,7 @@ h1 {
   color: var(--color-accent);
   cursor: pointer;
   font: inherit;
+  font-weight: var(--font-weight-semibold);
 }
 
 .archive-show-copy {
@@ -351,6 +353,7 @@ h1 {
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
+  font-weight: var(--font-weight-semibold);
 }
 
 .archive-genre-list {

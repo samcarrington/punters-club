@@ -19,6 +19,7 @@
   --font-body: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-weight-body: 200;
   --font-weight-title: 700;
+  --font-weight-semibold: 600;
 
   --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
