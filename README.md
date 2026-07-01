@@ -5,7 +5,7 @@ Static Astro site for The Punters' Club on Radio Waters: latest Mixcloud show, a
 ## Requirements
 
 - Node `^20.19.0` or `>=22.12.0`
-- npm (this repo uses `package-lock.json`)
+- pnpm (this repo uses `pnpm-lock.yaml`)
 
 ## Commands
 
@@ -19,7 +19,7 @@ pnpm run preview  # preview the built static site
 For UI-only validation without refreshing generated metadata:
 
 ```sh
-npx astro build
+pnpm exec astro build
 ```
 
 ## Content and data flow
@@ -27,7 +27,7 @@ npx astro build
 - Edit show inputs in `src/data/show-sources.json`.
 - Keep `docs/shows.md` aligned as the human-readable show ordering/title reference.
 - Edit playlist inputs in `src/data/playlist-sources.json`.
-- `npm run enrich` updates:
+- `pnpm run enrich` updates:
   - `src/data/shows.generated.json` from Mixcloud API data
   - `src/data/playlists.generated.json` from Spotify oEmbed data
 - Enrichment falls back to previous generated data or source-only data when external fetches fail.

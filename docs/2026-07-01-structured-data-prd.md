@@ -11,7 +11,7 @@
 - The production listing page includes exactly one valid JSON-LD graph describing the page, show archive, and playlist collection.
 - The structured data validates with zero errors in Schema.org Validator for the rendered page HTML.
 - Google Rich Results Test reports no structured-data syntax errors, while accepting that music/radio lists may not qualify for rich-result display.
-- `npx astro build` completes successfully without refreshing or requiring external metadata.
+- `pnpm exec astro build` completes successfully without refreshing or requiring external metadata.
 - Structured data content is generated from the same source objects as the visible show and playlist UI, with no manually duplicated show or playlist lists.
 
 ## 2. User Experience & Functionality
@@ -290,7 +290,7 @@ The example above is illustrative. Production output must replace placeholder `e
 - **Data drift**: Duplicated schema construction could fall out of sync with visible UI. Mitigation: generate schema from the same imported objects and order used by the page.
 - **Overclaiming metadata**: Inferring dates, audio URLs, or track counts from titles and external pages could create inaccurate structured data. Mitigation: include only fields that exist in local data or are reliably derived by existing code.
 - **Script escaping**: Unescaped titles or descriptions could break JSON-LD output. Mitigation: serialize with `JSON.stringify` and escape closing script tags and unsafe HTML characters where needed.
-- **Generated metadata churn**: Running the full enrichment build can alter generated JSON unrelated to schema work. Mitigation: use `npx astro build` for implementation verification unless enrichment changes are explicitly in scope.
+- **Generated metadata churn**: Running the full enrichment build can alter generated JSON unrelated to schema work. Mitigation: use `pnpm exec astro build` for implementation verification unless enrichment changes are explicitly in scope.
 
 **Reference Links**:
 
