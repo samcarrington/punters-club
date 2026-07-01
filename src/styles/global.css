@@ -260,6 +260,7 @@ h1 {
   border-radius: var(--radius-sm);
   display: block;
   flex-shrink: 0;
+  height: auto;
   width: 100%;
 }
 

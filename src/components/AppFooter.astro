@@ -1,3 +1,7 @@
+---
+import { Image } from "astro:assets";
+---
+
 <section id="about" class="pre-footer band" aria-labelledby="about-title">
     <h2 id="about-title">Why we're here</h2>
     <div class="about-copy">
@@ -8,6 +12,6 @@
 <footer class="site-footer band footer-statement">
     <p>The Punters' Club · on Radio Waters</p>
     <a class="radio-waters-logo-link" href="https://www.radiowaters.co.uk/" target="_blank" rel="noreferrer" aria-label="Radio Waters website">
-        <img src="/assets/radio-waters-white-transparent.png" alt="Radio Waters" loading="lazy" decoding="async" />
+        <Image src="/assets/radio-waters-white-transparent.png" alt="Radio Waters" width={850} height={499} loading="lazy" decoding="async" />
     </a>
 </footer>
