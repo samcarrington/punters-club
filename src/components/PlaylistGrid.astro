@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { detectPlatform, platformIconSvg, platformName } from "../lib/platform";
 import { Icon } from "astro-icon/components";
 
@@ -21,10 +22,11 @@ const { playlists } = Astro.props as {
     return (
       <article class="playlist-card">
         {playlist.thumbnail_url ? (
-          <img
+          <Image
             class="poster-placeholder archive-artwork"
             src={playlist.thumbnail_url}
             alt=""
+            inferSize
             loading="lazy"
           />
         ) : (

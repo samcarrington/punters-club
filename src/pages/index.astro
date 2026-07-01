@@ -7,12 +7,22 @@ import ShowArchive from "../components/ShowArchive.astro";
 import playlists from "../data/playlists.generated.json";
 import shows from "../data/shows.generated.json";
 import PuntersLayout from "../layouts/PuntersLayout.astro";
+import {
+  buildCollectionPageStructuredData,
+  serializeJsonLd,
+} from "../lib/structured-data";
 
 const latestShow = shows.at(-1);
 const archiveShows = shows.slice(0, -1).reverse();
+const structuredDataShows = latestShow ? [latestShow, ...archiveShows] : archiveShows;
+const structuredData = buildCollectionPageStructuredData({
+  shows: structuredDataShows,
+  playlists,
+});
 ---
 
 <PuntersLayout title="The Punters' Club | Radio Waters">
+  <script type="application/ld+json" set:html={serializeJsonLd(structuredData)} />
   <section class="hero marquee-hero" aria-labelledby="hero-title">
     <p class="hero-kicker" style="display: none">Disco and House to modern electronic on Radio Waters</p>
     <h1 id="hero-title">Seasoned amateurs, serious records.</h1>
