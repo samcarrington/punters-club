@@ -1,0 +1,41 @@
+---
+import type { NextShowResult } from "../lib/next-show";
+import rawResult from "../data/next-show.generated.json";
+
+const result = rawResult as NextShowResult;
+
+function formatWhen(startsAtUtc: string, timeZone: string) {
+  const date = new Date(startsAtUtc);
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone,
+  });
+  return formatter.format(date);
+}
+
+// TODO [design-001]: visual/UX polish — poster treatment, hierarchy, empty-state copy.
+---
+{result.status === "upcoming" ? (
+  <article class="next-show-card">
+    <div class="next-show-when">
+      <time datetime={result.show.startsAtUtc}>
+        {formatWhen(result.show.startsAtUtc, result.show.timezone)}
+      </time>
+    </div>
+    <h3>{result.show.title}</h3>
+    {result.show.description && <p>{result.show.description}</p>}
+    <a href={result.show.url} class="link-external" target="_blank" rel="noreferrer">
+      View on Radio Waters
+      <span class="sr-only"> (opens in new tab)</span>
+    </a>
+  </article>
+) : (
+  <div class="next-show-empty">
+    <p>No upcoming shows scheduled right now. Check back later.</p>
+  </div>
+)}
