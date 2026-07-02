@@ -27,21 +27,18 @@ const structuredData = buildCollectionPageStructuredData({
 <PuntersLayout title="The Punters' Club | Radio Waters">
   <script type="application/ld+json" set:html={serializeJsonLd(structuredData)} />
   <section class="hero marquee-hero" aria-labelledby="hero-title">
-    <p class="hero-kicker" style="display: none">Disco and House to modern electronic on Radio Waters</p>
-    <h1 id="hero-title">Seasoned amateurs, serious records.</h1>
-    <p class="hero-copy">A husband-and-wife duo with a dancer's ear, a punter's instinct, and a love for music. Every show is a warm, late-night blend of disco, house, and left-field electronic.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#latest-show">Play latest show</a>
-      <a class="btn btn-secondary" href="#archive">Browse Mixcloud archive</a>
+    <div class="hero-content">
+      <p class="hero-kicker" style="display: none">Disco and House to modern electronic on Radio Waters</p>
+      <h1 id="hero-title">Seasoned amateurs, serious records.</h1>
+      <p class="hero-copy">A husband-and-wife duo with a dancer's ear, a punter's instinct, and a love for music. Every show is a warm, late-night blend of disco, house, and left-field electronic.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#latest-show">Play latest show</a>
+        <a class="btn btn-secondary" href="#archive">Browse Mixcloud archive</a>
+      </div>
     </div>
-  </section>
-  <section id="next-show" class="band" aria-labelledby="next-show-title">
-    <header class="band-header">
-      <h2 id="next-show-title">Next show</h2>
-    </header>
-    <div class="band-content">
+    <aside class="hero-next-show-rail" aria-label="Next show">
       <NextShow />
-    </div>
+    </aside>
   </section>
   <section id="latest-show" class="band band-latest" aria-labelledby="latest-title">
     <header class="band-header">

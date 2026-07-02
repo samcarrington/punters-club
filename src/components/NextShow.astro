@@ -1,8 +1,12 @@
 ---
 import type { NextShowResult } from "../lib/next-show";
 import rawResult from "../data/next-show.generated.json";
+import { Icon } from "astro-icon/components";
 
 const result = rawResult as NextShowResult;
+
+const upcoming = result.status === "upcoming" ? result.show : undefined;
+const cueLabel = upcoming?.matchedBy === "guest" ? "Guest appearance" : "Punters Club show";
 
 function formatWhen(startsAtUtc: string, timeZone: string) {
   const date = new Date(startsAtUtc);
@@ -17,25 +21,34 @@ function formatWhen(startsAtUtc: string, timeZone: string) {
   });
   return formatter.format(date);
 }
-
-// TODO [design-001]: visual/UX polish — poster treatment, hierarchy, empty-state copy.
 ---
 {result.status === "upcoming" ? (
-  <article class="next-show-card">
-    <div class="next-show-when">
-      <time datetime={result.show.startsAtUtc}>
-        {formatWhen(result.show.startsAtUtc, result.show.timezone)}
-      </time>
+  <article class="next-show-insert">
+    <header class="next-show-header">
+      <h2 class="next-show-label">Next show</h2>
+      <span class="next-show-match-badge">{cueLabel}</span>
+    </header>
+    <div class="next-show-body">
+      {result.show.posterUrl && (
+        <img src={result.show.posterUrl} alt="" class="next-show-poster" loading="lazy" />
+      )}
+      <div class="next-show-details">
+        <time class="next-show-when" datetime={result.show.startsAtUtc}>
+          {formatWhen(result.show.startsAtUtc, result.show.timezone)}
+        </time>
+        <h3 class="next-show-title">{result.show.title}</h3>
+        {result.show.description && <p class="next-show-desc">{result.show.description}</p>}
+        <a href={result.show.url} class="next-show-link link-external" target="_blank" rel="noreferrer">
+          View on Radio Waters
+          <span class="sr-only"> (opens in new tab)</span>
+          <Icon height=".8em" name="gridicons:external" />
+        </a>
+      </div>
     </div>
-    <h3>{result.show.title}</h3>
-    {result.show.description && <p>{result.show.description}</p>}
-    <a href={result.show.url} class="link-external" target="_blank" rel="noreferrer">
-      View on Radio Waters
-      <span class="sr-only"> (opens in new tab)</span>
-    </a>
   </article>
 ) : (
-  <div class="next-show-empty">
-    <p>No upcoming shows scheduled right now. Check back later.</p>
+  <div class="next-show-insert is-empty">
+    <h2 class="next-show-label">Next show</h2>
+    <p class="next-show-empty-text">Nothing pinned to the running order yet. We’re digging in the crates.</p>
   </div>
 )}
