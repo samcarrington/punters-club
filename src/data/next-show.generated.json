@@ -1,0 +1,15 @@
+{
+  "status": "upcoming",
+  "show": {
+    "title": "Saturday Night In With…",
+    "slug": "saturday-night-in-with",
+    "url": "https://www.radiowaters.co.uk/show/saturday-night-in-with/2026-07-04/",
+    "startsAtUtc": "2026-07-04T18:00:00.000Z",
+    "endsAtUtc": "2026-07-04T20:00:00.000Z",
+    "timezone": "Europe/London",
+    "description": "Why go out when you can stay in and share your Saturday night with one of our fabulous DJs and community?! Great music, chat, dance, get dressed up or put your PJs on, whatever you feel inclined to do, we’re not judging! All we know is it’s going to be good!",
+    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/BOY_WANDER_people_dancing_and_partying_inside_a_mirrorball_-_31fb3b90-a480-4c43-b3b1-0bd452e870d2_1.png",
+    "matchedBy": "guest"
+  },
+  "source": "tribe/events/v1"
+}
