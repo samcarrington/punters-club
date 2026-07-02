@@ -130,3 +130,39 @@ export const matchesTitle = (
     return variants.some((variant) => regex.test(variant));
   });
 };
+
+const posterFrom = (image: TribeEvent["image"]): string | undefined => {
+  if (!image) return undefined;
+  if (typeof image === "string") return image || undefined;
+  return image.url || undefined;
+};
+
+export const normalizeEvent = (
+  event: TribeEvent,
+  matchedBy: NextShow["matchedBy"],
+): NextShow | null => {
+  const title = event.title ? decodeEntities(event.title).trim() : "";
+  const startsAtUtc = utcWallTimeToIso(event.utc_start_date);
+
+  if (!title || !event.slug || !event.url || !startsAtUtc) {
+    return null;
+  }
+
+  if (!isValidIanaZone(event.timezone)) {
+    return null;
+  }
+
+  const descriptionSource = event.description ?? event.excerpt ?? "";
+
+  return {
+    title,
+    slug: event.slug,
+    url: event.url,
+    startsAtUtc,
+    endsAtUtc: utcWallTimeToIso(event.utc_end_date) ?? undefined,
+    timezone: event.timezone,
+    description: stripHtml(descriptionSource),
+    posterUrl: posterFrom(event.image),
+    matchedBy,
+  };
+};
