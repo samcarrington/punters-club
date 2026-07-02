@@ -6,8 +6,11 @@
     "dev": "astro dev",
     "enrich:shows": "tsx scripts/enrich-shows.ts",
     "enrich:playlists": "tsx scripts/enrich-playlists.ts",
-    "enrich": "pnpm run enrich:shows && pnpm run enrich:playlists",
+    "enrich:next-show": "tsx scripts/enrich-next-show.ts",
+    "enrich": "pnpm run enrich:shows && pnpm run enrich:playlists && pnpm run enrich:next-show",
     "build": "pnpm run enrich && astro build",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "verify:structured-data": "tsx scripts/verify-structured-data.ts",
     "preview": "astro preview"
   },
@@ -15,7 +18,8 @@
     "@iconify-json/gridicons": "^1.2.5",
     "astro": "^7.0.3",
     "tsx": "^4.20.5",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vitest": "^4.1.9"
   },
   "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
   "dependencies": {
