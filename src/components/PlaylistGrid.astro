@@ -3,16 +3,23 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { detectPlatform, platformIconSvg, platformName } from "../lib/platform";
 
+interface PlaylistData {
+  title: string;
+  description: string;
+  url: string;
+  thumbnail_url?: string;
+  provider_name?: string;
+}
+
 const { playlists } = Astro.props as {
-  playlists: Array<{
-    title: string;
-    description: string;
-    url: string;
-    thumbnail_url?: string;
-    provider_name?: string;
-  }>;
+  playlists: PlaylistData[];
 };
 ---
+
+<style>
+  a.link-external-full { text-decoration: none; }
+  .link-external-full:hover { opacity: 0.85; }
+</style>
 
 <div class="playlist-grid">
   {playlists.map((playlist) => {
@@ -20,36 +27,48 @@ const { playlists } = Astro.props as {
     const iconSvg = platformIconSvg(platform);
     const name = platformName(platform) || "External site";
     return (
-      <article class="playlist-card">
-        {playlist.thumbnail_url ? (
-          <Image
-            class="poster-placeholder archive-artwork"
-            src={playlist.thumbnail_url}
-            alt=""
-            inferSize
-            loading="lazy"
-          />
-        ) : (
-          <div class="poster-placeholder" aria-hidden="true"></div>
-        )}
-        <div class="playlist-card-body">
-          <h3>{playlist.title}</h3>
-          <p>{playlist.description}</p>
-          <a
-            class="link-external"
-            href={playlist.url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {iconSvg && (
-              <span class="platform-icon" aria-hidden="true" set:html={iconSvg}>
-              </span>
-            )}
-            <span>Open on {name} <Icon height=".8em" name="gridicons:external" /></span>
-            <span class="sr-only">(opens in new tab)</span>
-          </a>
+      <a
+        class="link-external-full"
+        href={playlist.url}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <div class="playlist-card">
+          {playlist.thumbnail_url ? (
+            <Image
+              class="poster-placeholder archive-artwork"
+              src={playlist.thumbnail_url}
+              alt=""
+              height="640"
+              width="640"
+              loading="lazy"
+            />
+          ) : (
+            <div class="poster-placeholder" aria-hidden="true"></div>
+          )}
+          <div class="playlist-card-body">
+            <h3>{playlist.title}</h3>
+            <p>{playlist.description}</p>
+            <span class="playlist-card-body__cta-text">
+              {iconSvg && (
+                <span class="platform-icon" aria-hidden="true" set:html={iconSvg}>
+                </span>
+              )}
+              <span>Open on {name}</span>
+              <span><Icon height=".8em" name="gridicons:external" /></span>
+              <span class="sr-only">(opens in new tab)</span>
+            </span>
+          </div>
         </div>
-      </article>
+      </a>
     );
   })}
 </div>
+
+<style>
+  .playlist-card-body__cta-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+</style>

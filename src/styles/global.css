@@ -386,7 +386,8 @@ h1 {
 .archive-grid a:hover,
 .archive-grid a.is-hover,
 .archive-more-button:hover,
-.archive-more-button.is-hover {
+.archive-more-button.is-hover,
+.playlist-grid a:hover .playlist-card {
   border-color: var(--color-accent);
 }
 
