@@ -68,5 +68,8 @@ const { playlists } = Astro.props as {
   }
 
   .link-external-full { text-decoration: none; }
-  .link-external-full:hover { opacity: 0.85; }
+  .link-external-full:hover .playlist-card-body__cta-text {
+    text-decoration: underline;
+  }
+
 </style>
