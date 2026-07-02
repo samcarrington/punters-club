@@ -148,12 +148,12 @@ export const normalizeEvent = (
     return null;
   }
 
-  if (!isValidIanaZone(event.timezone)) {
+  if (!event.timezone || !isValidIanaZone(event.timezone)) {
     return null;
   }
 
   const descriptionSource = event.description ?? event.excerpt ?? "";
-  const timezone = event.timezone;
+  const timezone = event.timezone!;
 
   return {
     title,
@@ -230,3 +230,7 @@ export const selectNextShow = (
     warnings,
   };
 };
+
+/** Semantic equality so the enrich script can skip no-op writes. */
+export const isSameResult = (a: NextShowResult, b: NextShowResult): boolean =>
+  JSON.stringify(a) === JSON.stringify(b);

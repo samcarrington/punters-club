@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   decodeEntities,
+  isSameResult,
   isValidIanaZone,
   localDatePart,
   matchesTitle,
@@ -212,5 +213,29 @@ describe("selectNextShow", () => {
     const { result } = selectNextShow([], config, now);
 
     expect(result).toEqual({ status: "none", source: "tribe/events/v1" });
+  });
+});
+
+describe("isSameResult", () => {
+  const now = new Date("2026-07-02T00:00:00Z");
+
+  it("returns true for identical results", () => {
+    const { result } = selectNextShow([augEvent, guestJul4], config, now);
+
+    expect(isSameResult(result, result)).toBe(true);
+  });
+
+  it("returns false when show changes", () => {
+    const { result: guestResult } = selectNextShow([augEvent, guestJul4], config, now);
+    const { result: showResult } = selectNextShow([augEvent], config, now);
+
+    expect(isSameResult(guestResult, showResult)).toBe(false);
+  });
+
+  it("returns false when status differs", () => {
+    const { result: upcomingResult } = selectNextShow([augEvent], config, now);
+    const { result: noneResult } = selectNextShow([], config, now);
+
+    expect(isSameResult(upcomingResult, noneResult)).toBe(false);
   });
 });
