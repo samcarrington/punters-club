@@ -5,6 +5,7 @@ import {
   localDatePart,
   matchesTitle,
   normalizeEvent,
+  selectNextShow,
   stripHtml,
   utcWallTimeToIso,
 } from "./next-show";
@@ -20,6 +21,30 @@ const augEvent = {
   utc_end_date: "2026-08-22 20:00:00",
   description: "<p>Sundown &#8230; sounds</p>",
   image: { url: "https://www.radiowaters.co.uk/wp-content/uploads/poster.jpg" },
+};
+
+const config = {
+  endpoint: "https://example.test",
+  titlePatterns: ["punters?['’]?\\s+club"],
+  guestAppearances: [{ slug: "saturday-night-in-with", date: "2026-07-04" }],
+  lookaheadDays: 60,
+};
+
+const guestJul4 = {
+  title: "Saturday Night In With…",
+  slug: "saturday-night-in-with",
+  url: "https://www.radiowaters.co.uk/show/saturday-night-in-with/2026-07-04/",
+  start_date: "2026-07-04 19:00:00",
+  timezone: "Europe/London",
+  utc_start_date: "2026-07-04 18:00:00",
+  image: { url: "https://x/p.jpg" },
+};
+
+const guestAug29 = {
+  ...guestJul4,
+  url: "https://www.radiowaters.co.uk/show/saturday-night-in-with/2026-08-29/",
+  start_date: "2026-08-29 19:00:00",
+  utc_start_date: "2026-08-29 18:00:00",
 };
 
 describe("decodeEntities", () => {
@@ -131,5 +156,61 @@ describe("normalizeEvent", () => {
 
     expect(show?.posterUrl).toBeUndefined();
     expect(show?.matchedBy).toBe("guest");
+  });
+});
+
+describe("selectNextShow", () => {
+  const now = new Date("2026-07-02T00:00:00Z");
+
+  it("picks the soonest qualifying show (guest before later named)", () => {
+    const { result } = selectNextShow([augEvent, guestJul4, guestAug29], config, now);
+
+    expect(result.status).toBe("upcoming");
+    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.show.url).toBe(guestJul4.url);
+    expect(result.show.matchedBy).toBe("guest");
+  });
+
+  it("resolves guest by slug AND date only (ignores wrong-date same slug)", () => {
+    const { result } = selectNextShow([augEvent, guestAug29], config, now);
+
+    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.show.url).toBe(augEvent.url);
+  });
+
+  it("drops past events", () => {
+    const past = { ...augEvent, utc_start_date: "2026-06-01 18:00:00" };
+    const { result } = selectNextShow([past], config, now);
+
+    expect(result.status).toBe("none");
+  });
+
+  it("dedupes a show matched by both title and guest override", () => {
+    const both = { ...augEvent, slug: "saturday-night-in-with" };
+    const cfg = {
+      ...config,
+      guestAppearances: [{ slug: "saturday-night-in-with", date: "2026-08-22" }],
+    };
+    const { result } = selectNextShow([both], cfg, now);
+
+    expect(result.status).toBe("upcoming");
+  });
+
+  it("warns about an unresolved future guest override", () => {
+    const { warnings } = selectNextShow([augEvent], config, now);
+
+    expect(
+      warnings.some(
+        (warning) =>
+          warning.includes("saturday-night-in-with") &&
+          warning.includes("2026-07-04"),
+      ),
+    ).toBe(true);
+  });
+
+  it("returns none for an empty event list", () => {
+    const { result } = selectNextShow([], config, now);
+
+    expect(result).toEqual({ status: "none", source: "tribe/events/v1" });
   });
 });

@@ -153,6 +153,7 @@ export const normalizeEvent = (
   }
 
   const descriptionSource = event.description ?? event.excerpt ?? "";
+  const timezone = event.timezone;
 
   return {
     title,
@@ -160,9 +161,72 @@ export const normalizeEvent = (
     url: event.url,
     startsAtUtc,
     endsAtUtc: utcWallTimeToIso(event.utc_end_date) ?? undefined,
-    timezone: event.timezone,
+    timezone,
     description: stripHtml(descriptionSource),
     posterUrl: posterFrom(event.image),
     matchedBy,
+  };
+};
+
+const addDays = (now: Date, days: number): Date =>
+  new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+
+const utcDateOnly = (value: Date): string => value.toISOString().slice(0, 10);
+
+export const selectNextShow = (
+  events: TribeEvent[],
+  config: NextShowConfig,
+  now: Date = new Date(),
+): { result: NextShowResult; warnings: string[] } => {
+  const warnings: string[] = [];
+  const candidates: NextShow[] = [];
+
+  for (const event of events) {
+    if (!matchesTitle(event.title, config.titlePatterns)) continue;
+
+    const show = normalizeEvent(event, "title");
+    if (show) candidates.push(show);
+  }
+
+  const horizon = addDays(now, config.lookaheadDays);
+  const todayUtc = new Date(`${utcDateOnly(now)}T00:00:00.000Z`);
+
+  for (const guest of config.guestAppearances) {
+    const match = events.find(
+      (event) =>
+        event.slug === guest.slug && localDatePart(event.start_date) === guest.date,
+    );
+
+    const show = match ? normalizeEvent(match, "guest") : null;
+    if (show) {
+      candidates.push(show);
+      continue;
+    }
+
+    const guestDate = new Date(`${guest.date}T00:00:00.000Z`);
+    if (guestDate >= todayUtc && guestDate <= horizon) {
+      warnings.push(
+        `Unresolved guest override: slug "${guest.slug}" on ${guest.date} did not match any event in the fetched window.`,
+      );
+    }
+  }
+
+  const deduped = new Map<string, NextShow>();
+  for (const show of candidates) {
+    deduped.set(`${show.slug}__${show.startsAtUtc}`, show);
+  }
+
+  const nextShow = [...deduped.values()]
+    .filter((show) => new Date(show.startsAtUtc) >= now)
+    .sort((a, b) => {
+      const byStart = a.startsAtUtc.localeCompare(b.startsAtUtc);
+      return byStart !== 0 ? byStart : a.slug.localeCompare(b.slug);
+    })[0];
+
+  return {
+    result: nextShow
+      ? { status: "upcoming", show: nextShow, source: "tribe/events/v1" }
+      : { status: "none", source: "tribe/events/v1" },
+    warnings,
   };
 };
