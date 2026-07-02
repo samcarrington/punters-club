@@ -1,0 +1,42 @@
+name: Refresh next show
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # 07:00 UTC daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.9.0 --activate
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Enrich next show
+        run: pnpm run enrich:next-show 2>&1 | tee /tmp/next-show.log
+
+      - name: Open PR on change
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: bot/next-show
+          base: main
+          title: "chore: refresh next show"
+          commit-message: "chore: refresh next show data"
+          body-path: /tmp/next-show.log
+          add-paths: src/data/next-show.generated.json
+          delete-branch: false
