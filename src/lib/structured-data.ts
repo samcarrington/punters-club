@@ -1,6 +1,6 @@
+import type { Show } from "./mixcloud";
 import { detectPlatform, platformName } from "./platform";
 import type { Playlist } from "./playlist";
-import type { Show } from "./mixcloud";
 
 export const COLLECTION_PAGE_NAME = "The Punters' Club | Radio Waters";
 export const COLLECTION_PAGE_DESCRIPTION =
@@ -30,7 +30,8 @@ type ListItemStructuredData = {
   item: JsonLdEntity;
 };
 
-const cleanText = (value?: string) => (value && value.trim() ? value : undefined);
+const cleanText = (value?: string) =>
+  value && value.trim() ? value : undefined;
 
 export const buildShowEntity = (show: Show): JsonLdEntity => {
   const item: JsonLdEntity = {
@@ -71,7 +72,9 @@ export const buildPlaylistEntity = (playlist: Playlist): JsonLdEntity => {
   const image = cleanText(playlist.thumbnail_url);
   if (image) item.image = image;
 
-  const providerName = cleanText(playlist.provider_name) ?? platformName(detectPlatform(playlist.url));
+  const providerName =
+    cleanText(playlist.provider_name) ??
+    platformName(detectPlatform(playlist.url));
   if (providerName) {
     item.provider = { "@type": "Organization", name: providerName };
   }

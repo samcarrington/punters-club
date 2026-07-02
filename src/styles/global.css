@@ -682,10 +682,12 @@ h1 {
   *,
   *::before,
   *::after {
+    /* biome-ignore-start lint/complexity/noImportantStyles: need override for reduced motion */
     animation-duration: var(--dur-fast) !important;
     animation-iteration-count: 1 !important;
     transition-duration: var(--dur-fast) !important;
     scroll-behavior: auto !important;
+    /* biome-ignore-end lint/complexity/noImportantStyles: need override for reduced motion */
   }
 
   .btn:hover,

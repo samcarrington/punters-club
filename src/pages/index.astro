@@ -14,7 +14,9 @@ import {
 
 const latestShow = shows.at(-1);
 const archiveShows = shows.slice(0, -1).reverse();
-const structuredDataShows = latestShow ? [latestShow, ...archiveShows] : archiveShows;
+const structuredDataShows = latestShow
+  ? [latestShow, ...archiveShows]
+  : archiveShows;
 const structuredData = buildCollectionPageStructuredData({
   shows: structuredDataShows,
   playlists,
