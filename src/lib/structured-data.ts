@@ -30,9 +30,13 @@ type ListItemStructuredData = {
   item: JsonLdEntity;
 };
 
-const cleanText = (value?: string) =>
-  value && value.trim() ? value : undefined;
+const cleanText = (value?: string) => (value?.trim() ? value : undefined);
 
+/**
+ *
+ * @param show
+ * @returns
+ */
 export const buildShowEntity = (show: Show): JsonLdEntity => {
   const item: JsonLdEntity = {
     "@type": "RadioEpisode",
@@ -48,10 +52,13 @@ export const buildShowEntity = (show: Show): JsonLdEntity => {
   const description = cleanText(show.description);
   if (description) item.description = description;
 
+  /**
+   * Extract genres from show tags and add them to the item if available.
+   */
   const genres = show.tags
     ?.map((tag) => cleanText(tag.name))
     .filter((genre): genre is string => Boolean(genre));
-  if (genres && genres.length) item.genre = genres;
+  if (genres?.length) item.genre = genres;
 
   const image = cleanText(show.artwork);
   if (image) item.image = image;
