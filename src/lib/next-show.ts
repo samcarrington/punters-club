@@ -71,3 +71,62 @@ export const stripHtml = (input: string): string =>
   decodeEntities(input.replace(/<[^>]*>/g, " "))
     .replace(/\s+/g, " ")
     .trim();
+
+/** Parse a TEC UTC wall time "YYYY-MM-DD HH:mm:ss" into an ISO-Z string. */
+export const utcWallTimeToIso = (value?: string): string | null => {
+  if (!value) return null;
+
+  const match = value.match(
+    /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/,
+  );
+
+  if (!match) return null;
+
+  const [, year, month, day, hour, minute, second] = match;
+  const date = new Date(
+    Date.UTC(
+      Number(year),
+      Number(month) - 1,
+      Number(day),
+      Number(hour),
+      Number(minute),
+      Number(second),
+    ),
+  );
+
+  return Number.isNaN(date.getTime()) ? null : date.toISOString();
+};
+
+/** Extract the "YYYY-MM-DD" date part from a local wall time. */
+export const localDatePart = (value?: string): string | null => {
+  if (!value) return null;
+
+  const match = value.match(/^(\d{4}-\d{2}-\d{2})/);
+  return match ? match[1] : null;
+};
+
+export const isValidIanaZone = (tz?: string): boolean => {
+  if (!tz) return false;
+
+  try {
+    new Intl.DateTimeFormat("en-GB", { timeZone: tz });
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const matchesTitle = (
+  rawTitle: string | undefined,
+  patterns: string[],
+): boolean => {
+  if (!rawTitle) return false;
+
+  const title = decodeEntities(rawTitle);
+  const variants = [title, title.replace(/([A-Za-z])['’]s\b/g, "$1s")];
+
+  return patterns.some((pattern) => {
+    const regex = new RegExp(pattern, "i");
+    return variants.some((variant) => regex.test(variant));
+  });
+};
