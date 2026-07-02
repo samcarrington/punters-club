@@ -16,11 +16,6 @@ const { playlists } = Astro.props as {
 };
 ---
 
-<style>
-  a.link-external-full { text-decoration: none; }
-  .link-external-full:hover { opacity: 0.85; }
-</style>
-
 <div class="playlist-grid">
   {playlists.map((playlist) => {
     const platform = detectPlatform(playlist.url);
@@ -71,4 +66,7 @@ const { playlists } = Astro.props as {
     align-items: center;
     gap: var(--space-2xs);
   }
+
+  .link-external-full { text-decoration: none; }
+  .link-external-full:hover { opacity: 0.85; }
 </style>
