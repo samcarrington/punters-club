@@ -179,6 +179,31 @@ describe("selectNextShow", () => {
     expect(result.show.url).toBe(augEvent.url);
   });
 
+  it("matches a slug-only guest override without a date", () => {
+    const slugOnlyConfig = {
+      ...config,
+      guestAppearances: [{ slug: "saturday-night-in-with" }],
+    };
+    const { result } = selectNextShow([augEvent, guestJul4], slugOnlyConfig, now);
+
+    expect(result.status).toBe("upcoming");
+    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.show.url).toBe(guestJul4.url);
+    expect(result.show.matchedBy).toBe("guest");
+  });
+
+  it("picks the soonest upcoming event for a recurring slug-only guest override", () => {
+    const slugOnlyConfig = {
+      ...config,
+      guestAppearances: [{ slug: "saturday-night-in-with" }],
+    };
+    const { result } = selectNextShow([augEvent, guestAug29, guestJul4], slugOnlyConfig, now);
+
+    expect(result.status).toBe("upcoming");
+    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.show.url).toBe(guestJul4.url);
+  });
+
   it("drops past events", () => {
     const past = { ...augEvent, utc_start_date: "2026-06-01 18:00:00" };
     const { result } = selectNextShow([past], config, now);
@@ -207,6 +232,66 @@ describe("selectNextShow", () => {
           warning.includes("2026-07-04"),
       ),
     ).toBe(true);
+  });
+
+  it("warns for an unresolved slug-only guest override when no raw event matches", () => {
+    const slugOnlyConfig = {
+      ...config,
+      guestAppearances: [{ slug: "saturday-night-in-withthe-punters-club" }],
+    };
+    const { warnings } = selectNextShow([augEvent], slugOnlyConfig, now);
+
+    expect(
+      warnings.some(
+        (warning) =>
+          warning.includes("saturday-night-in-withthe-punters-club") &&
+          warning.includes("did not match any event in the fetched window"),
+      ),
+    ).toBe(true);
+  });
+
+  it("warns for a slug-only guest override when matched events are past or unusable", () => {
+    const slugOnlyConfig = {
+      ...config,
+      guestAppearances: [{ slug: "saturday-night-in-with" }],
+    };
+    const pastGuest = {
+      ...guestJul4,
+      utc_start_date: "2026-06-30 18:00:00",
+      start_date: "2026-06-30 19:00:00",
+    };
+    const { warnings, result } = selectNextShow([pastGuest], slugOnlyConfig, now);
+
+    expect(result).toEqual({ status: "none", source: "tribe/events/v1" });
+    expect(
+      warnings.some(
+        (warning) =>
+          warning.includes("saturday-night-in-with") &&
+          warning.includes("matched events") &&
+          warning.includes("upcoming or usable"),
+      ),
+    ).toBe(true);
+  });
+
+  it("falls through to a future named show when a slug-only guest match is past", () => {
+    const slugOnlyConfig = {
+      ...config,
+      guestAppearances: [{ slug: "saturday-night-in-withthe-punters-club" }],
+    };
+    const pastGuest = {
+      title: "Saturday Night In With The Punters Club",
+      slug: "saturday-night-in-withthe-punters-club",
+      url: "https://www.radiowaters.co.uk/show/saturday-night-in-withthe-punters-club/2026-06-30/",
+      start_date: "2026-06-30 19:00:00",
+      timezone: "Europe/London",
+      utc_start_date: "2026-06-30 18:00:00",
+    };
+    const { result } = selectNextShow([pastGuest, augEvent], slugOnlyConfig, now);
+
+    expect(result.status).toBe("upcoming");
+    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.show.url).toBe(augEvent.url);
+    expect(result.show.matchedBy).toBe("title");
   });
 
   it("returns none for an empty event list", () => {

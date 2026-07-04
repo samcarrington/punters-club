@@ -16,11 +16,13 @@ export type TribeEvent = {
   image?: { url?: string } | string | false | null;
 };
 
-export type GuestAppearance = { slug: string; date: string };
+export type GuestAppearance = { slug: string; date?: string };
 
 export type NextShowConfig = {
   endpoint: string;
   titlePatterns: string[];
+  knownEventSlugs?: string[];
+  organizerSlugs?: string[];
   guestAppearances: GuestAppearance[];
   lookaheadDays: number;
 };
@@ -192,14 +194,41 @@ export const selectNextShow = (
   const todayUtc = new Date(`${utcDateOnly(now)}T00:00:00.000Z`);
 
   for (const guest of config.guestAppearances) {
-    const match = events.find(
-      (event) =>
-        event.slug === guest.slug && localDatePart(event.start_date) === guest.date,
-    );
+    const guestMatches = events.filter((event) => event.slug === guest.slug);
+    const datedMatch = guest.date
+      ? guestMatches.find(
+          (event) => localDatePart(event.start_date) === guest.date,
+        )
+      : null;
 
-    const show = match ? normalizeEvent(match, "guest") : null;
+    const slugOnlyMatch = guest.date
+      ? null
+      : guestMatches
+          .map((event) => normalizeEvent(event, "guest"))
+          .filter((show): show is NextShow => show !== null)
+          .filter((show) => new Date(show.startsAtUtc) >= now)
+          .sort((a, b) => {
+            const byStart = a.startsAtUtc.localeCompare(b.startsAtUtc);
+            return byStart !== 0 ? byStart : a.slug.localeCompare(b.slug);
+          })[0] ?? null;
+
+    const show: NextShow | null = guest.date
+      ? datedMatch
+        ? normalizeEvent(datedMatch, "guest")
+        : null
+      : slugOnlyMatch;
+
     if (show) {
       candidates.push(show);
+      continue;
+    }
+
+    if (!guest.date) {
+      warnings.push(
+        guestMatches.length === 0
+          ? `Unresolved guest override: slug "${guest.slug}" did not match any event in the fetched window.`
+          : `Unresolved guest override: slug "${guest.slug}" matched events, but none were upcoming or usable.`,
+      );
       continue;
     }
 

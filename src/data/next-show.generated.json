@@ -1,15 +1,15 @@
 {
   "status": "upcoming",
   "show": {
-    "title": "Saturday Night In With…",
-    "slug": "saturday-night-in-with",
-    "url": "https://www.radiowaters.co.uk/show/saturday-night-in-with/2026-07-04/",
-    "startsAtUtc": "2026-07-04T18:00:00.000Z",
-    "endsAtUtc": "2026-07-04T20:00:00.000Z",
+    "title": "The Punters’ Club – Summer Holiday Sounds",
+    "slug": "the-punters-club-summer-holiday-sounds",
+    "url": "https://www.radiowaters.co.uk/show/the-punters-club-summer-holiday-sounds/",
+    "startsAtUtc": "2026-08-22T18:00:00.000Z",
+    "endsAtUtc": "2026-08-22T20:00:00.000Z",
     "timezone": "Europe/London",
-    "description": "Why go out when you can stay in and share your Saturday night with one of our fabulous DJs and community?! Great music, chat, dance, get dressed up or put your PJs on, whatever you feel inclined to do, we’re not judging! All we know is it’s going to be good!",
-    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/BOY_WANDER_people_dancing_and_partying_inside_a_mirrorball_-_31fb3b90-a480-4c43-b3b1-0bd452e870d2_1.png",
-    "matchedBy": "guest"
+    "description": "Let’s celebrate the Summer. Join us for festival-forward sounds and a cracking good time.",
+    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/da3a-a98e-4e9c-b4a4-3384e18c4e5c.jpg",
+    "matchedBy": "title"
   },
   "source": "tribe/events/v1"
 }

@@ -743,7 +743,7 @@
     "slug": "the-punters-club-funking-out-of-february",
     "publishedAt": "2026-02-28T21:28:48Z",
     "durationSeconds": 7343,
-    "playCount": 13,
+    "playCount": 14,
     "favoriteCount": 1,
     "commentCount": 0,
     "tags": [
@@ -1029,6 +1029,70 @@
       "1024wx1024h": "https://thumbnailer.mixcloud.com/unsafe/1024x1024/extaudio/3/3/9/a/da3a-a98e-4e9c-b4a4-3384e18c4e5c"
     },
     "artwork": "https://thumbnailer.mixcloud.com/unsafe/300x300/extaudio/3/3/9/a/da3a-a98e-4e9c-b4a4-3384e18c4e5c",
+    "user": {
+      "key": "/radiowaters/",
+      "url": "https://www.mixcloud.com/radiowaters/",
+      "name": "Radio Waters",
+      "username": "radiowaters",
+      "pictures": {
+        "small": "https://thumbnailer.mixcloud.com/unsafe/25x25/profile/b/8/7/4/dd5c-b703-4001-956d-4a11d9d2c58c",
+        "thumbnail": "https://thumbnailer.mixcloud.com/unsafe/50x50/profile/b/8/7/4/dd5c-b703-4001-956d-4a11d9d2c58c",
+        "medium_mobile": "https://thumbnailer.mixcloud.com/unsafe/80x80/profile/b/8/7/4/dd5c-b703-4001-956d-4a11d9d2c58c",
+        "medium": "https://thumbnailer.mixcloud.com/unsafe/100x100/profile/b/8/7/4/dd5c-b703-4001-956d-4a11d9d2c58c",
+        "large": "https://thumbnailer.mixcloud.com/unsafe/300x300/profile/b/8/7/4/dd5c-b703-4001-956d-4a11d9d2c58c",
+        "320wx320h": "https://thumbnailer.mixcloud.com/unsafe/320x320/profile/b/8/7/4/dd5c-b703-4001-956d-4a11d9d2c58c",
+        "extra_large": "https://thumbnailer.mixcloud.com/unsafe/600x600/profile/b/8/7/4/dd5c-b703-4001-956d-4a11d9d2c58c",
+        "640wx640h": "https://thumbnailer.mixcloud.com/unsafe/640x640/profile/b/8/7/4/dd5c-b703-4001-956d-4a11d9d2c58c"
+      }
+    }
+  },
+  {
+    "title": "Saturday Night in with The Punters' Club (4 Jul)",
+    "url": "https://www.mixcloud.com/radiowaters/saturday-night-in-with-the-punters-club-4-jul/",
+    "localDescription": "A Warm July evening, we stayed late and played some overtime",
+    "description": "A Warm July evening, we stayed late and played some overtime",
+    "key": "/radiowaters/saturday-night-in-with-the-punters-club-4-jul/",
+    "slug": "saturday-night-in-with-the-punters-club-4-jul",
+    "publishedAt": "2026-07-04T21:23:28Z",
+    "durationSeconds": 10090,
+    "playCount": 1,
+    "favoriteCount": 0,
+    "commentCount": 0,
+    "tags": [
+      {
+        "name": "House",
+        "url": "https://www.mixcloud.com/genres/house/",
+        "key": "/genres/house/"
+      },
+      {
+        "name": "Disco",
+        "url": "https://www.mixcloud.com/genres/disco/",
+        "key": "/genres/disco/"
+      },
+      {
+        "name": "Electronica",
+        "url": "https://www.mixcloud.com/genres/electronica/",
+        "key": "/genres/electronica/"
+      },
+      {
+        "name": "Balearic",
+        "url": "https://www.mixcloud.com/genres/balearic/",
+        "key": "/genres/balearic/"
+      }
+    ],
+    "pictures": {
+      "small": "https://thumbnailer.mixcloud.com/unsafe/25x25/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "thumbnail": "https://thumbnailer.mixcloud.com/unsafe/50x50/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "medium_mobile": "https://thumbnailer.mixcloud.com/unsafe/80x80/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "medium": "https://thumbnailer.mixcloud.com/unsafe/100x100/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "large": "https://thumbnailer.mixcloud.com/unsafe/300x300/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "320wx320h": "https://thumbnailer.mixcloud.com/unsafe/320x320/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "extra_large": "https://thumbnailer.mixcloud.com/unsafe/600x600/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "640wx640h": "https://thumbnailer.mixcloud.com/unsafe/640x640/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "768wx768h": "https://thumbnailer.mixcloud.com/unsafe/768x768/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
+      "1024wx1024h": "https://thumbnailer.mixcloud.com/unsafe/1024x1024/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a"
+    },
+    "artwork": "https://thumbnailer.mixcloud.com/unsafe/300x300/extaudio/0/c/f/3/cf17-6141-4907-b72d-73da0cd02a3a",
     "user": {
       "key": "/radiowaters/",
       "url": "https://www.mixcloud.com/radiowaters/",
