@@ -253,6 +253,8 @@ h1 {
 .playlist-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: auto;
+  align-items: stretch;
   gap: var(--space-md);
 }
 
@@ -298,23 +300,47 @@ h1 {
   background: var(--color-paper-3);
   display: grid;
   grid-template-columns: 2.5rem minmax(0, 1fr);
+  grid-template-rows: subgrid;
+  grid-row: 1 / -1;
   align-items: start;
   gap: var(--space-sm);
+  height: 100%;
+}
+
+.link-external-full {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
 }
 
 .playlist-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+  display: contents;
 }
 
 .playlist-card h3 {
+  align-self: start;
+  grid-column: 2;
+  grid-row: 1;
   font-size: var(--text-xl);
 }
 
 .playlist-card p {
+  align-self: start;
+  grid-column: 2;
+  grid-row: 2;
   margin: 0;
   color: var(--color-ink-muted);
+}
+
+.playlist-card :where(.poster-placeholder) {
+  grid-column: 1;
+  grid-row: 1 / 4;
+}
+
+.playlist-card-body__cta-text {
+  align-self: end;
+  grid-column: 2;
+  grid-row: 3;
 }
 
 .archive-grid a,
