@@ -40,9 +40,47 @@ const dedupeEventKey = (event: TribeEvent): string | null => {
 const bySlugEndpoint = (endpoint: string, slug: string): string =>
   `${endpoint.replace(/\/$/, "")}/by-slug/${encodeURIComponent(slug)}`;
 
+const viewsV2Endpoint = (endpoint: string): string => {
+  const url = new URL(endpoint);
+  return new URL("/wp-json/tribe/views/v2/html", url.origin).toString();
+};
+
 const organizerPageUrl = (endpoint: string, organizerSlug: string): string => {
   const url = new URL(endpoint);
   return new URL(`/dj/${organizerSlug}/`, url.origin).toString();
+};
+
+const monthSeedPath = (value: Date): string => {
+  const year = value.getUTCFullYear();
+  const month = String(value.getUTCMonth() + 1).padStart(2, "0");
+  return `/shows/month/${year}-${month}/`;
+};
+
+const monthSeedPaths = (today: Date, lookaheadDays: number): string[] => {
+  const paths = new Set<string>();
+  const cursor = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1));
+  const horizon = new Date(today.getTime() + lookaheadDays * 24 * 60 * 60 * 1000);
+  const horizonMonth = new Date(
+    Date.UTC(horizon.getUTCFullYear(), horizon.getUTCMonth(), 1),
+  );
+
+  while (cursor <= horizonMonth) {
+    paths.add(monthSeedPath(cursor));
+    cursor.setUTCMonth(cursor.getUTCMonth() + 1);
+  }
+
+  return [...paths];
+};
+
+const extractViewsTokens = (html: string): { tvn1: string; tvn2: string } | null => {
+  const tvn1 = html.match(/"tvn1":"([^"]*)"/);
+  const tvn2 = html.match(/"tvn2":"([^"]*)"/);
+
+  if (!tvn1 || !tvn2) {
+    return null;
+  }
+
+  return { tvn1: tvn1[1], tvn2: tvn2[1] };
 };
 
 const extractShowSlugsFromHtml = (html: string, limit = 20): string[] => {
@@ -75,6 +113,91 @@ const bySlugResponseToEvent = (body: unknown): TribeEvent | undefined => {
   return isTribeEvent(body) ? body : undefined;
 };
 
+const fetchText = async (url: string): Promise<string | null> => {
+  const response = await fetch(url, { headers: requestHeaders });
+  if (!response.ok) {
+    return null;
+  }
+
+  return response.text();
+};
+
+const discoverOrganizerSlugsFromViews = async (
+  config: NextShowConfig,
+  today: Date,
+): Promise<Set<string>> => {
+  const discovered = new Set<string>();
+  const organizerSlugs = config.organizerSlugs ?? [];
+  if (organizerSlugs.length === 0) {
+    return discovered;
+  }
+
+  let tokens: { tvn1: string; tvn2: string } | null = null;
+  for (const organizerSlug of organizerSlugs) {
+    const html = await fetchText(organizerPageUrl(config.endpoint, organizerSlug));
+    if (!html) {
+      console.warn(
+        `[next-show] organizer seed fetch skipped for "${organizerSlug}" when extracting TEC tokens.`,
+      );
+      continue;
+    }
+
+    tokens = extractViewsTokens(html);
+    if (tokens) {
+      break;
+    }
+  }
+
+  if (!tokens) {
+    return discovered;
+  }
+
+  for (const monthPath of monthSeedPaths(today, config.lookaheadDays)) {
+    const url = new URL(viewsV2Endpoint(config.endpoint));
+    url.searchParams.set("u", monthPath);
+    url.searchParams.set("smu", "true");
+    url.searchParams.set("tvn1", tokens.tvn1);
+    url.searchParams.set("tvn2", tokens.tvn2);
+
+    const response = await fetch(url, { headers: requestHeaders });
+    if (!response.ok) {
+      console.warn(
+        `[next-show] views-v2 discovery skipped for "${monthPath}": HTTP ${response.status}`,
+      );
+      continue;
+    }
+
+    const body = (await response.json()) as { html?: string };
+    for (const slug of extractShowSlugsFromHtml(body.html ?? "")) {
+      discovered.add(slug);
+    }
+  }
+
+  return discovered;
+};
+
+const discoverOrganizerSlugsFromPages = async (
+  config: NextShowConfig,
+): Promise<Set<string>> => {
+  const discovered = new Set<string>();
+
+  for (const organizerSlug of config.organizerSlugs ?? []) {
+    const html = await fetchText(organizerPageUrl(config.endpoint, organizerSlug));
+    if (!html) {
+      console.warn(
+        `[next-show] organizer discovery skipped for "${organizerSlug}": page unavailable.`,
+      );
+      continue;
+    }
+
+    for (const slug of extractShowSlugsFromHtml(html)) {
+      discovered.add(slug);
+    }
+  }
+
+  return discovered;
+};
+
 const fetchEvents = async (config: NextShowConfig): Promise<TribeEvent[]> => {
   const today = new Date();
   const start = isoDate(today);
@@ -104,23 +227,9 @@ const fetchEvents = async (config: NextShowConfig): Promise<TribeEvent[]> => {
     }
   }
 
-  const organizerDiscoveredSlugs = new Set<string>();
-  for (const organizerSlug of config.organizerSlugs ?? []) {
-    const response = await fetch(organizerPageUrl(config.endpoint, organizerSlug), {
-      headers: requestHeaders,
-    });
-
-    if (!response.ok) {
-      console.warn(
-        `[next-show] organizer discovery skipped for "${organizerSlug}": HTTP ${response.status}`,
-      );
-      continue;
-    }
-
-    const html = await response.text();
-    for (const slug of extractShowSlugsFromHtml(html)) {
-      organizerDiscoveredSlugs.add(slug);
-    }
+  let organizerDiscoveredSlugs = await discoverOrganizerSlugsFromViews(config, today);
+  if (organizerDiscoveredSlugs.size === 0) {
+    organizerDiscoveredSlugs = await discoverOrganizerSlugsFromPages(config);
   }
 
   const supplementalSlugs = new Set<string>([
