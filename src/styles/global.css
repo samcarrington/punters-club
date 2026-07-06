@@ -911,7 +911,7 @@ h1 {
 
 /* Detail Page */
 .show-detail {
-  padding-block: var(--space-lg) var(--space-4xl);
+  padding-block: var(--space-lg) var(--space-lg);
 }
 
 .show-detail-header {
@@ -1031,10 +1031,16 @@ h1 {
   color: var(--color-ink-muted);
 }
 
+.archive-masthead-copy p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding: 0;
+}
+
 @media (min-width: 768px) {
   .archive-masthead {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: start;
   }
 }
 
@@ -1145,7 +1151,7 @@ h1 {
 
 @media (min-width: 920px) {
   .archive-index-item {
-    grid-template-columns: 10rem minmax(0, 1.5fr) minmax(0, 1fr) minmax(120px, auto);
+    grid-template-columns: 10rem minmax(0, 2fr) 3rem minmax(120px, auto);
     gap: var(--space-2xl);
   }
 }
