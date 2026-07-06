@@ -115,7 +115,7 @@ a:not(.btn).is-focus {
 
 main {
   width: min(var(--content-max-width), calc(100% - (2 * var(--space-md))));
-  margin: var(--space-xl) auto var(--space-4xl);
+  margin: var(--space-xl) auto var(--space-2xl);
   display: grid;
   gap: var(--space-2xl);
 }
@@ -977,6 +977,7 @@ h1 {
 .track-position {
   font-family: var(--font-display);
   font-weight: var(--font-weight-title);
+  font-size: var(--text-2xl);
   color: color-mix(in oklch, var(--color-accent) 60%, transparent);
   min-width: 1.5rem;
   text-align: right;
