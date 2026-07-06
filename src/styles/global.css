@@ -1046,16 +1046,15 @@ h1 {
   flex-wrap: wrap;
   gap: var(--space-md);
   border-bottom: var(--rule-thin) solid var(--color-rule);
-  position: sticky;
-  top: 0;
-  z-index: 10;
   background: color-mix(in oklch, var(--color-paper) 95%, transparent);
   backdrop-filter: blur(12px) saturate(140%);
 }
 
-@media (min-width: 415px) {
+@media (min-width: 769px) {
   .archive-toolbar {
-    top: 5rem;
+    position: sticky;
+    top: calc(var(--space-md) + 4rem);
+    z-index: 9;
   }
 }
 

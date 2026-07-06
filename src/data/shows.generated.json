@@ -304,7 +304,7 @@
     "slug": "an-evening-in-with-the-punters-club-radio-waters-15th-march-2025",
     "publishedAt": "2025-03-15T21:13:20Z",
     "durationSeconds": 7349,
-    "playCount": 17,
+    "playCount": 18,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
@@ -719,7 +719,7 @@
     "slug": "punters-club-june-29th-2025",
     "publishedAt": "2025-06-29T20:48:55Z",
     "durationSeconds": 7850,
-    "playCount": 30,
+    "playCount": 31,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
@@ -1144,7 +1144,7 @@
         "title": "The Man With The Red Face (Original Mix)"
       }
     ],
-    "description": "",
+    "description": "Kelly kicks-off with some banging Disco, laying down a challenge to Sam to follow up from 'Follow Me', so Alexkid get's its first outing on the show. Closing down proceedings with Laurent Garnier, helping you make the most of the long weekend.",
     "key": "/samcarrington/the-punters-club-august-23rd-bank-holiday-party/",
     "slug": "the-punters-club-august-23rd-bank-holiday-party",
     "publishedAt": "2025-08-23T21:15:04Z",
@@ -1172,6 +1172,11 @@
         "name": "Soul",
         "url": "https://www.mixcloud.com/genres/soul/",
         "key": "/genres/soul/"
+      },
+      {
+        "name": "Funk",
+        "url": "https://www.mixcloud.com/genres/funk/",
+        "key": "/genres/funk/"
       }
     ],
     "pictures": {
@@ -2032,7 +2037,7 @@
     "slug": "the-punters-club-nye-warm-up",
     "publishedAt": "2026-01-10T15:28:21Z",
     "durationSeconds": 7196,
-    "playCount": 19,
+    "playCount": 20,
     "favoriteCount": 2,
     "commentCount": 0,
     "tags": [
@@ -2726,7 +2731,7 @@
     "slug": "the-punters-club-25th-april-2026",
     "publishedAt": "2026-04-25T20:28:49Z",
     "durationSeconds": 7567,
-    "playCount": 32,
+    "playCount": 33,
     "favoriteCount": 1,
     "commentCount": 1,
     "tags": [
@@ -2845,7 +2850,7 @@
     "slug": "gwawr-kelsurprise-the-punters-club-30-may",
     "publishedAt": "2026-05-31T16:59:30Z",
     "durationSeconds": 7664,
-    "playCount": 30,
+    "playCount": 31,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
@@ -2910,7 +2915,7 @@
     "slug": "saturday-night-in-with-the-punters-club-4-jul",
     "publishedAt": "2026-07-04T21:23:28Z",
     "durationSeconds": 10090,
-    "playCount": 16,
+    "playCount": 21,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
