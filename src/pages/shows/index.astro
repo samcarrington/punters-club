@@ -2,9 +2,143 @@
 import "../../styles/global.css";
 import "../../styles/tokens.css";
 
+import { Image } from "astro:assets";
+import generatedShowsData from "../../data/shows.generated.json";
 import PuntersLayout from "../../layouts/PuntersLayout.astro";
+import type { Show } from "../../lib/mixcloud";
+import showSourcesData from "../../data/show-sources.json";
+import { assertValidShowSlugs, mergeShowsWithSources, sortShows } from "../../lib/shows";
+import { buildShowListStructuredData, SHOWS_PAGE_NAME, SHOWS_PAGE_DESCRIPTION, serializeJsonLd } from "../../lib/structured-data";
+
+assertValidShowSlugs(generatedShowsData as Show[]);
+const allShows = mergeShowsWithSources(
+  generatedShowsData as Show[],
+  showSourcesData
+);
+
+const shows = sortShows(allShows, "newest");
+const jsonLd = buildShowListStructuredData(shows);
+
+const formatDate = (value?: string) =>
+  value ? new Date(value).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" }) : "Date unavailable";
+
+const getSortDate = (value?: string) => {
+  const time = value ? Date.parse(value) : Number.NaN;
+  return Number.isFinite(time) ? String(time) : "";
+};
 ---
 
-<PuntersLayout title="The Punters' Club | Radio Waters">
-Shows
+<PuntersLayout
+  title={SHOWS_PAGE_NAME}
+  description={SHOWS_PAGE_DESCRIPTION}
+  ogTitle={SHOWS_PAGE_NAME}
+  ogDescription={SHOWS_PAGE_DESCRIPTION}
+  canonicalUrl={new URL("/shows/", Astro.site || "https://punters.club").toString()}
+>
+  <script type="application/ld+json" set:html={serializeJsonLd(jsonLd)} />
+
+  <div class="band">
+    <header class="archive-masthead">
+      <h1>The Archive</h1>
+      <div class="archive-masthead-copy">
+        <p>Years of late nights, broken records, and basement sessions.</p>
+        <p>Dig through every episode of The Punters' Club. Find what you missed, revisit the classics, and let the tracklist unfold.</p>
+      </div>
+    </header>
+
+    <div class="archive-toolbar">
+      <div class="archive-count">{shows.length} Sessions</div>
+      <div class="archive-sort-group">
+        <label for="sort-shows" class="archive-sort-label">Sort by</label>
+        <select id="sort-shows" class="archive-sort-select">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="listens-high">Highest listens</option>
+          <option value="listens-low">Lowest listens</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="archive-index-list" id="shows-container">
+      {shows.map((show) => {
+        const description = show.description?.trim();
+        return (
+          <a class="archive-index-item show-item" href={`/shows/${show.slug}/`} data-date={getSortDate(show.publishedAt)} data-listens={show.playCount ?? ""} data-title={show.title}>
+            {show.artwork ? (
+              <Image class="archive-index-artwork" src={show.artwork} alt="" width="400" height="400" loading="lazy" />
+            ) : (
+              <div class="archive-index-artwork" aria-hidden="true"></div>
+            )}
+
+            <div class="archive-index-body">
+              <h2 class="archive-index-title">{show.title}</h2>
+              {description && <div class="archive-index-desc">{description}</div>}
+
+              {show.tags && show.tags.length > 0 && (
+                <div class="archive-index-tags" aria-label="Genres">
+                  {show.tags.map((tag) => <span class="archive-genre-pill">{tag.name}</span>)}
+                </div>
+              )}
+            </div>
+
+            <div class="archive-index-meta">
+              <div class="archive-index-meta-col">
+                <span class="archive-index-meta-val">{formatDate(show.publishedAt)}</span>
+                <span class="archive-index-meta-label">Broadcast</span>
+              </div>
+
+              {show.playCount !== undefined && (
+                <div class="archive-index-meta-col">
+                  <span class="archive-index-meta-val">{show.playCount}</span>
+                  <span class="archive-index-meta-label">Listens</span>
+                </div>
+              )}
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+
+  <script is:inline>
+  const select = document.getElementById('sort-shows');
+  const container = document.getElementById('shows-container');
+
+  if (select && container) {
+    select.addEventListener('change', (e) => {
+      const sort = e.target.value;
+      const items = Array.from(container.querySelectorAll('.show-item'));
+
+      const numberOrMissing = (item, attr) => {
+        const value = item.getAttribute(attr);
+        if (!value) return null;
+        const parsed = Number.parseInt(value, 10);
+        return Number.isFinite(parsed) ? parsed : null;
+      };
+
+      const compareMaybeNumber = (a, b, attr, direction) => {
+        const aValue = numberOrMissing(a, attr);
+        const bValue = numberOrMissing(b, attr);
+        if (aValue === null && bValue === null) return 0;
+        if (aValue === null) return 1;
+        if (bValue === null) return -1;
+        return direction === 'asc' ? aValue - bValue : bValue - aValue;
+      };
+
+      const compareFallback = (a, b) =>
+        compareMaybeNumber(a, b, 'data-date', 'desc') ||
+        (a.getAttribute('data-title') || '').localeCompare(b.getAttribute('data-title') || '');
+
+      items.sort((a, b) => {
+        if (sort === 'newest') return compareMaybeNumber(a, b, 'data-date', 'desc') || compareFallback(a, b);
+        if (sort === 'oldest') return compareMaybeNumber(a, b, 'data-date', 'asc') || compareFallback(a, b);
+        if (sort === 'listens-high') return compareMaybeNumber(a, b, 'data-listens', 'desc') || compareFallback(a, b);
+        if (sort === 'listens-low') return compareMaybeNumber(a, b, 'data-listens', 'asc') || compareFallback(a, b);
+        return 0;
+      });
+
+      items.forEach(item => container.appendChild(item));
+    });
+  }
+  </script>
 </PuntersLayout>

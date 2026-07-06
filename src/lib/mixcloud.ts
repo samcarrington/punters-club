@@ -3,6 +3,13 @@ export type ShowSource = {
   url: string;
   description?: string;
   localDescription?: string;
+  tracklist?: ShowTrackItem[];
+};
+
+export type ShowTrackItem = {
+  position: number;
+  artist: string;
+  title: string;
 };
 
 export type Show = ShowSource & {
@@ -22,8 +29,21 @@ export type Show = ShowSource & {
 export const toApiUrl = (url: string) =>
   url.replace("www.mixcloud.com", "api.mixcloud.com");
 
-export const widgetUrl = (showUrl: string) =>
-  `https://www.mixcloud.com/widget/iframe/?mini=1&hide_cover=1&hide_tracklist=1&feed=${encodeURIComponent(showUrl)}`;
+export const widgetUrl = (
+  showUrl: string,
+  variant: "mini" | "classic" = "mini",
+) => {
+  const params = new URLSearchParams({ feed: showUrl });
+
+  if (variant === "mini") {
+    params.set("mini", "1");
+    params.set("hide_cover", "1");
+  }
+
+  params.set("hide_tracklist", "1");
+
+  return `https://www.mixcloud.com/widget/iframe/?${params.toString()}`;
+};
 
 export const normalizeShow = (
   source: ShowSource,
