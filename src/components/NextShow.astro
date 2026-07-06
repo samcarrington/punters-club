@@ -1,7 +1,8 @@
 ---
-import type { NextShowResult } from "../lib/next-show";
-import rawResult from "../data/next-show.generated.json";
+import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import rawResult from "../data/next-show.generated.json";
+import type { NextShowResult } from "../lib/next-show";
 
 const result = rawResult as NextShowResult;
 
@@ -30,8 +31,15 @@ function formatWhen(startsAtUtc: string, timeZone: string) {
     </header>
     <div class="next-show-body">
       {result.show.posterUrl && (
-        <img src={result.show.posterUrl} alt="" class="next-show-poster" loading="lazy" />
+        <Image
+         src={result.show.posterUrl} 
+         alt="The Punters' Club Next Show Poster" 
+         height="512"
+         width="512"
+         class="next-show-poster" 
+         loading="lazy" />
       )}
+      
       <div class="next-show-details">
         <time class="next-show-when" datetime={result.show.startsAtUtc}>
           {formatWhen(result.show.startsAtUtc, result.show.timezone)}
@@ -52,3 +60,10 @@ function formatWhen(startsAtUtc: string, timeZone: string) {
     <p class="next-show-empty-text">Nothing pinned to the running order yet. We’re digging in the crates.</p>
   </div>
 )}
+
+<style>
+  .next-show-poster {
+    width: 100%;
+    height: auto;
+  }
+</style>

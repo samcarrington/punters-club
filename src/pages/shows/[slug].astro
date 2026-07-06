@@ -1,0 +1,101 @@
+---
+import "../../styles/global.css";
+import "../../styles/tokens.css";
+
+import PuntersLayout from "../../layouts/PuntersLayout.astro";
+import MixcloudWidget from "../../components/MixcloudWidget.astro";
+import generatedShowsData from "../../data/shows.generated.json";
+import showSourcesData from "../../data/show-sources.json";
+import { assertValidShowSlugs, mergeShowsWithSources } from "../../lib/shows";
+import type { ShowWithTracklist } from "../../lib/shows";
+import { buildShowEntity, serializeJsonLd } from "../../lib/structured-data";
+import type { Show } from "../../lib/mixcloud";
+
+export async function getStaticPaths() {
+  assertValidShowSlugs(generatedShowsData as Show[]);
+  const allShows = mergeShowsWithSources(
+    generatedShowsData as unknown as Show[],
+    showSourcesData
+  );
+  return allShows.map((show) => ({
+    params: { slug: show.slug },
+    props: { show },
+  }));
+}
+
+const { show } = Astro.props as { show: ShowWithTracklist };
+type TracklistItem = NonNullable<ShowWithTracklist["tracklist"]>[number];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  ...buildShowEntity(show),
+};
+
+const date = show.publishedAt ? new Date(show.publishedAt).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" }) : "";
+const ogTitle = `${show.title} | The Punters' Club`;
+const description = show.description || "Listen to this episode of The Punters' Club on Radio Waters.";
+---
+
+<PuntersLayout
+  title={ogTitle}
+  description={description}
+  ogTitle={ogTitle}
+  ogDescription={description}
+  canonicalUrl={new URL(`/shows/${show.slug}/`, Astro.site || "https://punters.club").toString()}
+>
+  <script type="application/ld+json" set:html={serializeJsonLd(jsonLd)} />
+
+  <article class="show-detail">
+    <header class="show-detail-header band">
+      <div class="show-detail-back">
+        <a href="/shows/" class="btn btn-secondary">← Back to Archive</a>
+      </div>
+
+      <div class="show-detail-masthead">
+        <div class="show-detail-info">
+          <h1 class="show-detail-title">{show.title}</h1>
+          <div class="show-detail-meta">
+            <span class="show-detail-date">Published {date} </span>
+            {show.playCount !== undefined && <span class="show-detail-listens">• {show.playCount} listens</span>}
+          </div>
+          {show.description && (
+            <p class="show-detail-desc">{show.description}</p>
+          )}
+        </div>
+
+        <div>
+          <MixcloudWidget show={show} variant="classic" />
+        </div>
+      </div>
+    </header>
+
+    <div class="show-detail-body band">
+      <div class="show-detail-tracklist panel">
+        <h2>Tracklist</h2>
+        {show.tracklist && show.tracklist.length > 0 ? (
+          <ul class="tracklist-list">
+            {show.tracklist.map((track: TracklistItem) => (
+              <li class="tracklist-item">
+                <span class="track-position">{track.position}</span>
+                <span class="track-info">
+                  <span class="track-artist">{track.artist}</span>
+                  <span class="track-title">{track.title}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="tracklist-empty">
+            <p>No tracklist available for this show (yet). Dive in and enjoy the surprise!</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </article>
+</PuntersLayout>
+
+<style>
+  .mixcloud-widget {
+    background: transparent;
+  }
+</style>

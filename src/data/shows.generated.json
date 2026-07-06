@@ -2,6 +2,88 @@
   {
     "title": "Awamu Radio - Make Mine a Double - Radio Waters 07.12.24",
     "url": "https://www.mixcloud.com/samcarrington/awamu-radio-make-mine-a-double-radio-waters-071224/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Moloko",
+        "title": "Fun For Me (Mr. Scruff Vocal)"
+      },
+      {
+        "position": 2,
+        "artist": "Jhelisa",
+        "title": "Jhelisa - Freedom From Pity (Jose Padilla mix)"
+      },
+      {
+        "position": 3,
+        "artist": "Four Tet",
+        "title": "Three Drums"
+      },
+      {
+        "position": 4,
+        "artist": "C418",
+        "title": "Sweden"
+      },
+      {
+        "position": 5,
+        "artist": "Florence in Kampala",
+        "title": "A Message from Florence"
+      },
+      {
+        "position": 6,
+        "artist": "Gladys Knight & The Pips",
+        "title": "Bourgie', Bourgie'"
+      },
+      {
+        "position": 7,
+        "artist": "Carol Williams",
+        "title": "Love Is You (A Tom Moulton Mix)"
+      },
+      {
+        "position": 8,
+        "artist": "Idris Muhammad",
+        "title": "Could Heaven Ever Be Like This"
+      },
+      {
+        "position": 9,
+        "artist": "Carrie Lucas",
+        "title": "Dance With You (Original Mix)"
+      },
+      {
+        "position": 10,
+        "artist": "Herbert",
+        "title": "Gold Dust feat. Bianca Rose"
+      },
+      {
+        "position": 11,
+        "artist": "Secret Night Gang",
+        "title": "Captured (Cosmodelica Dub)"
+      },
+      {
+        "position": 12,
+        "artist": "Fleetwood Mac",
+        "title": "Dreams [The Reflex Take 2 Vocal Revision]"
+      },
+      {
+        "position": 13,
+        "artist": "Florence in Kampala",
+        "title": "Message from Florence 3"
+      },
+      {
+        "position": 14,
+        "artist": "Ashnikko",
+        "title": "Paint The Town Blue (from the series Arcane League of Legends)"
+      },
+      {
+        "position": 15,
+        "artist": "Ramsey",
+        "title": "Goodbye (from the series Arcane League of Legends)"
+      },
+      {
+        "position": 16,
+        "artist": "C418",
+        "title": "Minecraft"
+      }
+    ],
     "description": "Our Family Radio Show for the Awamu Charity Big Give - https://www.awamutogether.co.uk/biggive",
     "key": "/samcarrington/awamu-radio-make-mine-a-double-radio-waters-071224/",
     "slug": "awamu-radio-make-mine-a-double-radio-waters-071224",
@@ -65,12 +147,149 @@
   {
     "title": "An Evening In With ... The Punter's Club : Radio Waters 15th March 2025",
     "url": "https://www.mixcloud.com/samcarrington/an-evening-in-with-the-punters-club-radio-waters-15th-march-2025/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Sharon Jones & The Dap-Kings",
+        "title": "How Long Do I Have To Wait For You?"
+      },
+      {
+        "position": 2,
+        "artist": "Lyn Collins",
+        "title": "Think (About It)"
+      },
+      {
+        "position": 3,
+        "artist": "KNG EDITS",
+        "title": "Got To Get"
+      },
+      {
+        "position": 4,
+        "artist": "Gladys Knight & The Pips",
+        "title": "Taste of Bitter Love (Joey Negro Disco Re-blend)"
+      },
+      {
+        "position": 5,
+        "artist": "Aeroplane ft Kathy Diamond",
+        "title": "Whispers"
+      },
+      {
+        "position": 6,
+        "artist": "Friendly Fires",
+        "title": "Paris (Aeroplane Remix)"
+      },
+      {
+        "position": 7,
+        "artist": "FPI Project",
+        "title": "Everybody (All over the World) (Radio Version)"
+      },
+      {
+        "position": 8,
+        "artist": "Kings Of Tomorrow feat. April",
+        "title": "Fall For You (Sandy Rivera's Classic Mix)"
+      },
+      {
+        "position": 9,
+        "artist": "Mike Simonetti",
+        "title": "Midnight Or Late Afternoon"
+      },
+      {
+        "position": 10,
+        "artist": "Quantic, Rationale",
+        "title": "Unconditional feat. Rationale (Extended Version)"
+      },
+      {
+        "position": 11,
+        "artist": "Artist",
+        "title": "LOVE CAN'T TURN AROUND"
+      },
+      {
+        "position": 12,
+        "artist": "Lyn Collins",
+        "title": "Rock Me Again & Again & Again & Again & Again & Again"
+      },
+      {
+        "position": 13,
+        "artist": "Yazmin Lacey",
+        "title": "Match In My Pocket"
+      },
+      {
+        "position": 14,
+        "artist": "Blow Monkeys",
+        "title": "Save Me (Neville Watsons's Dub)"
+      },
+      {
+        "position": 15,
+        "artist": "Dr Packer",
+        "title": "Move That Bottom"
+      },
+      {
+        "position": 16,
+        "artist": "Main Source",
+        "title": "Peace Is Not the Word to Play"
+      },
+      {
+        "position": 17,
+        "artist": "Kc & The Sunshine Band",
+        "title": "Keep It Comin' Love (Kram 70's Redrum)"
+      },
+      {
+        "position": 18,
+        "artist": "Chromeo",
+        "title": "Words With You (Original Mix)"
+      },
+      {
+        "position": 19,
+        "artist": "DR PACKER",
+        "title": "Call The Doctor"
+      },
+      {
+        "position": 20,
+        "artist": "Robert Palmer",
+        "title": "Addicted To Love [The Reflex Revision]"
+      },
+      {
+        "position": 21,
+        "artist": "Joe Goddard",
+        "title": "Lose Your Love (Full Length Version)"
+      },
+      {
+        "position": 22,
+        "artist": "T-Connection",
+        "title": "At Midnight (Dr Packer Extended Remix)"
+      },
+      {
+        "position": 23,
+        "artist": "DISCOLIDAYS",
+        "title": "Tcheck This Out 122bpm"
+      },
+      {
+        "position": 24,
+        "artist": "Kool & The Gang",
+        "title": "Celebration [The Reflex Revision]"
+      },
+      {
+        "position": 25,
+        "artist": "Speedy J",
+        "title": "Beam Me Up!"
+      },
+      {
+        "position": 26,
+        "artist": "Hercules & Love Affair",
+        "title": "Blind (Frankie Knuckles Remix)"
+      },
+      {
+        "position": 27,
+        "artist": "Archie Bell & the Drells",
+        "title": "Where Will You Go When the Party's Over?"
+      }
+    ],
     "description": "An Evening in with the Family",
     "key": "/samcarrington/an-evening-in-with-the-punters-club-radio-waters-15th-march-2025/",
     "slug": "an-evening-in-with-the-punters-club-radio-waters-15th-march-2025",
     "publishedAt": "2025-03-15T21:13:20Z",
     "durationSeconds": 7349,
-    "playCount": 17,
+    "playCount": 18,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
@@ -123,6 +342,128 @@
   {
     "title": "Punters' Club Easter Weekend on Radio Waters",
     "url": "https://www.mixcloud.com/samcarrington/punters-club-easter-weekend-on-radio-waters/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "40 Thieves",
+        "title": "Don't Turn It Off (Greg Wilson Edit)"
+      },
+      {
+        "position": 2,
+        "artist": "Midnight Magic",
+        "title": "Beam Me Up (Prins Thomas Diskomiks - Single Edit)"
+      },
+      {
+        "position": 3,
+        "artist": "Roy Ayers",
+        "title": "Running Away (12 Inch Long Version)"
+      },
+      {
+        "position": 4,
+        "artist": "Phenomenal Handclap Band",
+        "title": "Judge Not (Ray Mang Special Mix)"
+      },
+      {
+        "position": 5,
+        "artist": "Dabeull",
+        "title": "You & I"
+      },
+      {
+        "position": 6,
+        "artist": "SuperShy",
+        "title": "Happy Music"
+      },
+      {
+        "position": 7,
+        "artist": "Prince",
+        "title": "Chelsea Rodgers"
+      },
+      {
+        "position": 8,
+        "artist": "Anita Ward",
+        "title": "Ring My Bell"
+      },
+      {
+        "position": 9,
+        "artist": "Sísý Ey",
+        "title": "Restless (Crazy P Extended Vocal Mix)"
+      },
+      {
+        "position": 10,
+        "artist": "Boxed In",
+        "title": "Melt (Radio Edit)"
+      },
+      {
+        "position": 11,
+        "artist": "Cisco Cisco",
+        "title": "If You Want Me (Jay Shepheard Remix)"
+      },
+      {
+        "position": 12,
+        "artist": "Everything But The Girl",
+        "title": "Nothing Left To Lose (Four Tet Remix)"
+      },
+      {
+        "position": 13,
+        "artist": "Fred again..",
+        "title": "Marea (we've lost dancing)"
+      },
+      {
+        "position": 14,
+        "artist": "Fat White Family",
+        "title": "Bullet of Dignity (Beyond The Wizards Sleeve Re-Animation)"
+      },
+      {
+        "position": 15,
+        "artist": "Todd Terje",
+        "title": "Delorean Dynamite"
+      },
+      {
+        "position": 16,
+        "artist": "Jamie xx",
+        "title": "Far Nearer"
+      },
+      {
+        "position": 17,
+        "artist": "Bicep",
+        "title": "Opal (Four Tet Remix)"
+      },
+      {
+        "position": 18,
+        "artist": "Sébastien Tellier",
+        "title": "Kilometer (Aeroplane \"Italo 84\" Remix)"
+      },
+      {
+        "position": 19,
+        "artist": "Franz Ferdinand",
+        "title": "Ulysses (Beyond The Wizards Sleeve Re-Animation)"
+      },
+      {
+        "position": 20,
+        "artist": "Hot Chip",
+        "title": "Hungry Child"
+      },
+      {
+        "position": 21,
+        "artist": "Daphni",
+        "title": "Yes, I Know"
+      },
+      {
+        "position": 22,
+        "artist": "Buddy Miles",
+        "title": "The Segment"
+      },
+      {
+        "position": 23,
+        "artist": "The Chemical Brothers",
+        "title": "If You Kling To Me I'll Klong To You"
+      },
+      {
+        "position": 24,
+        "artist": "Bomb The Bass",
+        "title": "Bug Powder Dust"
+      }
+    ],
     "description": "",
     "key": "/samcarrington/punters-club-easter-weekend-on-radio-waters/",
     "slug": "punters-club-easter-weekend-on-radio-waters",
@@ -186,12 +527,184 @@
   {
     "title": "Punters' Club June 29th 2025",
     "url": "https://www.mixcloud.com/samcarrington/punters-club-june-29th-2025/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Doug Shorts",
+        "title": "Get With the Program"
+      },
+      {
+        "position": 2,
+        "artist": "Uncle Louie",
+        "title": "Full Tilt Boogie (feat. Walter Murphy)"
+      },
+      {
+        "position": 3,
+        "artist": "Daryl Hall & John Oates",
+        "title": "I Can't Go for That (No Can Do) (Pomo Remix)"
+      },
+      {
+        "position": 4,
+        "artist": "Fonzi Thornton",
+        "title": "I Work for a Livin'"
+      },
+      {
+        "position": 5,
+        "artist": "Universal Togetherness Band",
+        "title": "More Than Enough"
+      },
+      {
+        "position": 6,
+        "artist": "Polyphonic Exophilia",
+        "title": "Something Funky (feat. Laura Dia)"
+      },
+      {
+        "position": 7,
+        "artist": "The Layabouts",
+        "title": "Bring Me Joy (The Layabouts Vocal Mix)"
+      },
+      {
+        "position": 8,
+        "artist": "Joey Negro",
+        "title": "Caught In The Moment (The Reflex Revision Radio Edit)"
+      },
+      {
+        "position": 9,
+        "artist": "Sam Dexter",
+        "title": "Real Love (Mallin's 'Sweet Touch' Extended Remix)"
+      },
+      {
+        "position": 10,
+        "artist": "David Bendeth",
+        "title": "Feel The Real"
+      },
+      {
+        "position": 11,
+        "artist": "Chemise",
+        "title": "She Can't Love You (Purple Disco Machine Edit)"
+      },
+      {
+        "position": 12,
+        "artist": "STR4TA",
+        "title": "Rhythm in Your Mind"
+      },
+      {
+        "position": 13,
+        "artist": "The Jungle Giants",
+        "title": "Feel the Way I Do (Northeast Party House Remix)"
+      },
+      {
+        "position": 14,
+        "artist": "Julien Jabre",
+        "title": "Swimming Places (Purple Disco Machine Re-Work)"
+      },
+      {
+        "position": 15,
+        "artist": "Blackalicious (Latyrix)",
+        "title": "Alphabet Aerobics"
+      },
+      {
+        "position": 16,
+        "artist": "Mr Phormula",
+        "title": "Wyddoriwr"
+      },
+      {
+        "position": 17,
+        "artist": "Kneecap",
+        "title": "Amach Anocht"
+      },
+      {
+        "position": 18,
+        "artist": "Black Sheep",
+        "title": "Black With N.V. (No Vision)"
+      },
+      {
+        "position": 19,
+        "artist": "3 Hwr Doeth",
+        "title": "Nol Ar Dol"
+      },
+      {
+        "position": 20,
+        "artist": "Tystion",
+        "title": "Diwrnod Brâf"
+      },
+      {
+        "position": 21,
+        "artist": "Polo & Pan",
+        "title": "Petite Etoile"
+      },
+      {
+        "position": 22,
+        "artist": "Herb Alpert",
+        "title": "Rise [The Reflex Revision]"
+      },
+      {
+        "position": 23,
+        "artist": "Jonny Sender",
+        "title": "Zhivago Zhivago"
+      },
+      {
+        "position": 24,
+        "artist": "Public Enemy & Herb Alpert",
+        "title": "Rebel Without A Pause (Whipped Cream Mix)"
+      },
+      {
+        "position": 26,
+        "artist": "The Evolution Control Committee",
+        "title": "The Acid Family"
+      },
+      {
+        "position": 27,
+        "artist": "U.S. Girls",
+        "title": "So Typically Now"
+      },
+      {
+        "position": 28,
+        "artist": "The Evolution Control Committee",
+        "title": "Bush Speech (Corrected) (Part 1)"
+      },
+      {
+        "position": 29,
+        "artist": "Aphex Twin",
+        "title": "We are the music makers"
+      },
+      {
+        "position": 30,
+        "artist": "Ceasefire",
+        "title": "Trickshot"
+      },
+      {
+        "position": 31,
+        "artist": "Autechre",
+        "title": "Flutter"
+      },
+      {
+        "position": 32,
+        "artist": "Everything But The Girl",
+        "title": "Single (Photek Remix)"
+      },
+      {
+        "position": 33,
+        "artist": "Badman",
+        "title": "5 War In 94 (Tango Remix)"
+      },
+      {
+        "position": 34,
+        "artist": "Dillinja",
+        "title": "The Angels Fell (2015 Remaster)"
+      },
+      {
+        "position": 35,
+        "artist": "Sage Todz",
+        "title": "ETO"
+      }
+    ],
     "description": "",
     "key": "/samcarrington/punters-club-june-29th-2025/",
     "slug": "punters-club-june-29th-2025",
     "publishedAt": "2025-06-29T20:48:55Z",
     "durationSeconds": 7850,
-    "playCount": 29,
+    "playCount": 31,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
@@ -254,6 +767,163 @@
   {
     "title": "The Punters' Club - July 27th: Flying Solo",
     "url": "https://www.mixcloud.com/samcarrington/the-punters-club-july-27th-flying-solo/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Earth, Wind & Fire",
+        "title": "After the Love Has Gone"
+      },
+      {
+        "position": 2,
+        "artist": "Lamont Dozier",
+        "title": "Take Off Your Make Up"
+      },
+      {
+        "position": 3,
+        "artist": "The Duprees",
+        "title": "The Sky's The Limit"
+      },
+      {
+        "position": 4,
+        "artist": "The Main Attraction",
+        "title": "Everyday"
+      },
+      {
+        "position": 5,
+        "artist": "Barbara Randolph",
+        "title": "Can I Get A Witness (Single Version)"
+      },
+      {
+        "position": 6,
+        "artist": "Barry Can't Swim",
+        "title": "All My Friends"
+      },
+      {
+        "position": 7,
+        "artist": "Taylor Haskins",
+        "title": "Alberto Balsalm"
+      },
+      {
+        "position": 8,
+        "artist": "Ty",
+        "title": "The Tale"
+      },
+      {
+        "position": 9,
+        "artist": "Taggy Matcher",
+        "title": "Chameleon (Disco Mix)"
+      },
+      {
+        "position": 10,
+        "artist": "The Smile",
+        "title": "The Smoke"
+      },
+      {
+        "position": 11,
+        "artist": "Psychemagik",
+        "title": "Something to Believe (Holly Golightly)"
+      },
+      {
+        "position": 12,
+        "artist": "Placebo",
+        "title": "Inner City Blues"
+      },
+      {
+        "position": 13,
+        "artist": "Hyperdrive Sound",
+        "title": "Holographic Avenue"
+      },
+      {
+        "position": 14,
+        "artist": "GHOSTWOMAN",
+        "title": "The End of a Gun"
+      },
+      {
+        "position": 15,
+        "artist": "Gruff Rhys",
+        "title": "Chwyn Chwyldroadol!"
+      },
+      {
+        "position": 16,
+        "artist": "James Taylor",
+        "title": "Fire and Rain"
+      },
+      {
+        "position": 17,
+        "artist": "Lamb",
+        "title": "Gabriel"
+      },
+      {
+        "position": 18,
+        "artist": "UB40",
+        "title": "Burden Of Shame (2010 Digital Remaster)"
+      },
+      {
+        "position": 19,
+        "artist": "Capitol 1212",
+        "title": "Love Will Tear Us Apart"
+      },
+      {
+        "position": 20,
+        "artist": "Massive Attack",
+        "title": "Moving Dub (Better Things)"
+      },
+      {
+        "position": 21,
+        "artist": "The Soul Syndicate",
+        "title": "Riot"
+      },
+      {
+        "position": 22,
+        "artist": "Prince Jammy",
+        "title": "Kamikazi"
+      },
+      {
+        "position": 23,
+        "artist": "Dan Boadi",
+        "title": "Money Is The Root Of Evil"
+      },
+      {
+        "position": 24,
+        "artist": "Rhythm & Sound",
+        "title": "King in My Empire"
+      },
+      {
+        "position": 25,
+        "artist": "Hexstatic present Trailer Trax",
+        "title": "Her Scene"
+      },
+      {
+        "position": 26,
+        "artist": "Layo & Bushwacka",
+        "title": "Love Story (Radio Edit)"
+      },
+      {
+        "position": 27,
+        "artist": "Amadou & Mariam",
+        "title": "L'amour à la folie"
+      },
+      {
+        "position": 28,
+        "artist": "808 State",
+        "title": "Pacific State (12\" Version)"
+      },
+      {
+        "position": 29,
+        "artist": "One Self",
+        "title": "Bluebird"
+      },
+      {
+        "position": 30,
+        "artist": "The Doors",
+        "title": "Waiting For The Sun [The Reflex Revision]"
+      },
+      {
+        "position": 31,
+        "artist": "Cocteau Twins",
+        "title": "The Thinner The Air"
+      }
+    ],
     "description": "Needing a bit of a chillout and preparing for next week's festival with some eclectic sounds. \n\nThanks to Stu 1138 for the poster art.",
     "key": "/samcarrington/the-punters-club-july-27th-flying-solo/",
     "slug": "the-punters-club-july-27th-flying-solo",
@@ -312,7 +982,154 @@
   {
     "title": "The Punters' Club - August 23rd Bank Holiday Party",
     "url": "https://www.mixcloud.com/samcarrington/the-punters-club-august-23rd-bank-holiday-party/",
-    "description": "",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Mary Clark",
+        "title": "Take Me I'm Yours (Club Version)"
+      },
+      {
+        "position": 2,
+        "artist": "Jarreau Vandal",
+        "title": "Someone That You Love (Franc Moody Remix)"
+      },
+      {
+        "position": 3,
+        "artist": "Ziggy Phunk",
+        "title": "Give It to You"
+      },
+      {
+        "position": 4,
+        "artist": "Rainbow Team",
+        "title": "Bite the Apple"
+      },
+      {
+        "position": 5,
+        "artist": "Falqo",
+        "title": "The Way You Move (feat. Kamaliza)"
+      },
+      {
+        "position": 6,
+        "artist": "Christy Essien Igbokwe",
+        "title": "You Can't Change a Man"
+      },
+      {
+        "position": 7,
+        "artist": "CAPYAC",
+        "title": "GOODTIME"
+      },
+      {
+        "position": 8,
+        "artist": "Double Exposure",
+        "title": "Everyman (Joey Negro's Salsoul Strut)"
+      },
+      {
+        "position": 9,
+        "artist": "Ziggy Phunk",
+        "title": "Fabulous Boogie (Original Mix)"
+      },
+      {
+        "position": 10,
+        "artist": "Danny Krivit Re-edit (Dk Re-Edit) - Gary's Gang",
+        "title": "Let's Lovedance Tonight"
+      },
+      {
+        "position": 11,
+        "artist": "David Marston",
+        "title": "Feel Your Soul"
+      },
+      {
+        "position": 12,
+        "artist": "Lord Echo",
+        "title": "Just Do You"
+      },
+      {
+        "position": 13,
+        "artist": "Aly-Us",
+        "title": "Follow Me (Club Mix)"
+      },
+      {
+        "position": 14,
+        "artist": "Midnight Magic",
+        "title": "I Found Love (Dimitri From Paris & DJ Rocca Erodiscotique Remix)"
+      },
+      {
+        "position": 15,
+        "artist": "Melba Moore",
+        "title": "Love's Comin' At Ya (2004 Digital Remaster)"
+      },
+      {
+        "position": 16,
+        "artist": "Neon Neon",
+        "title": "I Lust You (Heartbreak Remix)"
+      },
+      {
+        "position": 17,
+        "artist": "Alexkid",
+        "title": "Don't Hide It (Alexkid's vocal)"
+      },
+      {
+        "position": 18,
+        "artist": "DJ Deller",
+        "title": "Romantic (2001) (Original Mix)"
+      },
+      {
+        "position": 19,
+        "artist": "Crazy P",
+        "title": "Not Too Late (Original Mix)"
+      },
+      {
+        "position": 20,
+        "artist": "Moloko",
+        "title": "The Time Is Now (Francois K Vocal Mix)"
+      },
+      {
+        "position": 21,
+        "artist": "Average White Band",
+        "title": "Let's Go Round Again [The Reflex Quick Rework]"
+      },
+      {
+        "position": 22,
+        "artist": "Kneecap",
+        "title": "Parful (David Holmes Remix)"
+      },
+      {
+        "position": 23,
+        "artist": "The Sabres of Paradise",
+        "title": "Wilmot (Red Snapper remix)"
+      },
+      {
+        "position": 24,
+        "artist": "Karin Jones",
+        "title": "Under The Influence Of Love [The Reflex Edit]"
+      },
+      {
+        "position": 25,
+        "artist": "Daft Punk",
+        "title": "One More Time"
+      },
+      {
+        "position": 26,
+        "artist": "Juicy",
+        "title": "Beat Street Strut"
+      },
+      {
+        "position": 27,
+        "artist": "Patrick Cowley",
+        "title": "Do You Wanna Funk? (Remix)"
+      },
+      {
+        "position": 28,
+        "artist": "Hot Chip",
+        "title": "Devotion (Boys' Shorts Remix)"
+      },
+      {
+        "position": 29,
+        "artist": "Laurent Garnier",
+        "title": "The Man With The Red Face (Original Mix)"
+      }
+    ],
+    "description": "Kelly kicks-off with some banging Disco, laying down a challenge to Sam to follow up from 'Follow Me', so Alexkid get's its first outing on the show. Closing down proceedings with Laurent Garnier, helping you make the most of the long weekend.",
     "key": "/samcarrington/the-punters-club-august-23rd-bank-holiday-party/",
     "slug": "the-punters-club-august-23rd-bank-holiday-party",
     "publishedAt": "2025-08-23T21:15:04Z",
@@ -340,6 +1157,11 @@
         "name": "Soul",
         "url": "https://www.mixcloud.com/genres/soul/",
         "key": "/genres/soul/"
+      },
+      {
+        "name": "Funk",
+        "url": "https://www.mixcloud.com/genres/funk/",
+        "key": "/genres/funk/"
       }
     ],
     "pictures": {
@@ -375,12 +1197,164 @@
   {
     "title": "The Punters' Club - 90s Vibes - September 27th",
     "url": "https://www.mixcloud.com/radiowaters/the-punters-club-90s-vibes-september-27th/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Rhythm On The Loose",
+        "title": "Break Of Dawn"
+      },
+      {
+        "position": 2,
+        "artist": "The Nightwriters",
+        "title": "Let The Music Use You"
+      },
+      {
+        "position": 3,
+        "artist": "Xpansions",
+        "title": "Move Your Body (Elevation) [Club Mix]"
+      },
+      {
+        "position": 4,
+        "artist": "South Street Player",
+        "title": "(Who?) Keeps Changing Your Mind? (The Night Mix)"
+      },
+      {
+        "position": 5,
+        "artist": "Barbara Tucker",
+        "title": "Beautiful People (Underground Network Mix)"
+      },
+      {
+        "position": 6,
+        "artist": "Shades of Rhythm",
+        "title": "The Sound Of Eden (12\" Version)"
+      },
+      {
+        "position": 7,
+        "artist": "Last Rhythm",
+        "title": "Last Rhythm (Original Remastered Mix)"
+      },
+      {
+        "position": 8,
+        "artist": "Inner City",
+        "title": "Pennies From Heaven"
+      },
+      {
+        "position": 9,
+        "artist": "Hyper Go Go",
+        "title": "High (Original Mix)"
+      },
+      {
+        "position": 10,
+        "artist": "Marshall Jefferson",
+        "title": "Dub Your Body"
+      },
+      {
+        "position": 11,
+        "artist": "George Morel",
+        "title": "Let's Groove"
+      },
+      {
+        "position": 12,
+        "artist": "ORBITAL",
+        "title": "Chime (Edit) [Remastered]"
+      },
+      {
+        "position": 13,
+        "artist": "ATFC",
+        "title": "Bad Habit (ATFC Club Mix)"
+      },
+      {
+        "position": 14,
+        "artist": "Sol Brothers",
+        "title": "Turn Me Out (Turn To Sugar)"
+      },
+      {
+        "position": 15,
+        "artist": "duke",
+        "title": "So in Love With You (Full Intention 12\"Remix [Remastered 2021])"
+      },
+      {
+        "position": 16,
+        "artist": "Quake",
+        "title": "The Day Will Come (1998 Mix)"
+      },
+      {
+        "position": 17,
+        "artist": "Ital's Anthem",
+        "title": "Ital Rockers"
+      },
+      {
+        "position": 18,
+        "artist": "Unique 3",
+        "title": "The Theme (The Original Remix)"
+      },
+      {
+        "position": 19,
+        "artist": "Tricky Disco",
+        "title": "Tricky Disco"
+      },
+      {
+        "position": 20,
+        "artist": "Project 1",
+        "title": "It's a Moment in Time (A Few Dollars More Mix)"
+      },
+      {
+        "position": 21,
+        "artist": "LFO",
+        "title": "LFO (Leeds Warehouse Mix)"
+      },
+      {
+        "position": 22,
+        "artist": "Manix",
+        "title": "Feel Real Good (After Party Mix Remastered)"
+      },
+      {
+        "position": 23,
+        "artist": "Josh Wink",
+        "title": "Higher State of Consciousness (Tweekin Acid Funk)"
+      },
+      {
+        "position": 24,
+        "artist": "Way Out West",
+        "title": "The Gift (feat. Joanna Law)"
+      },
+      {
+        "position": 25,
+        "artist": "Primal Scream",
+        "title": "Love Insurrection (Black Science Orchestra Vocal Remix)"
+      },
+      {
+        "position": 26,
+        "artist": "Myd",
+        "title": "A.M.E.R.I.C.A."
+      },
+      {
+        "position": 27,
+        "artist": "Crooked Man",
+        "title": "Take It All Away"
+      },
+      {
+        "position": 28,
+        "artist": "Confidence Man, Sweetie Irie & Fcukers",
+        "title": "REAL MOVE TOUCH (Fcukers Remix)"
+      },
+      {
+        "position": 29,
+        "artist": "Crooked Man",
+        "title": "Don't Leave Me This Way (Extended Mix)"
+      },
+      {
+        "position": 30,
+        "artist": "Christopher Cross",
+        "title": "Ride Like The Wind (Joey Negro Extended Disco Mix)"
+      }
+    ],
     "description": "A trip back in time to the reason we have tinnitus. And a guest blast from Stu Bed Shed",
     "key": "/radiowaters/the-punters-club-90s-vibes-september-27th/",
     "slug": "the-punters-club-90s-vibes-september-27th",
     "publishedAt": "2025-09-27T23:05:00Z",
     "durationSeconds": 9493,
-    "playCount": 17,
+    "playCount": 18,
     "favoriteCount": 1,
     "commentCount": 0,
     "tags": [
@@ -443,12 +1417,279 @@
   {
     "title": "The Punters Club Half-term Party",
     "url": "https://www.mixcloud.com/radiowaters/the-punters-club-half-term-party/",
-    "description": "",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Royal House",
+        "title": "Can You Party"
+      },
+      {
+        "position": 2,
+        "artist": "Shades of Rhythm",
+        "title": "Sweet Sensation"
+      },
+      {
+        "position": 3,
+        "artist": "Zero B",
+        "title": "Lock Up (Monolith Mix)"
+      },
+      {
+        "position": 4,
+        "artist": "Awesome 3",
+        "title": "Dont Go (Original Mix)"
+      },
+      {
+        "position": 5,
+        "artist": "Liquid",
+        "title": "Sweet Harmony"
+      },
+      {
+        "position": 6,
+        "artist": "Underworld",
+        "title": "Dark And Long (Dark Train)"
+      },
+      {
+        "position": 7,
+        "artist": "The Prodigy",
+        "title": "Charly (Alley Cat Mix)"
+      },
+      {
+        "position": 8,
+        "artist": "congress",
+        "title": "40 Miles"
+      },
+      {
+        "position": 9,
+        "artist": "The Future Sound Of London",
+        "title": "Papua New Guinea"
+      },
+      {
+        "position": 10,
+        "artist": "Origin Unknown",
+        "title": "Valley Of The Shadows"
+      },
+      {
+        "position": 11,
+        "artist": "Renegade",
+        "title": "Terrorist (P.A. Mix)"
+      },
+      {
+        "position": 12,
+        "artist": "DJ Zinc",
+        "title": "Stubborn"
+      },
+      {
+        "position": 13,
+        "artist": "Shy FX",
+        "title": "Roll The Dice (feat. Stamina MC & Lily Allen)"
+      },
+      {
+        "position": 14,
+        "artist": "Sub Focus",
+        "title": "Original Don"
+      },
+      {
+        "position": 15,
+        "artist": "Nia Archives",
+        "title": "Maia Maia"
+      },
+      {
+        "position": 16,
+        "artist": "Shy FX",
+        "title": "Skanga Riddim"
+      },
+      {
+        "position": 17,
+        "artist": "Dillinja",
+        "title": "You"
+      },
+      {
+        "position": 18,
+        "artist": "Lemon D",
+        "title": "I Can't Stop"
+      },
+      {
+        "position": 19,
+        "artist": "Doc Scott",
+        "title": "Ghost 25"
+      },
+      {
+        "position": 20,
+        "artist": "Roni Size",
+        "title": "Step Up"
+      },
+      {
+        "position": 21,
+        "artist": "Alex Reece",
+        "title": "Feel The Sunshine"
+      },
+      {
+        "position": 22,
+        "artist": "Overmono",
+        "title": "If We Ever"
+      },
+      {
+        "position": 23,
+        "artist": "Goddard.",
+        "title": "Yesterday"
+      },
+      {
+        "position": 24,
+        "artist": "Calibre",
+        "title": "Mr Right On (Remastered)"
+      },
+      {
+        "position": 25,
+        "artist": "Alex Reece",
+        "title": "Pulp Fiction (Benny L Remix)"
+      },
+      {
+        "position": 26,
+        "artist": "Shy FX",
+        "title": "I Got You (feat. Tyler Daley)"
+      },
+      {
+        "position": 27,
+        "artist": "DJ Hype",
+        "title": "Peace, Love and Unity (feat. MC Fats)"
+      },
+      {
+        "position": 28,
+        "artist": "DJ Zinc",
+        "title": "On Repeat"
+      },
+      {
+        "position": 29,
+        "artist": "Cloud 9",
+        "title": "You Got Me Burnin (Ray Keith & Nookie Remix)"
+      },
+      {
+        "position": 30,
+        "artist": "Dillinja",
+        "title": "Sovereign Melody"
+      },
+      {
+        "position": 31,
+        "artist": "Kneecap",
+        "title": "THE RECAP"
+      },
+      {
+        "position": 32,
+        "artist": "Johnny Jungle",
+        "title": "Johnny '94 (Dillinja Remix)"
+      },
+      {
+        "position": 33,
+        "artist": "DJ Mayhem",
+        "title": "Inesse (Ray Keith Remix)"
+      },
+      {
+        "position": 34,
+        "artist": "Roni Size",
+        "title": "Bumbakita"
+      },
+      {
+        "position": 35,
+        "artist": "Think Tonk",
+        "title": "Tom & Heavy VIP"
+      },
+      {
+        "position": 36,
+        "artist": "Shy FX",
+        "title": "This Style"
+      },
+      {
+        "position": 37,
+        "artist": "London Elektricity",
+        "title": "Fast Soul Music"
+      },
+      {
+        "position": 38,
+        "artist": "Ed Solo",
+        "title": "Top Rankin (Original Mix)"
+      },
+      {
+        "position": 39,
+        "artist": "Dillinja",
+        "title": "The Angels Fell (2015 Remaster)"
+      },
+      {
+        "position": 40,
+        "artist": "Hidden Agenda",
+        "title": "Is It Love (2017 Remaster)"
+      },
+      {
+        "position": 41,
+        "artist": "London Elektricity",
+        "title": "Tape Loops"
+      },
+      {
+        "position": 42,
+        "artist": "Big Bud",
+        "title": "Give A Little (Edit)"
+      },
+      {
+        "position": 43,
+        "artist": "KeeZee & Tim Reaper",
+        "title": "The Roughneck Sound"
+      },
+      {
+        "position": 44,
+        "artist": "L.T.J. Bukem",
+        "title": "vocal tune"
+      },
+      {
+        "position": 45,
+        "artist": "Dillinja",
+        "title": "Deadly Deep Subs"
+      },
+      {
+        "position": 46,
+        "artist": "London Elektricity",
+        "title": "To Be Me"
+      },
+      {
+        "position": 47,
+        "artist": "Remarc",
+        "title": "SoundMurderer"
+      },
+      {
+        "position": 48,
+        "artist": "System Ex",
+        "title": "Mindgames (Dub Mix) [1994]"
+      },
+      {
+        "position": 49,
+        "artist": "DJ SS",
+        "title": "Lighter"
+      },
+      {
+        "position": 50,
+        "artist": "Calibre & Singing Fats",
+        "title": "Drop It Down"
+      },
+      {
+        "position": 51,
+        "artist": "Slipmatt",
+        "title": "Breakin Free"
+      },
+      {
+        "position": 52,
+        "artist": "14 Selectors Roll",
+        "title": "V.I.P (Tom N_ Jerry Remix)"
+      },
+      {
+        "position": 53,
+        "artist": "Origin Unknown",
+        "title": "Valley of the Shadows (Chase & Status Remix)"
+      }
+    ],
+    "description": "Dosing you up with a strong prescription of lively Jungle and Drum and Bass, to kick off a week with the kids in style. Don't overheat, stay hydrated, and find a rave friend. Somehow we fit 53 tracks into the 2h. ADHD much?",
     "key": "/radiowaters/the-punters-club-half-term-party/",
     "slug": "the-punters-club-half-term-party",
     "publishedAt": "2025-10-25T23:06:48Z",
     "durationSeconds": 8736,
-    "playCount": 18,
+    "playCount": 20,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
@@ -506,12 +1747,184 @@
   {
     "title": "The Punters' Club November 29th 2025",
     "url": "https://www.mixcloud.com/radiowaters/the-punters-club-november-29th-2025/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Melle Jutte",
+        "title": "Horizons"
+      },
+      {
+        "position": 2,
+        "artist": "Schmoov!",
+        "title": "Destination (Original Mix)"
+      },
+      {
+        "position": 3,
+        "artist": "Lucas Dekker",
+        "title": "A Fire Inside of Me"
+      },
+      {
+        "position": 4,
+        "artist": "HNNY",
+        "title": "Gymnastics"
+      },
+      {
+        "position": 5,
+        "artist": "Sandy Barber",
+        "title": "I Think I'll Do Some Stepping (On My Own) (OPOLOPO Rework)"
+      },
+      {
+        "position": 6,
+        "artist": "Tiawa",
+        "title": "Soldiers (WheelUP Remix)"
+      },
+      {
+        "position": 7,
+        "artist": "Sticks & Stonez, Liv East",
+        "title": "You're My (Larse Remix)"
+      },
+      {
+        "position": 8,
+        "artist": "Prospa, Rahh",
+        "title": "This Rhythm (feat. RAHH)"
+      },
+      {
+        "position": 9,
+        "artist": "Alan Fitzpatrick, Ronnie Spiteri",
+        "title": "On My Mind (Enzo is Burning Remix)"
+      },
+      {
+        "position": 10,
+        "artist": "Josh Milan",
+        "title": "Thinking About Your Body (Louie Vega Roots NYC Mix)"
+      },
+      {
+        "position": 11,
+        "artist": "Jovonn",
+        "title": "Pianos of Gold (Ian Pooley Mix)"
+      },
+      {
+        "position": 12,
+        "artist": "Harry K",
+        "title": "My Baby Said To Me"
+      },
+      {
+        "position": 13,
+        "artist": "Theo Kottis",
+        "title": "Reasons"
+      },
+      {
+        "position": 14,
+        "artist": "PAWSA",
+        "title": "TOO COOL TO BE CARELESS"
+      },
+      {
+        "position": 15,
+        "artist": "Tangerine Dream",
+        "title": "Love On A Real Train (Risky Business)"
+      },
+      {
+        "position": 16,
+        "artist": "Ripperton",
+        "title": "TD - Love on a real train (Ripperton Edit)"
+      },
+      {
+        "position": 17,
+        "artist": "Ray Mang",
+        "title": "Look Into My Eyes"
+      },
+      {
+        "position": 18,
+        "artist": "PianoMan",
+        "title": "Pasion (Alex Kassian's Mandarine Dance Mix)"
+      },
+      {
+        "position": 19,
+        "artist": "Secret Circuit",
+        "title": "JungleBones (Tiago Mix)"
+      },
+      {
+        "position": 20,
+        "artist": "chkchkchk",
+        "title": "Freedom! '15"
+      },
+      {
+        "position": 21,
+        "artist": "Prince",
+        "title": "Chelsea (Re-edit)"
+      },
+      {
+        "position": 22,
+        "artist": "Crooked Man",
+        "title": "Don't Leave Me This Way (Club Mix)"
+      },
+      {
+        "position": 23,
+        "artist": "Leftfield",
+        "title": "Open Up"
+      },
+      {
+        "position": 24,
+        "artist": "Roberta Flack",
+        "title": "Killing Me Softly With His Song (Ben Liebrand DJ Mix)"
+      },
+      {
+        "position": 25,
+        "artist": "Fred again.. & John Martyn",
+        "title": "little mystery"
+      },
+      {
+        "position": 26,
+        "artist": "Emika",
+        "title": "Come Catch Me"
+      },
+      {
+        "position": 27,
+        "artist": "Tiger & Woods",
+        "title": "No More Talking"
+      },
+      {
+        "position": 28,
+        "artist": "Juan Maclean",
+        "title": "Happy House - Prince Language Dub"
+      },
+      {
+        "position": 29,
+        "artist": "Bodyrox",
+        "title": "Yeah Yeah (Instrumental Radio Edit)"
+      },
+      {
+        "position": 30,
+        "artist": "Confidence Man",
+        "title": "Boyfriend (Repeat) (Lindstrøm & Prins Thomas Remix)"
+      },
+      {
+        "position": 31,
+        "artist": "Roosevelt",
+        "title": "See You Again (Lazywax Remix)"
+      },
+      {
+        "position": 32,
+        "artist": "Bohannon",
+        "title": "Let's Start to Dance Again (Dimitri From Paris Remix)"
+      },
+      {
+        "position": 33,
+        "artist": "Classixx",
+        "title": "Ill Get You (Gigameshtreasure Fingers)"
+      },
+      {
+        "position": 34,
+        "artist": "Philladephia International All-Stars",
+        "title": "Let's Clean Up The Ghetto"
+      }
+    ],
     "description": "Grooves from the garden",
     "key": "/radiowaters/the-punters-club-november-29th-2025/",
     "slug": "the-punters-club-november-29th-2025",
     "publishedAt": "2025-12-05T11:01:28Z",
     "durationSeconds": 7411,
-    "playCount": 19,
+    "playCount": 20,
     "favoriteCount": 1,
     "commentCount": 0,
     "tags": [
@@ -564,6 +1977,198 @@
   {
     "title": "Punters' Club Make Mine a Double for Awamu 6th Dec",
     "url": "https://www.mixcloud.com/radiowaters/punters-club-make-mine-a-double-for-awamu-6th-dec/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "The Gap Band",
+        "title": "You Dropped A Bomb On Me"
+      },
+      {
+        "position": 2,
+        "artist": "Donnell Pitman",
+        "title": "Love Explosion"
+      },
+      {
+        "position": 3,
+        "artist": "Leroy Hutson",
+        "title": "I Think I'm Falling In Love"
+      },
+      {
+        "position": 4,
+        "artist": "The Salsoul Orchestra",
+        "title": "Runaway"
+      },
+      {
+        "position": 5,
+        "artist": "Roy Ayers",
+        "title": "Don't Stop The Feeling (Album Version)"
+      },
+      {
+        "position": 6,
+        "artist": "Rick James",
+        "title": "Give It To Me Baby"
+      },
+      {
+        "position": 7,
+        "artist": "Benita",
+        "title": "Time for a Change"
+      },
+      {
+        "position": 8,
+        "artist": "Patrice Rushen",
+        "title": "Haven't You Heard"
+      },
+      {
+        "position": 9,
+        "artist": "Duke",
+        "title": "So in Love With You (Remastered 2021)"
+      },
+      {
+        "position": 10,
+        "artist": "Skyy",
+        "title": "Here's To You"
+      },
+      {
+        "position": 11,
+        "artist": "Al Kent",
+        "title": "Come Back Home"
+      },
+      {
+        "position": 12,
+        "artist": "Richie Hova",
+        "title": "Warm Spirit (In My Soul I Can Feel)"
+      },
+      {
+        "position": 13,
+        "artist": "Men From The Nile, Roy Davis Jr., Jay Juniel",
+        "title": "Watch Them Come (ASRV Stéphane Vera & Andy Roberts Disco Mix)"
+      },
+      {
+        "position": 14,
+        "artist": "Groove Armada",
+        "title": "Love Sweet Sound (Mark Knight & Funkagenda's A.H.B Mix)"
+      },
+      {
+        "position": 15,
+        "artist": "Ron Hall, The MuthaFunkaz, Marc Evans",
+        "title": "The Way You Love Me"
+      },
+      {
+        "position": 16,
+        "artist": "Heaven 17",
+        "title": "Penthouse And Pavement (Edit)"
+      },
+      {
+        "position": 17,
+        "artist": "Claptone, Mylo",
+        "title": "Drop The Pressure (Purple Disco Machine Remix)"
+      },
+      {
+        "position": 18,
+        "artist": "Tiga & Zyntherius",
+        "title": "Sunglasses at Night (D.I.M. Remix)"
+      },
+      {
+        "position": 19,
+        "artist": "Fleetwood Mac",
+        "title": "Dreams [The Reflex Take 2 Vocal Revision]"
+      },
+      {
+        "position": 20,
+        "artist": "Layo & Bushwacka",
+        "title": "Love Story (Tim Deluxe Remix)"
+      },
+      {
+        "position": 21,
+        "artist": "Marshall Jefferson",
+        "title": "Sweet Harmony"
+      },
+      {
+        "position": 22,
+        "artist": "Four Tet",
+        "title": "31 Bloom"
+      },
+      {
+        "position": 23,
+        "artist": "Lex Loofah",
+        "title": "That Womp Track (Original Mix)"
+      },
+      {
+        "position": 24,
+        "artist": "John Valais",
+        "title": "Hypno Disco (Original Mix)"
+      },
+      {
+        "position": 25,
+        "artist": "Herbie Hancock",
+        "title": "Go for It (7\" Version)"
+      },
+      {
+        "position": 26,
+        "artist": "Nina Simone",
+        "title": "Be That Way Sometimes [The Reflex Revision]"
+      },
+      {
+        "position": 28,
+        "artist": "Way Out West",
+        "title": "Sharkhunt"
+      },
+      {
+        "position": 29,
+        "artist": "Sísý Ey",
+        "title": "Restless (Crazy P Extended Vocal Mix)"
+      },
+      {
+        "position": 30,
+        "artist": "Lou Rawls",
+        "title": "See You When I Git There [The Reflex Revision]"
+      },
+      {
+        "position": 31,
+        "artist": "Psychemagik",
+        "title": "DW002 A. What A Funky Night"
+      },
+      {
+        "position": 32,
+        "artist": "Moscow Groove Institute",
+        "title": "Voyage - Pork Recordings"
+      },
+      {
+        "position": 33,
+        "artist": "Brassica",
+        "title": "Tears I Can Afford (Bicep Remix)"
+      },
+      {
+        "position": 34,
+        "artist": "Franz Ferdinand",
+        "title": "Ulysses (Beyond The Wizards Sleeve Re-Animation)"
+      },
+      {
+        "position": 35,
+        "artist": "Blackjoy",
+        "title": "Moustache (La Stache)"
+      },
+      {
+        "position": 36,
+        "artist": "Metro Area",
+        "title": "Miura"
+      },
+      {
+        "position": 37,
+        "artist": "Faze Action",
+        "title": "In the Trees"
+      },
+      {
+        "position": 38,
+        "artist": "Chic",
+        "title": "I Want Your Love (Todd Terje Remix)"
+      },
+      {
+        "position": 39,
+        "artist": "The O'Jays",
+        "title": "I Love Music (Dave Lee Sweet Music Mix)"
+      }
+    ],
     "description": "Dig deep and Support Awamu - donations doubled during the Big Give",
     "key": "/radiowaters/punters-club-make-mine-a-double-for-awamu-6th-dec/",
     "slug": "punters-club-make-mine-a-double-for-awamu-6th-dec",
@@ -627,12 +2232,159 @@
   {
     "title": "The Punters' Club NYE Warm-up",
     "url": "https://www.mixcloud.com/radiowaters/the-punters-club-nye-warm-up/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Hardkandy",
+        "title": "Hey Lover (feat. Laura Vane)"
+      },
+      {
+        "position": 2,
+        "artist": "The Gino Fontaine",
+        "title": "Revnorev (Pete Herbert Remix)"
+      },
+      {
+        "position": 3,
+        "artist": "Harari",
+        "title": "Party"
+      },
+      {
+        "position": 4,
+        "artist": "Prins Thomas",
+        "title": "Denpasar til Bangkok"
+      },
+      {
+        "position": 5,
+        "artist": "Aldo Vanucci, Kylie Auldist",
+        "title": "You're All Show (Flevans Remix)"
+      },
+      {
+        "position": 6,
+        "artist": "The Allergies",
+        "title": "Let Me Hear You Say"
+      },
+      {
+        "position": 7,
+        "artist": "Chris Coco",
+        "title": "Word (Leftside Wobble Remix)"
+      },
+      {
+        "position": 8,
+        "artist": "Smoove & Turrell",
+        "title": "Will You Be Mine"
+      },
+      {
+        "position": 9,
+        "artist": "Bosq, Megan Doherty",
+        "title": "Can't Seem to Hide"
+      },
+      {
+        "position": 10,
+        "artist": "Metronomy, Purple Disco Machine",
+        "title": "The Bay (Purple Disco Machine Remix)"
+      },
+      {
+        "position": 11,
+        "artist": "A Vision of Panorama, Meora",
+        "title": "Say My Name (Dub Mix)"
+      },
+      {
+        "position": 12,
+        "artist": "Daniel Avery, Cecile Believe",
+        "title": "Rapture in Blue (Midnight Version)"
+      },
+      {
+        "position": 13,
+        "artist": "Primal Scream",
+        "title": "2013 (Andrew Weatherall Dub)"
+      },
+      {
+        "position": 14,
+        "artist": "Fred again.., Duskus, Four Tet, Joy Anonymous, Skrillex",
+        "title": "glow"
+      },
+      {
+        "position": 15,
+        "artist": "Hardfloor",
+        "title": "Eat.Sleep.Programming the 303."
+      },
+      {
+        "position": 16,
+        "artist": "S'Express",
+        "title": "Superfly Guy (The Fluffy Bagel Mix)"
+      },
+      {
+        "position": 17,
+        "artist": "Boys Noize & Erol Alkan",
+        "title": "Avalanche (Terminal Velocity) [feat. Jarvis Cocker]"
+      },
+      {
+        "position": 18,
+        "artist": "Bob Sinclar",
+        "title": "Ultimate Funk"
+      },
+      {
+        "position": 19,
+        "artist": "Seb Skalski, Rona Ray",
+        "title": "It's Getting Started (House Mix)"
+      },
+      {
+        "position": 20,
+        "artist": "Jon Cutler, E-man",
+        "title": "It's Yours (Radio Edit)"
+      },
+      {
+        "position": 21,
+        "artist": "Cloud One",
+        "title": "Disco Juice (7\" Edit)"
+      },
+      {
+        "position": 22,
+        "artist": "Kenny Summit",
+        "title": "Dirty Lowdown (Original Mix)"
+      },
+      {
+        "position": 23,
+        "artist": "Soulista",
+        "title": "Symphomaniac"
+      },
+      {
+        "position": 24,
+        "artist": "Chicago",
+        "title": "Street Player (2003 Remaster)"
+      },
+      {
+        "position": 25,
+        "artist": "Coeo",
+        "title": "Light Star (COEO Edit)"
+      },
+      {
+        "position": 26,
+        "artist": "Bodyrox",
+        "title": "Yeah Yeah (D Ramirez Instrumental)"
+      },
+      {
+        "position": 27,
+        "artist": "Alan Braxe, Fred Falke",
+        "title": "Intro"
+      },
+      {
+        "position": 28,
+        "artist": "The Lisa Marie Experience",
+        "title": "Keep On Jumpin' (Bizarre Inc Remix) [Edit]"
+      },
+      {
+        "position": 29,
+        "artist": "Roy Davis Jr., Peven Everett",
+        "title": "Gabriel (Live Garage Version)"
+      }
+    ],
     "description": "Starting the party off to see in the New Year",
     "key": "/radiowaters/the-punters-club-nye-warm-up/",
     "slug": "the-punters-club-nye-warm-up",
     "publishedAt": "2026-01-10T15:28:21Z",
     "durationSeconds": 7196,
-    "playCount": 19,
+    "playCount": 20,
     "favoriteCount": 2,
     "commentCount": 0,
     "tags": [
@@ -685,7 +2437,155 @@
   {
     "title": "The Punters' Club - Shaking off the January Blues",
     "url": "https://www.mixcloud.com/radiowaters/the-punters-club-shaking-off-the-january-blues/",
-    "description": "",
+    "localDescription": "Less wallow, more movement. This one leans into the joyful stuff: disco swagger, deep soul, late-night house and a few beautifully strange detours, all stitched together for anyone needing a reset and a reason to smile.",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "Vertigini",
+        "title": "Back Again (Dub Mix)"
+      },
+      {
+        "position": 2,
+        "artist": "Moon Rocket",
+        "title": "Fascinated By You"
+      },
+      {
+        "position": 3,
+        "artist": "Sebb Junior, Eider",
+        "title": "Come Back (Art Of Tones Remix)"
+      },
+      {
+        "position": 4,
+        "artist": "Rhemi, Alex Mills",
+        "title": "Back To The One (Original Mix)"
+      },
+      {
+        "position": 5,
+        "artist": "Sgt Slick",
+        "title": "Make It Happen"
+      },
+      {
+        "position": 6,
+        "artist": "Mr President, Cindy Pooch, Celia Kameni",
+        "title": "Plenty Loads of Loving"
+      },
+      {
+        "position": 7,
+        "artist": "Babert",
+        "title": "Time After Time"
+      },
+      {
+        "position": 8,
+        "artist": "Peter Brown",
+        "title": "Disko Madness"
+      },
+      {
+        "position": 9,
+        "artist": "Reel People, Angela Johnson",
+        "title": "Can't Stop (Dennis F's Falling 4 U Mix Edit)"
+      },
+      {
+        "position": 10,
+        "artist": "Reel People, Dyanna Fearon, Phil Asher",
+        "title": "Butterflies (Restless Soul's Soul Heaven Mix)"
+      },
+      {
+        "position": 11,
+        "artist": "Purple Disco Machine",
+        "title": "Encore (feat. Baxter) [Mousse T. Remix]"
+      },
+      {
+        "position": 12,
+        "artist": "Hercules & Love Affair",
+        "title": "Blind (Frankie Knuckles Remix)"
+      },
+      {
+        "position": 13,
+        "artist": "Melba Moore",
+        "title": "Love's Comin' At Ya (2004 Digital Remaster)"
+      },
+      {
+        "position": 14,
+        "artist": "Wham!",
+        "title": "Everything She Wants [The Reflex LP Version Revision]"
+      },
+      {
+        "position": 15,
+        "artist": "Level 42",
+        "title": "Starchild [The Reflex Revision]"
+      },
+      {
+        "position": 16,
+        "artist": "SAUCY LADY",
+        "title": "Passport To My Love"
+      },
+      {
+        "position": 17,
+        "artist": "Psychemagik",
+        "title": "Fleetwood Mac - Everywhere (Psychemagik Remix)"
+      },
+      {
+        "position": 18,
+        "artist": "Dexter Wansel",
+        "title": "Life On Mars [The Reflex Revision]"
+      },
+      {
+        "position": 19,
+        "artist": "Bosq, Kuyen",
+        "title": "Found Your Love"
+      },
+      {
+        "position": 20,
+        "artist": "Hot Toddy",
+        "title": "Freekend feat.Danielle Moore (Ron Basejam Remix)"
+      },
+      {
+        "position": 21,
+        "artist": "INXS",
+        "title": "Need You Tonight (Liebrand 12\" Mix)"
+      },
+      {
+        "position": 22,
+        "artist": "Röyksopp",
+        "title": "What Else Is There? (Thin White Duke Mix)"
+      },
+      {
+        "position": 23,
+        "artist": "Dr Packer",
+        "title": "Disco Squares"
+      },
+      {
+        "position": 24,
+        "artist": "Chemise",
+        "title": "She Can't Love You (Purple Disco Machine Edit)"
+      },
+      {
+        "position": 25,
+        "artist": "Heatwave",
+        "title": "Boogie Nights [The Reflex Revision]"
+      },
+      {
+        "position": 26,
+        "artist": "Prince",
+        "title": "Irresistible Bitch"
+      },
+      {
+        "position": 27,
+        "artist": "Ripperton",
+        "title": "Maiden Voyage (Ripperton Edit)"
+      },
+      {
+        "position": 28,
+        "artist": "MC 900 FT Jesus",
+        "title": "Killer Inside Me"
+      },
+      {
+        "position": 29,
+        "artist": "Curtis Mayfield",
+        "title": "Superfly"
+      }
+    ],
+    "description": "Less wallow, more movement. This one leans into the joyful stuff: disco swagger, deep soul, late-night house and a few beautifully strange detours, all stitched together for anyone needing a reset and a reason to smile.",
     "key": "/radiowaters/the-punters-club-shaking-off-the-january-blues/",
     "slug": "the-punters-club-shaking-off-the-january-blues",
     "publishedAt": "2026-01-31T21:28:15Z",
@@ -738,12 +2638,184 @@
   {
     "title": "The Punters' Club - Funking out of February",
     "url": "https://www.mixcloud.com/radiowaters/the-punters-club-funking-out-of-february/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "US3, Rahsaan, Gerard Presencer",
+        "title": "Cantaloop (Flip Fantasia)"
+      },
+      {
+        "position": 2,
+        "artist": "Jestofunk",
+        "title": "For Your Precious Love"
+      },
+      {
+        "position": 3,
+        "artist": "Kraak & Smaak",
+        "title": "Keep on Searching"
+      },
+      {
+        "position": 4,
+        "artist": "Kraak & Smaak, John Turrell",
+        "title": "Back Again (Hot Toddy Remix)"
+      },
+      {
+        "position": 5,
+        "artist": "Igor Gonya",
+        "title": "Numbness"
+      },
+      {
+        "position": 6,
+        "artist": "Jhelisa",
+        "title": "Friendly Pressure (Ashley Beedle Enemy Release Mix)"
+      },
+      {
+        "position": 7,
+        "artist": "Homero Espinosa",
+        "title": "Carry On (Edit)"
+      },
+      {
+        "position": 8,
+        "artist": "Cody Currie, Kaidi Tatham",
+        "title": "Money (Kaidi Tatham Remix)"
+      },
+      {
+        "position": 9,
+        "artist": "Peven Everett",
+        "title": "Heat Up"
+      },
+      {
+        "position": 10,
+        "artist": "Shaun Escoffery",
+        "title": "Space Rider"
+      },
+      {
+        "position": 11,
+        "artist": "Cody Currie, Ally McMahon",
+        "title": "Easy"
+      },
+      {
+        "position": 12,
+        "artist": "Walter G",
+        "title": "Soul Strut (Edit)"
+      },
+      {
+        "position": 13,
+        "artist": "Makèz",
+        "title": "City of All (Edit)"
+      },
+      {
+        "position": 14,
+        "artist": "Platinum Doll, P.Y. Anderson",
+        "title": "Believe In A Brighter Day (Micky More & Andy Tee Remix)"
+      },
+      {
+        "position": 15,
+        "artist": "Shaun Escoffery",
+        "title": "Days Like This (Spinna & Ticklah Mix)"
+      },
+      {
+        "position": 16,
+        "artist": "Leon Sweet",
+        "title": "Sunny Bigler (Leftside Wobble's Space Dub)"
+      },
+      {
+        "position": 17,
+        "artist": "Coeo",
+        "title": "Like It Is"
+      },
+      {
+        "position": 18,
+        "artist": "Cerrone, Franc Moody",
+        "title": "Love In C Minor (Franc Moody Remix)"
+      },
+      {
+        "position": 19,
+        "artist": "Lovebug Starski",
+        "title": "Say What You Wanna Say"
+      },
+      {
+        "position": 20,
+        "artist": "Double Exposure",
+        "title": "Everyman (Late Nite Tuff Guy Rework)"
+      },
+      {
+        "position": 21,
+        "artist": "Gerry Read",
+        "title": "I'm a Little Naughty"
+      },
+      {
+        "position": 22,
+        "artist": "Bonobo, TEED",
+        "title": "Heartbreak"
+      },
+      {
+        "position": 23,
+        "artist": "Steve Cobby, Danielle Moore",
+        "title": "Lefthanded Books"
+      },
+      {
+        "position": 24,
+        "artist": "Jestofunk",
+        "title": "Can We Live"
+      },
+      {
+        "position": 25,
+        "artist": "Ella Fitzgerald",
+        "title": "Blue Skies (Maya Jane Coles Remix)"
+      },
+      {
+        "position": 26,
+        "artist": "Clive From Accounts",
+        "title": "4 Time"
+      },
+      {
+        "position": 27,
+        "artist": "Charli xcx, Billie Eilish",
+        "title": "Guess featuring billie eilish"
+      },
+      {
+        "position": 28,
+        "artist": "Aretha Franklin",
+        "title": "See Saw"
+      },
+      {
+        "position": 29,
+        "artist": "Adult DVD",
+        "title": "Real Tree Lee"
+      },
+      {
+        "position": 30,
+        "artist": "Kneecap",
+        "title": "Liars Tale"
+      },
+      {
+        "position": 31,
+        "artist": "Nina Simone",
+        "title": "Feeling Good (Bassnectar Remix)"
+      },
+      {
+        "position": 32,
+        "artist": "Congo Natty",
+        "title": "Junglist"
+      },
+      {
+        "position": 33,
+        "artist": "Omni Trio",
+        "title": "Renegade Snares (Foul Play Remix)"
+      },
+      {
+        "position": 34,
+        "artist": "Special Request",
+        "title": "Pull Up (Tim Reaper Remix)"
+      }
+    ],
     "description": "With a broken mic but a need to shake out the Winter blues and beckon in the Spring.",
     "key": "/radiowaters/the-punters-club-funking-out-of-february/",
     "slug": "the-punters-club-funking-out-of-february",
     "publishedAt": "2026-02-28T21:28:48Z",
     "durationSeconds": 7343,
-    "playCount": 14,
+    "playCount": 15,
     "favoriteCount": 1,
     "commentCount": 0,
     "tags": [
@@ -806,6 +2878,138 @@
   {
     "title": "The Punters' Club - Spring Forward",
     "url": "https://www.mixcloud.com/radiowaters/the-punters-club-spring-forward/",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "The Groovers",
+        "title": "The One (You) (Original)"
+      },
+      {
+        "position": 2,
+        "artist": "Clive From Accounts",
+        "title": "It Began"
+      },
+      {
+        "position": 3,
+        "artist": "JKriv, Lou Teti",
+        "title": "Elisco (Original Mix)"
+      },
+      {
+        "position": 4,
+        "artist": "INXS",
+        "title": "Need You Tonight [The Reflex Revision]"
+      },
+      {
+        "position": 5,
+        "artist": "Shiny Objects",
+        "title": "Nervous"
+      },
+      {
+        "position": 6,
+        "artist": "Caribou",
+        "title": "You and I"
+      },
+      {
+        "position": 7,
+        "artist": "The Glimmers",
+        "title": "Soul Train"
+      },
+      {
+        "position": 8,
+        "artist": "Shit Robot",
+        "title": "Simple Things (Work It Out) (Todd Terje Version)"
+      },
+      {
+        "position": 9,
+        "artist": "Crazy P",
+        "title": "Stop Space Return (Cosmodelica Remix)"
+      },
+      {
+        "position": 10,
+        "artist": "Lex Loofah",
+        "title": "Ain't It Funky (Original Mix)"
+      },
+      {
+        "position": 11,
+        "artist": "Ellie Goulding",
+        "title": "Easy Lover (Four Tet Remix)"
+      },
+      {
+        "position": 12,
+        "artist": "Temples",
+        "title": "Shelter Song (Leftside Wobble rocks the Discoteque Remix)"
+      },
+      {
+        "position": 13,
+        "artist": "⣎⡇ꉺლ༽இ•̛)ྀ◞ ༎ຶ ༽ৣৢ؞ৢ؞ؖ ꉺლ",
+        "title": "()vȯ)) ̷̨ʅ(۝ʅ(Ɵʅ():::()̵̳̗̊(Ɵʅ()vȯ)) ̷̨ʅ"
+      },
+      {
+        "position": 14,
+        "artist": "Speedy J",
+        "title": "Flashback"
+      },
+      {
+        "position": 15,
+        "artist": "Confidence Man, In2stellar",
+        "title": "BREAK IT DOWN (ON THE BASSLINE)"
+      },
+      {
+        "position": 16,
+        "artist": "B.T. With Vincent Covello",
+        "title": "Loving You More (B.T's Primoridial Sound 12\" Vocal)"
+      },
+      {
+        "position": 17,
+        "artist": "Planet Funk",
+        "title": "Chase the Sun"
+      },
+      {
+        "position": 18,
+        "artist": "Salif Keita",
+        "title": "Madan Exotic Disco"
+      },
+      {
+        "position": 19,
+        "artist": "Kimara Lovelace, Lil' Louis",
+        "title": "Misery (Lil' Louis Extended Club Mix (Mixed))"
+      },
+      {
+        "position": 20,
+        "artist": "Samma Lone",
+        "title": "Dancin Is The Answer (Original Mix)"
+      },
+      {
+        "position": 21,
+        "artist": "Boris Dlugosch, Inaya Day",
+        "title": "Keep Pushin'"
+      },
+      {
+        "position": 22,
+        "artist": "Junior Jack",
+        "title": "Thrill Me"
+      },
+      {
+        "position": 23,
+        "artist": "Saison",
+        "title": "One Day"
+      },
+      {
+        "position": 24,
+        "artist": "JAYDEE",
+        "title": "Plastic Dreams"
+      },
+      {
+        "position": 25,
+        "artist": "Leftfield",
+        "title": "Not Forgotten (Hard Hands Remix)"
+      },
+      {
+        "position": 26,
+        "artist": "Sebb Junior",
+        "title": "Ghetto Boy"
+      }
+    ],
     "description": "The Punters Club is stepping into spring! Hurrah! Lock in, as we send it live from our garden shed. Poised like little Easter rave-bunnies to get you in the mood.",
     "key": "/radiowaters/the-punters-club-spring-forward/",
     "slug": "the-punters-club-spring-forward",
@@ -869,12 +3073,13 @@
   {
     "title": "The Punters' Club 25th April 2026",
     "url": "https://www.mixcloud.com/radiowaters/the-punters-club-25th-april-2026/",
+    "tracklist": [],
     "description": "",
     "key": "/radiowaters/the-punters-club-25th-april-2026/",
     "slug": "the-punters-club-25th-april-2026",
     "publishedAt": "2026-04-25T20:28:49Z",
     "durationSeconds": 7567,
-    "playCount": 31,
+    "playCount": 33,
     "favoriteCount": 1,
     "commentCount": 1,
     "tags": [
@@ -932,12 +3137,13 @@
   {
     "title": "Impromptu Punters' Club  Sweating in the Shed (22 May)",
     "url": "https://www.mixcloud.com/radiowaters/impromptu-punters-club-sweating-in-the-shed-22-may/",
+    "tracklist": [],
     "description": "N_Sonic put the spring in my step and skank in my legs - I couldn't resist sneaking on afterwards.",
     "key": "/radiowaters/impromptu-punters-club-sweating-in-the-shed-22-may/",
     "slug": "impromptu-punters-club-sweating-in-the-shed-22-may",
     "publishedAt": "2026-05-22T22:20:46Z",
     "durationSeconds": 3773,
-    "playCount": 7,
+    "playCount": 8,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
@@ -986,12 +3192,13 @@
     "title": "Gwawr & Kelsurprise - The Punters' Club (30 May)",
     "url": "https://www.mixcloud.com/radiowaters/gwawr-kelsurprise-the-punters-club-30-may/",
     "localDescription": "Gwawr and KelSurprise bringing sundown-sounds to the hot evening",
+    "tracklist": [],
     "description": "Gwawr and KelSurprise bringing sundown-sounds to the hot evening",
     "key": "/radiowaters/gwawr-kelsurprise-the-punters-club-30-may/",
     "slug": "gwawr-kelsurprise-the-punters-club-30-may",
     "publishedAt": "2026-05-31T16:59:30Z",
     "durationSeconds": 7664,
-    "playCount": 30,
+    "playCount": 31,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [
@@ -1050,12 +3257,214 @@
     "title": "Saturday Night in with The Punters' Club (4 Jul)",
     "url": "https://www.mixcloud.com/radiowaters/saturday-night-in-with-the-punters-club-4-jul/",
     "localDescription": "A Warm July evening, we stayed late and played some overtime",
+    "tracklist": [
+      {
+        "position": 1,
+        "artist": "The Stone Roses",
+        "title": "Shoot You Down (The Soul Hooligan remix)"
+      },
+      {
+        "position": 2,
+        "artist": "Hardway Bros, Beth cassidy",
+        "title": "Murky (Beyond The Wizards Sleeve Re-Animation)"
+      },
+      {
+        "position": 3,
+        "artist": "Barry Can't Swim",
+        "title": "Childhood"
+      },
+      {
+        "position": 4,
+        "artist": "Mildlife, CC:DISCO!",
+        "title": "Musica (CC:DISCO! Dub)"
+      },
+      {
+        "position": 5,
+        "artist": "Dames Brown, Amp Fiddler, Moodymann",
+        "title": "Take Me As I Am (Moodymann Extended Remix)"
+      },
+      {
+        "position": 6,
+        "artist": "Gil Scott-Heron, Jamie xx",
+        "title": "I'll Take Care of U"
+      },
+      {
+        "position": 7,
+        "artist": "Beats International",
+        "title": "Dance To The Drummer's Beat"
+      },
+      {
+        "position": 8,
+        "artist": "Blondie",
+        "title": "Heart of Glass [The Reflex Revision]"
+      },
+      {
+        "position": 9,
+        "artist": "Crazy P",
+        "title": "Heartbreaker"
+      },
+      {
+        "position": 10,
+        "artist": "Shut Up and Dance",
+        "title": "On A Street Level"
+      },
+      {
+        "position": 11,
+        "artist": "Disclosure",
+        "title": "Observer Effect"
+      },
+      {
+        "position": 12,
+        "artist": "KH",
+        "title": "Looking at Your Pager (Solomun Remix)"
+      },
+      {
+        "position": 13,
+        "artist": "Marcus Worgull, Osunlade",
+        "title": "Reno"
+      },
+      {
+        "position": 14,
+        "artist": "DJ Zinc",
+        "title": "Barbarian"
+      },
+      {
+        "position": 15,
+        "artist": "AGT Rave Cru",
+        "title": "Fusion Power"
+      },
+      {
+        "position": 16,
+        "artist": "Alexkid",
+        "title": "Don't Hide It (Alexkid's vocal)"
+      },
+      {
+        "position": 17,
+        "artist": "Tiga",
+        "title": "Sunglasses At Night (D.I.M Remix)"
+      },
+      {
+        "position": 18,
+        "artist": "Fatboy Slim",
+        "title": "Everybody Loves a Filter"
+      },
+      {
+        "position": 19,
+        "artist": "Hess Is More",
+        "title": "You Don't Dance"
+      },
+      {
+        "position": 20,
+        "artist": "Kolter",
+        "title": "Be Real"
+      },
+      {
+        "position": 21,
+        "artist": "Ricardo Volilobe",
+        "title": "Love Hate"
+      },
+      {
+        "position": 22,
+        "artist": "John 'Julius' Knight, Roland Clark",
+        "title": "This Is House (Mattei & Omich Extended Remix)"
+      },
+      {
+        "position": 23,
+        "artist": "Lisa Millett",
+        "title": "Soul Heaven (Dario D Attis Discotek Vocal Mix)"
+      },
+      {
+        "position": 24,
+        "artist": "Justnique",
+        "title": "Tocco Illimitato"
+      },
+      {
+        "position": 25,
+        "artist": "Gusto",
+        "title": "Disco's Revenge (Mole Hole Dirty Mix)"
+      },
+      {
+        "position": 26,
+        "artist": "Dj Chus, David Penn",
+        "title": "Will I (Discover Love) (Original Stereo Cool Mix)"
+      },
+      {
+        "position": 27,
+        "artist": "Sharon Pass, Steve Silk Hurley",
+        "title": "The Word Is Love (Silks Orginal Anthem Mix)"
+      },
+      {
+        "position": 28,
+        "artist": "Mark Knight, Funkagenda",
+        "title": "Man With The Red Face (Original Club Mix)"
+      },
+      {
+        "position": 29,
+        "artist": "CHANEY",
+        "title": "39 Times (Confrontation) (Extended Mix)"
+      },
+      {
+        "position": 30,
+        "artist": "Ruze",
+        "title": "Mindset"
+      },
+      {
+        "position": 31,
+        "artist": "Layo & Bushwacka",
+        "title": "Love Story"
+      },
+      {
+        "position": 32,
+        "artist": "Timo Maas, MC Chickaboo",
+        "title": "Shifter (feat. MC Chickaboo)"
+      },
+      {
+        "position": 33,
+        "artist": "Tony Lionni",
+        "title": "Found A Place (Original Mix)"
+      },
+      {
+        "position": 34,
+        "artist": "Crooked Man",
+        "title": "Take It All Away (12\" Version)"
+      },
+      {
+        "position": 35,
+        "artist": "Four Tet",
+        "title": "31 Bloom"
+      },
+      {
+        "position": 36,
+        "artist": "808 State",
+        "title": "In Yer Face (Bicep Remix)"
+      },
+      {
+        "position": 37,
+        "artist": "Gerry Read",
+        "title": "It'll All Be Over (DJ Koze Remix, Radio Edit)"
+      },
+      {
+        "position": 38,
+        "artist": "KNEECAP",
+        "title": "An Ra"
+      },
+      {
+        "position": 39,
+        "artist": "Gino Soccio",
+        "title": "Hold Tight"
+      },
+      {
+        "position": 40,
+        "artist": "Octave One",
+        "title": "Blackwater (full strings instrumental)"
+      }
+    ],
     "description": "A Warm July evening, we stayed late and played some overtime",
     "key": "/radiowaters/saturday-night-in-with-the-punters-club-4-jul/",
     "slug": "saturday-night-in-with-the-punters-club-4-jul",
     "publishedAt": "2026-07-04T21:23:28Z",
     "durationSeconds": 10090,
-    "playCount": 1,
+    "playCount": 21,
     "favoriteCount": 0,
     "commentCount": 0,
     "tags": [

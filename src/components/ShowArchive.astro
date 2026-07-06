@@ -15,7 +15,7 @@ const hasOverflowShows = shows.length > visibleShowCount;
 
 <div class="archive-grid" data-show-archive>
   {shows.map((show, index) => (
-    <a class="archive-show-link" href={show.url} target="_blank" rel="noreferrer" data-show-archive-extra={index >= visibleShowCount ? '' : undefined}>
+    <a class="archive-show-link" href={`/shows/${show.slug}/`} data-show-archive-extra={index >= visibleShowCount ? '' : undefined}>
       {show.artwork ? <Image class="poster-placeholder poster-sm archive-artwork" src={show.artwork} alt="" width="300" height="300" loading="lazy" /> : <div class="poster-placeholder poster-sm" aria-hidden="true"></div>}
       <span class="archive-show-copy">
         <span class="archive-item-title">{show.title}</span>

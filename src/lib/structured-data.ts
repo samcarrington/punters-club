@@ -7,6 +7,9 @@ export const COLLECTION_PAGE_DESCRIPTION =
   "The Punters' Club: disco and modern electronic selections from a husband-and-wife DJ duo on Radio Waters.";
 export const RADIO_SERIES_NAME = "The Punters' Club";
 export const RADIO_SERIES_URL = "https://www.mixcloud.com/radiowaters/";
+export const SHOWS_PAGE_NAME = "Shows | The Punters' Club | Radio Waters";
+export const SHOWS_PAGE_DESCRIPTION =
+  "Browse archived episodes of The Punters' Club, from disco to modern electronic selections broadcast on Radio Waters.";
 
 type JsonLdEntity = Record<string, unknown>;
 
@@ -63,8 +66,44 @@ export const buildShowEntity = (show: Show): JsonLdEntity => {
   const image = cleanText(show.artwork);
   if (image) item.image = image;
 
+  const datePublished = cleanText(show.publishedAt);
+  if (datePublished) item.datePublished = datePublished;
+
+  if (typeof show.durationSeconds === "number") {
+    item.duration = `PT${Math.max(0, Math.round(show.durationSeconds))}S`;
+  }
+
+  if (typeof show.playCount === "number") {
+    item.interactionStatistic = {
+      "@type": "InteractionCounter",
+      interactionType: "https://schema.org/ListenAction",
+      userInteractionCount: show.playCount,
+    };
+  }
+
   return item;
 };
+
+export const buildShowListStructuredData = (shows: Show[]) => ({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: SHOWS_PAGE_NAME,
+  description: SHOWS_PAGE_DESCRIPTION,
+  mainEntity: {
+    "@type": "ItemList",
+    name: "Shows",
+    itemListElement: shows.map((show, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: buildShowEntity(show),
+    })),
+  },
+});
+
+export const buildShowDetailStructuredData = (show: Show) => ({
+  "@context": "https://schema.org",
+  ...buildShowEntity(show),
+});
 
 export const buildPlaylistEntity = (playlist: Playlist): JsonLdEntity => {
   const item: JsonLdEntity = {
