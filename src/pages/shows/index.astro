@@ -83,13 +83,13 @@ const getSortDate = (value?: string) => {
 
             <div class="archive-index-meta">
               <div class="archive-index-meta-col">
-                <span class="archive-index-meta-val">{formatDate(show.publishedAt)}</span>
-                <span class="archive-index-meta-label">Broadcast</span>
+                <span class="archive-index-meta-val">{formatDate(show.publishedAt)}&nbsp;</span>
+                <span class="archive-index-meta-label">Published</span>
               </div>
 
               {show.playCount !== undefined && (
                 <div class="archive-index-meta-col">
-                  <span class="archive-index-meta-val">{show.playCount}</span>
+                  <span class="archive-index-meta-val">{show.playCount}&nbsp;</span>
                   <span class="archive-index-meta-label">Listens</span>
                 </div>
               )}

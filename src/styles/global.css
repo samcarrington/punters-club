@@ -293,8 +293,15 @@ h1 {
   background: var(--color-paper-3);
 }
 
+.show-detail .mixcloud-widget {
+  background: transparent;
+}
+
 .mixcloud-widget-classic {
-  min-height: 11.25rem;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  max-height: 24rem;
+  min-height: 5.25rem;
 }
 
 .playlist-card {
@@ -932,9 +939,6 @@ h1 {
   font-weight: normal;
 }
 
-.show-detail-player {
-  margin-bottom: var(--space-2xl);
-}
 
 .show-detail-body {
   display: grid;
@@ -1249,4 +1253,34 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   opacity: 0.7;
+}
+
+/* Show Detail Masthead */
+.show-detail-masthead {
+  display: grid;
+  gap: var(--space-xl);
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: var(--space-2xl);
+}
+
+@media (min-width: 920px) {
+  .show-detail-masthead {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-2xl);
+  }
+}
+
+.show-detail-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.show-detail-desc {
+  margin-top: var(--space-lg);
+  margin-bottom: 0;
+  font-size: var(--text-lg);
+  color: var(--color-ink-muted);
+  line-height: 1.6;
+  max-width: 60ch;
 }
