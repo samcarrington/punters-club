@@ -203,14 +203,14 @@ export const selectNextShow = (
 
     const slugOnlyMatch = guest.date
       ? null
-      : guestMatches
+      : (guestMatches
           .map((event) => normalizeEvent(event, "guest"))
           .filter((show): show is NextShow => show !== null)
           .filter((show) => new Date(show.startsAtUtc) >= now)
           .sort((a, b) => {
             const byStart = a.startsAtUtc.localeCompare(b.startsAtUtc);
             return byStart !== 0 ? byStart : a.slug.localeCompare(b.slug);
-          })[0] ?? null;
+          })[0] ?? null);
 
     const show: NextShow | null = guest.date
       ? datedMatch

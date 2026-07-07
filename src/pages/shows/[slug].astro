@@ -2,20 +2,20 @@
 import "../../styles/global.css";
 import "../../styles/tokens.css";
 
-import PuntersLayout from "../../layouts/PuntersLayout.astro";
 import MixcloudWidget from "../../components/MixcloudWidget.astro";
-import generatedShowsData from "../../data/shows.generated.json";
 import showSourcesData from "../../data/show-sources.json";
-import { assertValidShowSlugs, mergeShowsWithSources } from "../../lib/shows";
-import type { ShowWithTracklist } from "../../lib/shows";
-import { buildShowEntity, serializeJsonLd } from "../../lib/structured-data";
+import generatedShowsData from "../../data/shows.generated.json";
+import PuntersLayout from "../../layouts/PuntersLayout.astro";
 import type { Show } from "../../lib/mixcloud";
+import type { ShowWithTracklist } from "../../lib/shows";
+import { assertValidShowSlugs, mergeShowsWithSources } from "../../lib/shows";
+import { buildShowEntity, serializeJsonLd } from "../../lib/structured-data";
 
 export async function getStaticPaths() {
   assertValidShowSlugs(generatedShowsData as Show[]);
   const allShows = mergeShowsWithSources(
     generatedShowsData as unknown as Show[],
-    showSourcesData
+    showSourcesData,
   );
   return allShows.map((show) => ({
     params: { slug: show.slug },
@@ -31,9 +31,17 @@ const jsonLd = {
   ...buildShowEntity(show),
 };
 
-const date = show.publishedAt ? new Date(show.publishedAt).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" }) : "";
+const date = show.publishedAt
+  ? new Date(show.publishedAt).toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  : "";
 const ogTitle = `${show.title} | The Punters' Club`;
-const description = show.description || "Listen to this episode of The Punters' Club on Radio Waters.";
+const description =
+  show.description ||
+  "Listen to this episode of The Punters' Club on Radio Waters.";
 ---
 
 <PuntersLayout

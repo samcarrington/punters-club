@@ -51,7 +51,9 @@ export const mergeShowsWithSources = (
     const normalizedUrl = urlKey(source.url);
     if (normalizedUrl) sourceByUrl.set(normalizedUrl, source);
 
-    const slugFromUrl = slugKey(new URL(source.url).pathname.split("/").filter(Boolean).at(-1));
+    const slugFromUrl = slugKey(
+      new URL(source.url).pathname.split("/").filter(Boolean).at(-1),
+    );
     if (slugFromUrl && !sourceBySlug.has(slugFromUrl)) {
       sourceBySlug.set(slugFromUrl, source);
     }
@@ -62,7 +64,9 @@ export const mergeShowsWithSources = (
       (show.url ? sourceByUrl.get(urlKey(show.url) ?? "") : undefined) ??
       (show.slug ? sourceBySlug.get(slugKey(show.slug) ?? "") : undefined);
 
-    return matchedSource?.tracklist ? { ...show, tracklist: matchedSource.tracklist } : { ...show };
+    return matchedSource?.tracklist
+      ? { ...show, tracklist: matchedSource.tracklist }
+      : { ...show };
   });
 };
 
@@ -87,7 +91,10 @@ export const sortShows = (
     const byDate = compareDate(left.publishedAt, right.publishedAt, "desc");
     if (byDate !== 0) return byDate;
 
-    return compareText(left.slug ?? left.url ?? left.title, right.slug ?? right.url ?? right.title);
+    return compareText(
+      left.slug ?? left.url ?? left.title,
+      right.slug ?? right.url ?? right.title,
+    );
   });
 
   return sorted;
@@ -98,7 +105,9 @@ export const assertValidShowSlugs = (shows: Show[]): void => {
 
   for (const show of shows) {
     if (!show.slug?.trim()) {
-      throw new Error(`Generated show is missing a slug: ${show.title} (${show.url})`);
+      throw new Error(
+        `Generated show is missing a slug: ${show.title} (${show.url})`,
+      );
     }
 
     const normalizedSlug = slugKey(show.slug)!;

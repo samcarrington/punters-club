@@ -22,7 +22,9 @@ describe("show structured data helpers", () => {
 
     expect(data["@type"]).toBe("CollectionPage");
     expect(data.mainEntity.itemListElement).toHaveLength(1);
-    expect(data.mainEntity.itemListElement[0].item["@type"]).toBe("RadioEpisode");
+    expect(data.mainEntity.itemListElement[0].item["@type"]).toBe(
+      "RadioEpisode",
+    );
   });
 
   it("builds detail structured data with publish/listen metadata", () => {
