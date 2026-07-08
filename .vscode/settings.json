@@ -1,3 +1,8 @@
 {
-  "js/ts.experimental.useTsgo": false
+  "js/ts.experimental.useTsgo": false,
+  "cSpell.words": [
+    "gridicons",
+    "mixcloud",
+    "wordmark"
+  ]
 }
