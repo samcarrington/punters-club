@@ -22,6 +22,7 @@ const structuredDataShows = latestShow
 const structuredData = buildCollectionPageStructuredData({
   shows: structuredDataShows,
   playlists,
+  pageUrl: new URL("/", Astro.site || "https://punters.club").toString(),
 });
 ---
 

@@ -11,11 +11,14 @@
     "build": "pnpm run enrich && astro build",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:next-show:remote": "RUN_REMOTE_TESTS=1 vitest run src/lib/next-show.remote.test.ts",
     "verify:structured-data": "tsx scripts/verify-structured-data.ts",
     "preview": "astro preview"
   },
   "devDependencies": {
     "@iconify-json/gridicons": "^1.2.5",
+    "@vitest/coverage-v8": "4.1.9",
     "astro": "^7.0.3",
     "tsx": "^4.20.5",
     "typescript": "^5.0.0",

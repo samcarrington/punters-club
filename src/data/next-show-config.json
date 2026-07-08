@@ -2,6 +2,6 @@
   "endpoint": "https://www.radiowaters.co.uk/wp-json/tribe/events/v1/events",
   "titlePatterns": ["punters?['’]?\\s+club"],
   "organizerSlugs": ["gwawr"],
-  "guestAppearances": [{ "slug": "saturday-night-in-with-the-punters-club" }],
+  "guestAppearances": [{ "slug": "saturday-night-in-with", "date": "2026-07-04" }],
   "lookaheadDays": 60
 }

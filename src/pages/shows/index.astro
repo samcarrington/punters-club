@@ -26,7 +26,8 @@ const allShows = mergeShowsWithSources(
 );
 
 const shows = sortShows(allShows, "newest");
-const jsonLd = buildShowListStructuredData(shows);
+const canonicalUrl = new URL("/shows/", Astro.site || "https://punters.club").toString();
+const jsonLd = buildShowListStructuredData(shows, { pageUrl: canonicalUrl });
 
 const formatDate = (value?: string) =>
   value
@@ -48,7 +49,7 @@ const getSortDate = (value?: string) => {
   description={SHOWS_PAGE_DESCRIPTION}
   ogTitle={SHOWS_PAGE_NAME}
   ogDescription={SHOWS_PAGE_DESCRIPTION}
-  canonicalUrl={new URL("/shows/", Astro.site || "https://punters.club").toString()}
+  canonicalUrl={canonicalUrl}
 >
   <script type="application/ld+json" set:html={serializeJsonLd(jsonLd)} />
 

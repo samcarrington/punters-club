@@ -11,37 +11,94 @@ export const SHOWS_PAGE_NAME = "Shows | The Punters' Club | Radio Waters";
 export const SHOWS_PAGE_DESCRIPTION =
   "Browse archived episodes of The Punters' Club, from disco to modern electronic selections broadcast on Radio Waters.";
 
-type JsonLdEntity = Record<string, unknown>;
+type SchemaContext = "https://schema.org";
+
+type OrganizationStructuredData = {
+  "@type": "Organization";
+  name: string;
+};
+
+type RadioSeriesStructuredData = {
+  "@type": "RadioSeries";
+  name: string;
+  url: string;
+};
+
+type InteractionCounterStructuredData = {
+  "@type": "InteractionCounter";
+  interactionType: "https://schema.org/ListenAction";
+  userInteractionCount: number;
+};
+
+type RadioEpisodeStructuredData = {
+  "@type": "RadioEpisode";
+  name: string;
+  url: string;
+  partOfSeries: RadioSeriesStructuredData;
+  description?: string;
+  genre?: string[];
+  image?: string;
+  datePublished?: string;
+  duration?: string;
+  interactionStatistic?: InteractionCounterStructuredData;
+  mainEntityOfPage?: string;
+};
+
+type MusicPlaylistStructuredData = {
+  "@type": "MusicPlaylist";
+  name: string;
+  url: string;
+  description?: string;
+  image?: string;
+  provider?: OrganizationStructuredData;
+};
+
+type JsonLdEntity = RadioEpisodeStructuredData | MusicPlaylistStructuredData;
 
 type CollectionPageStructuredData = {
-  "@context": "https://schema.org";
+  "@context": SchemaContext;
   "@type": "CollectionPage";
   name: string;
   description: string;
-  mainEntity: [ItemListStructuredData, ItemListStructuredData];
+  url?: string;
+  mainEntity: [
+    ItemListStructuredData<RadioEpisodeStructuredData>,
+    ItemListStructuredData<MusicPlaylistStructuredData>,
+  ];
 };
 
-type ItemListStructuredData = {
+type ShowListStructuredData = {
+  "@context": SchemaContext;
+  "@type": "CollectionPage";
+  name: string;
+  description: string;
+  url?: string;
+  mainEntity: ItemListStructuredData<RadioEpisodeStructuredData>;
+};
+
+type ShowDetailStructuredData = RadioEpisodeStructuredData & {
+  "@context": SchemaContext;
+};
+
+type ItemListStructuredData<TItem extends JsonLdEntity> = {
   "@type": "ItemList";
-  name: "Archive shows" | "Playlists";
-  itemListElement: ListItemStructuredData[];
+  name: "Shows" | "Archive shows" | "Playlists";
+  itemListElement: ListItemStructuredData<TItem>[];
 };
 
-type ListItemStructuredData = {
+type ListItemStructuredData<TItem extends JsonLdEntity> = {
   "@type": "ListItem";
   position: number;
-  item: JsonLdEntity;
+  item: TItem;
 };
 
-const cleanText = (value?: string) => (value?.trim() ? value : undefined);
+const cleanText = (value?: string) => {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : undefined;
+};
 
-/**
- *
- * @param show
- * @returns
- */
-export const buildShowEntity = (show: Show): JsonLdEntity => {
-  const item: JsonLdEntity = {
+export const buildShowEntity = (show: Show): RadioEpisodeStructuredData => {
+  const item: RadioEpisodeStructuredData = {
     "@type": "RadioEpisode",
     name: show.title,
     url: show.url,
@@ -84,29 +141,49 @@ export const buildShowEntity = (show: Show): JsonLdEntity => {
   return item;
 };
 
-export const buildShowListStructuredData = (shows: Show[]) => ({
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: SHOWS_PAGE_NAME,
-  description: SHOWS_PAGE_DESCRIPTION,
-  mainEntity: {
-    "@type": "ItemList",
-    name: "Shows",
-    itemListElement: shows.map((show, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: buildShowEntity(show),
-    })),
-  },
-});
+export const buildShowListStructuredData = (
+  shows: Show[],
+  options: { pageUrl?: string } = {},
+): ShowListStructuredData => {
+  const data: ShowListStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: SHOWS_PAGE_NAME,
+    description: SHOWS_PAGE_DESCRIPTION,
+    mainEntity: {
+      "@type": "ItemList",
+      name: "Shows",
+      itemListElement: shows.map((show, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: buildShowEntity(show),
+      })),
+    },
+  };
 
-export const buildShowDetailStructuredData = (show: Show) => ({
-  "@context": "https://schema.org",
-  ...buildShowEntity(show),
-});
+  if (options.pageUrl) data.url = options.pageUrl;
 
-export const buildPlaylistEntity = (playlist: Playlist): JsonLdEntity => {
-  const item: JsonLdEntity = {
+  return data;
+};
+
+export const buildShowDetailStructuredData = (
+  show: Show,
+  options: { pageUrl?: string } = {},
+): ShowDetailStructuredData => {
+  const data: ShowDetailStructuredData = {
+    "@context": "https://schema.org",
+    ...buildShowEntity(show),
+  };
+
+  if (options.pageUrl) data.mainEntityOfPage = options.pageUrl;
+
+  return data;
+};
+
+export const buildPlaylistEntity = (
+  playlist: Playlist,
+): MusicPlaylistStructuredData => {
+  const item: MusicPlaylistStructuredData = {
     "@type": "MusicPlaylist",
     name: playlist.title,
     url: playlist.url,
@@ -131,14 +208,17 @@ export const buildPlaylistEntity = (playlist: Playlist): JsonLdEntity => {
 export const buildCollectionPageStructuredData = ({
   shows,
   playlists,
+  pageUrl,
 }: {
   shows: Show[];
   playlists: Playlist[];
+  pageUrl?: string;
 }): CollectionPageStructuredData => ({
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   name: COLLECTION_PAGE_NAME,
   description: COLLECTION_PAGE_DESCRIPTION,
+  ...(pageUrl ? { url: pageUrl } : {}),
   mainEntity: [
     {
       "@type": "ItemList",
