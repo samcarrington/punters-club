@@ -1,26 +1,41 @@
 ---
-import "../../styles/global.css";
-import "../../styles/tokens.css";
-
 import { Image } from "astro:assets";
+import showSourcesData from "../../data/show-sources.json";
 import generatedShowsData from "../../data/shows.generated.json";
 import PuntersLayout from "../../layouts/PuntersLayout.astro";
 import type { Show } from "../../lib/mixcloud";
-import showSourcesData from "../../data/show-sources.json";
-import { assertValidShowSlugs, mergeShowsWithSources, sortShows } from "../../lib/shows";
-import { buildShowListStructuredData, SHOWS_PAGE_NAME, SHOWS_PAGE_DESCRIPTION, serializeJsonLd } from "../../lib/structured-data";
+import {
+  assertValidShowSlugs,
+  mergeShowsWithSources,
+  sortShows,
+} from "../../lib/shows";
+import {
+  buildShowListStructuredData,
+  SHOWS_PAGE_DESCRIPTION,
+  SHOWS_PAGE_NAME,
+  serializeJsonLd,
+} from "../../lib/structured-data";
+
+import "../../styles/global.css";
+import "../../styles/tokens.css";
 
 assertValidShowSlugs(generatedShowsData as Show[]);
 const allShows = mergeShowsWithSources(
   generatedShowsData as Show[],
-  showSourcesData
+  showSourcesData,
 );
 
 const shows = sortShows(allShows, "newest");
 const jsonLd = buildShowListStructuredData(shows);
 
 const formatDate = (value?: string) =>
-  value ? new Date(value).toLocaleDateString("en-GB", { year: "numeric", month: "long", day: "numeric" }) : "Date unavailable";
+  value
+    ? new Date(value).toLocaleDateString("en-GB", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "Date unavailable";
 
 const getSortDate = (value?: string) => {
   const time = value ? Date.parse(value) : Number.NaN;
@@ -41,8 +56,8 @@ const getSortDate = (value?: string) => {
     <header class="archive-masthead">
       <h1>The Archive</h1>
       <div class="archive-masthead-copy">
-        <p>It started with a family broadcast in support of Awamu, and turned into a regular show.</p>
-        <p>Dig through every episode of The Punters' Club. Find what you missed, revisit the ones you loved, and check out the tracklist if we have it.</p>
+        <p>It started with a family broadcast in support of Awamu, and turned into a regular show. We're very happy being part of the <a href="https://radiowaters.co.uk" rel="noopener" target="_blank">Radio Waters</a> Community.</p>
+        <p>Dig through every episode of The Punters' Club. Find what you missed, revisit the ones you loved, and check-out the tracklist if we have it.</p>
       </div>
     </header>
 

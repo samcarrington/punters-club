@@ -7,7 +7,8 @@ import type { NextShowResult } from "../lib/next-show";
 const result = rawResult as NextShowResult;
 
 const upcoming = result.status === "upcoming" ? result.show : undefined;
-const cueLabel = upcoming?.matchedBy === "guest" ? "Guest appearance" : "Punters Club show";
+const cueLabel =
+  upcoming?.matchedBy === "guest" ? "Guest appearance" : "Punters Club show";
 
 function formatWhen(startsAtUtc: string, timeZone: string) {
   const date = new Date(startsAtUtc);

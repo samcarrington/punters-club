@@ -70,9 +70,7 @@ describe("decodeEntities", () => {
 
 describe("stripHtml", () => {
   it("removes tags, decodes entities, collapses whitespace", () => {
-    expect(stripHtml("<p>Hello&#8230;  <b>world</b></p>")).toBe(
-      "Hello… world",
-    );
+    expect(stripHtml("<p>Hello&#8230;  <b>world</b></p>")).toBe("Hello… world");
   });
 });
 
@@ -111,9 +109,9 @@ describe("matchesTitle", () => {
   const patterns = ["punters?['’]?\\s+club"];
 
   it("matches an HTML-encoded Punters' Club title", () => {
-    expect(matchesTitle("The Punters&#8217; Club &#8211; Summer", patterns)).toBe(
-      true,
-    );
+    expect(
+      matchesTitle("The Punters&#8217; Club &#8211; Summer", patterns),
+    ).toBe(true);
   });
 
   it("matches a straight-apostrophe variant", () => {
@@ -149,7 +147,9 @@ describe("normalizeEvent", () => {
   });
 
   it("returns null when the timezone is not a real IANA zone", () => {
-    expect(normalizeEvent({ ...augEvent, timezone: "Not/AZone" }, "title")).toBeNull();
+    expect(
+      normalizeEvent({ ...augEvent, timezone: "Not/AZone" }, "title"),
+    ).toBeNull();
   });
 
   it("omits poster when image is false/absent and preserves matchedBy guest", () => {
@@ -164,7 +164,11 @@ describe("selectNextShow", () => {
   const now = new Date("2026-07-02T00:00:00Z");
 
   it("picks the soonest qualifying show (guest before later named)", () => {
-    const { result } = selectNextShow([augEvent, guestJul4, guestAug29], config, now);
+    const { result } = selectNextShow(
+      [augEvent, guestJul4, guestAug29],
+      config,
+      now,
+    );
 
     expect(result.status).toBe("upcoming");
     if (result.status !== "upcoming") throw new Error("expected upcoming");
@@ -184,7 +188,11 @@ describe("selectNextShow", () => {
       ...config,
       guestAppearances: [{ slug: "saturday-night-in-with" }],
     };
-    const { result } = selectNextShow([augEvent, guestJul4], slugOnlyConfig, now);
+    const { result } = selectNextShow(
+      [augEvent, guestJul4],
+      slugOnlyConfig,
+      now,
+    );
 
     expect(result.status).toBe("upcoming");
     if (result.status !== "upcoming") throw new Error("expected upcoming");
@@ -197,7 +205,11 @@ describe("selectNextShow", () => {
       ...config,
       guestAppearances: [{ slug: "saturday-night-in-with" }],
     };
-    const { result } = selectNextShow([augEvent, guestAug29, guestJul4], slugOnlyConfig, now);
+    const { result } = selectNextShow(
+      [augEvent, guestAug29, guestJul4],
+      slugOnlyConfig,
+      now,
+    );
 
     expect(result.status).toBe("upcoming");
     if (result.status !== "upcoming") throw new Error("expected upcoming");
@@ -215,7 +227,9 @@ describe("selectNextShow", () => {
     const both = { ...augEvent, slug: "saturday-night-in-with" };
     const cfg = {
       ...config,
-      guestAppearances: [{ slug: "saturday-night-in-with", date: "2026-08-22" }],
+      guestAppearances: [
+        { slug: "saturday-night-in-with", date: "2026-08-22" },
+      ],
     };
     const { result } = selectNextShow([both], cfg, now);
 
@@ -260,7 +274,11 @@ describe("selectNextShow", () => {
       utc_start_date: "2026-06-30 18:00:00",
       start_date: "2026-06-30 19:00:00",
     };
-    const { warnings, result } = selectNextShow([pastGuest], slugOnlyConfig, now);
+    const { warnings, result } = selectNextShow(
+      [pastGuest],
+      slugOnlyConfig,
+      now,
+    );
 
     expect(result).toEqual({ status: "none", source: "tribe/events/v1" });
     expect(
@@ -286,7 +304,11 @@ describe("selectNextShow", () => {
       timezone: "Europe/London",
       utc_start_date: "2026-06-30 18:00:00",
     };
-    const { result } = selectNextShow([pastGuest, augEvent], slugOnlyConfig, now);
+    const { result } = selectNextShow(
+      [pastGuest, augEvent],
+      slugOnlyConfig,
+      now,
+    );
 
     expect(result.status).toBe("upcoming");
     if (result.status !== "upcoming") throw new Error("expected upcoming");
@@ -311,7 +333,11 @@ describe("isSameResult", () => {
   });
 
   it("returns false when show changes", () => {
-    const { result: guestResult } = selectNextShow([augEvent, guestJul4], config, now);
+    const { result: guestResult } = selectNextShow(
+      [augEvent, guestJul4],
+      config,
+      now,
+    );
     const { result: showResult } = selectNextShow([augEvent], config, now);
 
     expect(isSameResult(guestResult, showResult)).toBe(false);
