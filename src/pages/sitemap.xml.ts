@@ -1,16 +1,9 @@
 import generatedShowsData from "../data/shows.generated.json";
 import type { Show } from "../lib/mixcloud";
 import { assertValidShowSlugs } from "../lib/shows";
+import { xmlEscape } from "../lib/xml";
 
 const DEFAULT_SITE_URL = "https://punters.club";
-
-const xmlEscape = (value: string) =>
-  value
-    .replaceAll("&", "&amp;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&apos;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
 
 const sitemapEntry = (url: string, changefreq: "weekly" | "monthly") => `  <url>
     <loc>${xmlEscape(url)}</loc>
