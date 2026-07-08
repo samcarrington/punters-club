@@ -9,7 +9,7 @@ import PuntersLayout from "../../layouts/PuntersLayout.astro";
 import type { Show } from "../../lib/mixcloud";
 import type { ShowWithTracklist } from "../../lib/shows";
 import { assertValidShowSlugs, mergeShowsWithSources } from "../../lib/shows";
-import { buildShowEntity, serializeJsonLd } from "../../lib/structured-data";
+import { buildShowDetailStructuredData, serializeJsonLd } from "../../lib/structured-data";
 
 export async function getStaticPaths() {
   assertValidShowSlugs(generatedShowsData as Show[]);
@@ -26,10 +26,8 @@ export async function getStaticPaths() {
 const { show } = Astro.props as { show: ShowWithTracklist };
 type TracklistItem = NonNullable<ShowWithTracklist["tracklist"]>[number];
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  ...buildShowEntity(show),
-};
+const canonicalUrl = new URL(`/shows/${show.slug}/`, Astro.site || "https://punters.club").toString();
+const jsonLd = buildShowDetailStructuredData(show, { pageUrl: canonicalUrl });
 
 const date = show.publishedAt
   ? new Date(show.publishedAt).toLocaleDateString("en-GB", {
@@ -49,7 +47,7 @@ const description =
   description={description}
   ogTitle={ogTitle}
   ogDescription={description}
-  canonicalUrl={new URL(`/shows/${show.slug}/`, Astro.site || "https://punters.club").toString()}
+  canonicalUrl={canonicalUrl}
 >
   <script type="application/ld+json" set:html={serializeJsonLd(jsonLd)} />
 
