@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import rawResult from "../data/next-show.generated.json";
+import { formatShowTime } from "../lib/local-time";
 import type { NextShowResult } from "../lib/next-show";
 
 const result = rawResult as NextShowResult;
@@ -10,20 +11,6 @@ const upcoming = result.status === "upcoming" ? result.show : undefined;
 const cueLabel =
   upcoming?.matchedBy === "guest" ? "Guest appearance" : "Punters Club show";
 
-function formatWhen(startsAtUtc: string, timeZone: string) {
-  const date = new Date(startsAtUtc);
-  const formatter = new Intl.DateTimeFormat("en-GB", {
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZoneName: "short",
-    timeZone,
-  });
-  return formatter.format(date);
-}
 ---
 <script is:inline>
   const nextShowTime = document.querySelector("[data-next-show-time]");
@@ -70,7 +57,7 @@ function formatWhen(startsAtUtc: string, timeZone: string) {
       
       <div class="next-show-details">
         <time class="next-show-when" datetime={result.show.startsAtUtc} data-next-show-time>
-          {formatWhen(result.show.startsAtUtc, result.show.timezone)}
+          {formatShowTime(result.show.startsAtUtc, result.show.timezone)}
         </time>
         <h3 class="next-show-title">{result.show.title}</h3>
         {result.show.description && <p class="next-show-desc">{result.show.description}</p>}
