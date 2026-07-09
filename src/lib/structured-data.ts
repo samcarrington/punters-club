@@ -1,4 +1,5 @@
 import type { Show } from "./mixcloud";
+import type { NextShow } from "./next-show";
 import { detectPlatform, platformName } from "./platform";
 import type { Playlist } from "./playlist";
 
@@ -10,12 +11,20 @@ export const RADIO_SERIES_URL = "https://www.mixcloud.com/radiowaters/";
 export const SHOWS_PAGE_NAME = "Shows | The Punters' Club | Radio Waters";
 export const SHOWS_PAGE_DESCRIPTION =
   "Browse archived episodes of The Punters' Club, from disco to modern electronic selections broadcast on Radio Waters.";
+export const RADIO_WATERS_NAME = "Radio Waters";
+export const RADIO_WATERS_URL = "https://www.radiowaters.co.uk/";
 
 type SchemaContext = "https://schema.org";
 
 type OrganizationStructuredData = {
   "@type": "Organization";
   name: string;
+  url?: string;
+};
+
+type VirtualLocationStructuredData = {
+  "@type": "VirtualLocation";
+  url: string;
 };
 
 type RadioSeriesStructuredData = {
@@ -80,6 +89,23 @@ type ShowDetailStructuredData = RadioEpisodeStructuredData & {
   "@context": SchemaContext;
 };
 
+type EventStructuredData = {
+  "@context": SchemaContext;
+  "@type": "Event";
+  name: string;
+  url: string;
+  eventStatus: "https://schema.org/EventScheduled";
+  eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode";
+  location: VirtualLocationStructuredData;
+  organizer: OrganizationStructuredData;
+  performer: OrganizationStructuredData;
+  description?: string;
+  startDate?: string;
+  endDate?: string;
+  image?: string;
+  mainEntityOfPage?: string;
+};
+
 type ItemListStructuredData<TItem extends JsonLdEntity> = {
   "@type": "ItemList";
   name: "Shows" | "Archive shows" | "Playlists";
@@ -96,6 +122,12 @@ const cleanText = (value?: string) => {
   const trimmed = value?.trim();
   return trimmed ? trimmed : undefined;
 };
+
+const buildRadioWatersOrganization = (): OrganizationStructuredData => ({
+  "@type": "Organization",
+  name: RADIO_WATERS_NAME,
+  url: RADIO_WATERS_URL,
+});
 
 export const buildShowEntity = (show: Show): RadioEpisodeStructuredData => {
   const item: RadioEpisodeStructuredData = {
@@ -240,6 +272,42 @@ export const buildCollectionPageStructuredData = ({
     },
   ],
 });
+
+export const buildNextShowEventStructuredData = (
+  show: NextShow,
+  options: { pageUrl?: string } = {},
+): EventStructuredData => {
+  const data: EventStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: show.title,
+    url: show.url,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+    location: {
+      "@type": "VirtualLocation",
+      url: show.url,
+    },
+    organizer: buildRadioWatersOrganization(),
+    performer: buildRadioWatersOrganization(),
+  };
+
+  const description = cleanText(show.description);
+  if (description) data.description = description;
+
+  const startDate = cleanText(show.startsAtUtc);
+  if (startDate) data.startDate = startDate;
+
+  const endDate = cleanText(show.endsAtUtc);
+  if (endDate) data.endDate = endDate;
+
+  const image = cleanText(show.posterUrl);
+  if (image) data.image = image;
+
+  if (options.pageUrl) data.mainEntityOfPage = options.pageUrl;
+
+  return data;
+};
 
 export const serializeJsonLd = (value: unknown) =>
   JSON.stringify(value)
