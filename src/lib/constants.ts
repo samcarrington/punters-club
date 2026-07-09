@@ -1,6 +1,6 @@
 export const SITE = {
   name: "The Punters' Club",
-  url: "https://punters.club",
+  url: "https://thepunters.club",
   homePath: "/",
   showsPath: "/shows/",
   latestShowHash: "/#latest-show",
@@ -33,12 +33,13 @@ export const NEXT_SHOW = {
   upcomingStatus: "upcoming",
   noneStatus: "none",
   source: "tribe/events/v1",
-  guestLabel: "Guest appearance",
-  showLabel: "Punters Club show",
+  guestLabel: "Guest Slot",
+  showLabel: "Regular Show",
   sectionTitle: "Next show",
   posterAlt: "The Punters' Club Next Show Poster",
   ctaLabel: "View on Radio Waters",
-  emptyText: "Nothing pinned to the running order yet. We’re digging in the crates.",
+  emptyText:
+    "Nothing pinned to the running order yet. We’re digging in the crates.",
 } as const;
 
 export const SHOW_ARCHIVE = {
