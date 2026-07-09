@@ -2,10 +2,11 @@
 
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import { SHOW_ARCHIVE, SITE } from "../lib/constants";
 import type { Show } from "../lib/mixcloud";
 
 const { shows } = Astro.props as { shows: Show[] };
-const visibleShowCount = 6;
+const visibleShowCount = SHOW_ARCHIVE.visibleCount;
 const hasOverflowShows = shows.length > visibleShowCount;
 ---
 
@@ -15,7 +16,7 @@ const hasOverflowShows = shows.length > visibleShowCount;
 
 <div class="archive-grid" data-show-archive>
   {shows.map((show, index) => (
-    <a class="archive-show-link" href={`/shows/${show.slug}/`} data-show-archive-extra={index >= visibleShowCount ? '' : undefined}>
+    <a class="archive-show-link" href={`${SITE.showsPath}${show.slug}/`} data-show-archive-extra={index >= visibleShowCount ? '' : undefined}>
       {show.artwork ? <Image class="poster-placeholder poster-sm archive-artwork" src={show.artwork} alt="" width="300" height="300" loading="lazy" /> : <div class="poster-placeholder poster-sm" aria-hidden="true"></div>}
       <span class="archive-show-copy">
         <span class="archive-item-title">{show.title}</span>
@@ -29,11 +30,11 @@ const hasOverflowShows = shows.length > visibleShowCount;
   ))}
   {hasOverflowShows && (
     <button class="archive-more-button" type="button" data-show-archive-more>
-      More shows
+      {SHOW_ARCHIVE.moreButtonLabel}
     </button>
   )}
-  <a class="archive-profile-link link-external" href="https://www.mixcloud.com/radiowaters/" target="_blank" rel="noreferrer" data-show-archive-profile data-show-archive-profile-hidden={hasOverflowShows ? '' : undefined}>
-    <span class="archive-item-title">Radio Waters on Mixcloud - more DJs and other shows <Icon height=".8em"name="gridicons:external" /></span>
+  <a class="archive-profile-link link-external" href={SHOW_ARCHIVE.profileUrl} target="_blank" rel="noreferrer" data-show-archive-profile data-show-archive-profile-hidden={hasOverflowShows ? '' : undefined}>
+    <span class="archive-item-title">{SHOW_ARCHIVE.profileLabel} <Icon height=".8em"name="gridicons:external" /></span>
   </a>
 </div>
 

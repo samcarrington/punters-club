@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { NEXT_SHOW } from "./constants";
 import {
   decodeEntities,
   isSameResult,
@@ -170,8 +171,8 @@ describe("selectNextShow", () => {
       now,
     );
 
-    expect(result.status).toBe("upcoming");
-    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
+    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
     expect(result.show.url).toBe(guestJul4.url);
     expect(result.show.matchedBy).toBe("guest");
   });
@@ -179,7 +180,7 @@ describe("selectNextShow", () => {
   it("resolves guest by slug AND date only (ignores wrong-date same slug)", () => {
     const { result } = selectNextShow([augEvent, guestAug29], config, now);
 
-    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
     expect(result.show.url).toBe(augEvent.url);
   });
 
@@ -194,8 +195,8 @@ describe("selectNextShow", () => {
       now,
     );
 
-    expect(result.status).toBe("upcoming");
-    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
+    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
     expect(result.show.url).toBe(guestJul4.url);
     expect(result.show.matchedBy).toBe("guest");
   });
@@ -211,8 +212,8 @@ describe("selectNextShow", () => {
       now,
     );
 
-    expect(result.status).toBe("upcoming");
-    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
+    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
     expect(result.show.url).toBe(guestJul4.url);
   });
 
@@ -220,7 +221,7 @@ describe("selectNextShow", () => {
     const past = { ...augEvent, utc_start_date: "2026-06-01 18:00:00" };
     const { result } = selectNextShow([past], config, now);
 
-    expect(result.status).toBe("none");
+    expect(result.status).toBe(NEXT_SHOW.noneStatus);
   });
 
   it("dedupes a show matched by both title and guest override", () => {
@@ -233,7 +234,7 @@ describe("selectNextShow", () => {
     };
     const { result } = selectNextShow([both], cfg, now);
 
-    expect(result.status).toBe("upcoming");
+    expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
   });
 
   it("warns about an unresolved future guest override", () => {
@@ -280,7 +281,7 @@ describe("selectNextShow", () => {
       now,
     );
 
-    expect(result).toEqual({ status: "none", source: "tribe/events/v1" });
+    expect(result).toEqual({ status: NEXT_SHOW.noneStatus, source: NEXT_SHOW.source });
     expect(
       warnings.some(
         (warning) =>
@@ -310,8 +311,8 @@ describe("selectNextShow", () => {
       now,
     );
 
-    expect(result.status).toBe("upcoming");
-    if (result.status !== "upcoming") throw new Error("expected upcoming");
+    expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
+    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
     expect(result.show.url).toBe(augEvent.url);
     expect(result.show.matchedBy).toBe("title");
   });
@@ -319,7 +320,7 @@ describe("selectNextShow", () => {
   it("returns none for an empty event list", () => {
     const { result } = selectNextShow([], config, now);
 
-    expect(result).toEqual({ status: "none", source: "tribe/events/v1" });
+    expect(result).toEqual({ status: NEXT_SHOW.noneStatus, source: NEXT_SHOW.source });
   });
 });
 

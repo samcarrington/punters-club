@@ -2,11 +2,11 @@
 import Analytics from "@vercel/analytics/astro";
 import AppFooter from "../components/AppFooter.astro";
 import AppHeader from "../components/AppHeader.astro";
-import { COLLECTION_PAGE_DESCRIPTION } from "../lib/structured-data";
+import { SITE } from "../lib/constants";
 
 const {
   title,
-  description = COLLECTION_PAGE_DESCRIPTION,
+  description = SITE.homeDescription,
   canonicalUrl,
   ogTitle = title,
   ogDescription = description,

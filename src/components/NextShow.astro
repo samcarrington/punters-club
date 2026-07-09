@@ -2,14 +2,15 @@
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import rawResult from "../data/next-show.generated.json";
+import { NEXT_SHOW } from "../lib/constants";
 import { formatShowTime } from "../lib/local-time";
 import type { NextShowResult } from "../lib/next-show";
 
 const result = rawResult as NextShowResult;
 
-const upcoming = result.status === "upcoming" ? result.show : undefined;
+const upcoming = result.status === NEXT_SHOW.upcomingStatus ? result.show : undefined;
 const cueLabel =
-  upcoming?.matchedBy === "guest" ? "Guest appearance" : "Punters Club show";
+  upcoming?.matchedBy === "guest" ? NEXT_SHOW.guestLabel : NEXT_SHOW.showLabel;
 
 ---
 <script is:inline>
@@ -38,23 +39,24 @@ const cueLabel =
   }
 </script>
 
-{result.status === "upcoming" ? (
+{result.status === NEXT_SHOW.upcomingStatus ? (
   <article class="next-show-insert">
     <header class="next-show-header">
-      <h2 class="next-show-label">Next show</h2>
+      <h2 class="next-show-label">{NEXT_SHOW.sectionTitle}</h2>
       <span class="next-show-match-badge">{cueLabel}</span>
     </header>
     <div class="next-show-body">
       {result.show.posterUrl && (
         <Image
-         src={result.show.posterUrl} 
-         alt="The Punters' Club Next Show Poster" 
-         height="512"
-         width="512"
-         class="next-show-poster" 
-         loading="lazy" />
+          src={result.show.posterUrl}
+          alt={NEXT_SHOW.posterAlt}
+          height="512"
+          width="512"
+          class="next-show-poster"
+          loading="lazy"
+        />
       )}
-      
+
       <div class="next-show-details">
         <time class="next-show-when" datetime={result.show.startsAtUtc} data-next-show-time>
           {formatShowTime(result.show.startsAtUtc, result.show.timezone)}
@@ -62,7 +64,7 @@ const cueLabel =
         <h3 class="next-show-title">{result.show.title}</h3>
         {result.show.description && <p class="next-show-desc">{result.show.description}</p>}
         <a href={result.show.url} class="next-show-link link-external" target="_blank" rel="noreferrer">
-          View on Radio Waters
+          {NEXT_SHOW.ctaLabel}
           <span class="sr-only"> (opens in new tab)</span>
           <Icon height=".8em" name="gridicons:external" />
         </a>
@@ -71,8 +73,8 @@ const cueLabel =
   </article>
 ) : (
   <div class="next-show-insert is-empty">
-    <h2 class="next-show-label">Next show</h2>
-    <p class="next-show-empty-text">Nothing pinned to the running order yet. We’re digging in the crates.</p>
+    <h2 class="next-show-label">{NEXT_SHOW.sectionTitle}</h2>
+    <p class="next-show-empty-text">{NEXT_SHOW.emptyText}</p>
   </div>
 )}
 
