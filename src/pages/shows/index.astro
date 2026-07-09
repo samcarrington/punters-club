@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import showSourcesData from "../../data/show-sources.json";
 import generatedShowsData from "../../data/shows.generated.json";
 import PuntersLayout from "../../layouts/PuntersLayout.astro";
+import { RADIO_WATERS, SITE } from "../../lib/constants";
 import type { Show } from "../../lib/mixcloud";
 import {
   assertValidShowSlugs,
@@ -26,7 +27,7 @@ const allShows = mergeShowsWithSources(
 );
 
 const shows = sortShows(allShows, "newest");
-const canonicalUrl = new URL("/shows/", Astro.site || "https://punters.club").toString();
+const canonicalUrl = new URL(SITE.showsPath, Astro.site?.toString() ?? SITE.url).toString();
 const jsonLd = buildShowListStructuredData(shows, { pageUrl: canonicalUrl });
 
 const formatDate = (value?: string) =>
@@ -57,7 +58,7 @@ const getSortDate = (value?: string) => {
     <header class="archive-masthead">
       <h1>The Archive</h1>
       <div class="archive-masthead-copy">
-        <p>It started with a family broadcast in support of Awamu, and turned into a regular show. We're very happy being part of the <a href="https://radiowaters.co.uk" rel="noopener" target="_blank">Radio Waters</a> Community.</p>
+        <p>It started with a family broadcast in support of Awamu, and turned into a regular show. We're very happy being part of the <a href={RADIO_WATERS.url} rel="noopener" target="_blank">Radio Waters</a> Community.</p>
         <p>Dig through every episode of The Punters' Club. Find what you missed, revisit the ones you loved, and check-out the tracklist if we have it.</p>
       </div>
     </header>
@@ -79,7 +80,7 @@ const getSortDate = (value?: string) => {
       {shows.map((show) => {
         const description = show.description?.trim();
         return (
-          <a class="archive-index-item show-item" href={`/shows/${show.slug}/`} data-date={getSortDate(show.publishedAt)} data-listens={show.playCount ?? ""} data-title={show.title}>
+          <a class="archive-index-item show-item" href={`${SITE.showsPath}${show.slug}/`} data-date={getSortDate(show.publishedAt)} data-listens={show.playCount ?? ""} data-title={show.title}>
             {show.artwork ? (
               <Image class="archive-index-artwork" src={show.artwork} alt="" width="400" height="400" loading="lazy" />
             ) : (

@@ -6,6 +6,7 @@ import MixcloudWidget from "../../components/MixcloudWidget.astro";
 import showSourcesData from "../../data/show-sources.json";
 import generatedShowsData from "../../data/shows.generated.json";
 import PuntersLayout from "../../layouts/PuntersLayout.astro";
+import { SITE } from "../../lib/constants";
 import type { Show } from "../../lib/mixcloud";
 import type { ShowWithTracklist } from "../../lib/shows";
 import { assertValidShowSlugs, mergeShowsWithSources } from "../../lib/shows";
@@ -26,7 +27,7 @@ export async function getStaticPaths() {
 const { show } = Astro.props as { show: ShowWithTracklist };
 type TracklistItem = NonNullable<ShowWithTracklist["tracklist"]>[number];
 
-const canonicalUrl = new URL(`/shows/${show.slug}/`, Astro.site || "https://punters.club").toString();
+const canonicalUrl = new URL(`${SITE.showsPath}${show.slug}/`, Astro.site?.toString() ?? SITE.url).toString();
 const jsonLd = buildShowDetailStructuredData(show, { pageUrl: canonicalUrl });
 
 const date = show.publishedAt
@@ -36,10 +37,10 @@ const date = show.publishedAt
       day: "numeric",
     })
   : "";
-const ogTitle = `${show.title} | The Punters' Club`;
+const ogTitle = `${show.title} | ${SITE.name}`;
 const description =
   show.description ||
-  "Listen to this episode of The Punters' Club on Radio Waters.";
+  SITE.showDetailDescription;
 ---
 
 <PuntersLayout
@@ -54,7 +55,7 @@ const description =
   <article class="show-detail">
     <header class="show-detail-header band">
       <div class="show-detail-back">
-        <a href="/shows/" class="btn btn-secondary">← Back to Archive</a>
+        <a href={SITE.showsPath} class="btn btn-secondary">← Back to Archive</a>
       </div>
 
       <div class="show-detail-masthead">

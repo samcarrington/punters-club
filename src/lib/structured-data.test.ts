@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
+import { RADIO_WATERS, SCHEMA, SITE } from "./constants";
 import {
   buildCollectionPageStructuredData,
+  buildNextShowEventStructuredData,
   buildShowDetailStructuredData,
   buildShowListStructuredData,
   serializeJsonLd,
@@ -25,14 +27,26 @@ const playlist = {
   thumbnail_url: "https://example.com/playlist.jpg",
 };
 
+const nextShow = {
+  title: "The Punters’ Club – Summer Holiday Sounds",
+  slug: "the-punters-club-summer-holiday-sounds",
+  url: "https://www.radiowaters.co.uk/show/the-punters-club-summer-holiday-sounds/",
+  startsAtUtc: "2026-08-08T18:00:00.000Z",
+  endsAtUtc: "2026-08-08T20:00:00.000Z",
+  timezone: "Europe/London",
+  description: "Let’s celebrate the Summer.",
+  posterUrl: "https://www.radiowaters.co.uk/wp-content/uploads/31071.gif",
+  matchedBy: "title" as const,
+};
+
 describe("show structured data helpers", () => {
   it("builds collection structured data for shows pages", () => {
     const data = buildShowListStructuredData([show], {
-      pageUrl: "https://punters.club/shows/",
+      pageUrl: `${SITE.url}${SITE.showsPath}`,
     });
 
     expect(data["@type"]).toBe("CollectionPage");
-    expect(data.url).toBe("https://punters.club/shows/");
+    expect(data.url).toBe(`${SITE.url}${SITE.showsPath}`);
     expect(data.mainEntity.itemListElement).toHaveLength(1);
     expect(data.mainEntity.itemListElement[0].item["@type"]).toBe(
       "RadioEpisode",
@@ -41,12 +55,12 @@ describe("show structured data helpers", () => {
 
   it("binds show detail structured data to its first-party page", () => {
     const data = buildShowDetailStructuredData(show, {
-      pageUrl: "https://punters.club/shows/punters-club-june-29th-2025/",
+      pageUrl: `${SITE.url}${SITE.showsPath}punters-club-june-29th-2025/`,
     });
 
     expect(data.url).toBe(show.url);
     expect(data.mainEntityOfPage).toBe(
-      "https://punters.club/shows/punters-club-june-29th-2025/",
+      `${SITE.url}${SITE.showsPath}punters-club-june-29th-2025/`,
     );
   });
 
@@ -58,7 +72,7 @@ describe("show structured data helpers", () => {
     expect(data.duration).toBe("PT7850S");
     expect(data.interactionStatistic).toEqual({
       "@type": "InteractionCounter",
-      interactionType: "https://schema.org/ListenAction",
+      interactionType: SCHEMA.listenAction,
       userInteractionCount: 29,
     });
   });
@@ -84,10 +98,10 @@ describe("collection page structured data", () => {
     const data = buildCollectionPageStructuredData({
       shows: [show],
       playlists: [playlist],
-      pageUrl: "https://punters.club/",
+      pageUrl: `${SITE.url}/`,
     });
 
-    expect(data.url).toBe("https://punters.club/");
+    expect(data.url).toBe(`${SITE.url}/`);
     expect(data.mainEntity[0].itemListElement[0].item["@type"]).toBe(
       "RadioEpisode",
     );
@@ -95,6 +109,58 @@ describe("collection page structured data", () => {
       "@type": "Organization",
       name: "Spotify",
     });
+  });
+});
+
+describe("next show event structured data", () => {
+  it("builds virtual event JSON-LD for upcoming show", () => {
+    const data = buildNextShowEventStructuredData(nextShow, {
+      pageUrl: `${SITE.url}/`,
+    });
+
+    expect(data).toEqual({
+      "@context": SCHEMA.context,
+      "@type": "Event",
+      name: nextShow.title,
+      description: nextShow.description,
+      url: nextShow.url,
+      startDate: nextShow.startsAtUtc,
+      endDate: nextShow.endsAtUtc,
+      eventStatus: SCHEMA.eventScheduled,
+      eventAttendanceMode: SCHEMA.onlineEventAttendanceMode,
+      location: {
+        "@type": "VirtualLocation",
+        url: nextShow.url,
+      },
+      image: nextShow.posterUrl,
+      organizer: {
+        "@type": "Organization",
+        name: RADIO_WATERS.name,
+        url: RADIO_WATERS.url,
+      },
+      performer: {
+        "@type": "Organization",
+        name: RADIO_WATERS.name,
+        url: RADIO_WATERS.url,
+      },
+      mainEntityOfPage: `${SITE.url}/`,
+    });
+  });
+
+  it("omits empty optional event fields after trimming", () => {
+    const data = buildNextShowEventStructuredData({
+      ...nextShow,
+      description: "   ",
+      startsAtUtc: " 2026-08-08T18:00:00.000Z ",
+      endsAtUtc: "   ",
+      posterUrl: "   ",
+    });
+
+    expect(data.description).toBeUndefined();
+    expect(data.startDate).toBe("2026-08-08T18:00:00.000Z");
+    expect(data.endDate).toBeUndefined();
+    expect(data.image).toBeUndefined();
+    expect(data.mainEntityOfPage).toBeUndefined();
   });
 });
 

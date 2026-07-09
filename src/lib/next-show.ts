@@ -1,3 +1,5 @@
+import { NEXT_SHOW } from "./constants";
+
 /** Raw event as returned by /wp-json/tribe/events/v1/events. */
 export type TribeEvent = {
   title?: string;
@@ -41,8 +43,12 @@ export type NextShow = {
 };
 
 export type NextShowResult =
-  | { status: "upcoming"; show: NextShow; source: "tribe/events/v1" }
-  | { status: "none"; source: "tribe/events/v1" };
+  | {
+      status: typeof NEXT_SHOW.upcomingStatus;
+      show: NextShow;
+      source: typeof NEXT_SHOW.source;
+    }
+  | { status: typeof NEXT_SHOW.noneStatus; source: typeof NEXT_SHOW.source };
 
 const NAMED_ENTITIES: Record<string, string> = {
   amp: "&",
@@ -254,8 +260,12 @@ export const selectNextShow = (
 
   return {
     result: nextShow
-      ? { status: "upcoming", show: nextShow, source: "tribe/events/v1" }
-      : { status: "none", source: "tribe/events/v1" },
+      ? {
+          status: NEXT_SHOW.upcomingStatus,
+          show: nextShow,
+          source: NEXT_SHOW.source,
+        }
+      : { status: NEXT_SHOW.noneStatus, source: NEXT_SHOW.source },
     warnings,
   };
 };

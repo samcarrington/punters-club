@@ -1,11 +1,14 @@
+---
+import { SITE } from "../lib/constants";
+---
 <header class="site-header">
   <nav class="nav nav-floating-pill" aria-label="Primary navigation">
-    <a class="wordmark" href="/">The Punters' Club</a>
+    <a class="wordmark" href={SITE.homePath}>{SITE.name}</a>
     <div class="nav-links">
-      <a href="/shows/">Archive</a>
-      <a href="/#playlists">Playlists</a>
-      <a href="/#about">About</a>
+      <a href={SITE.showsPath}>Archive</a>
+      <a href={SITE.playlistsHash}>Playlists</a>
+      <a href={SITE.aboutHash}>About</a>
     </div>
-    <a class="btn btn-primary" href="/#latest-show">Listen now</a>
+    <a class="btn btn-primary" href={SITE.latestShowHash}>Listen now</a>
   </nav>
 </header>
