@@ -4,6 +4,7 @@ import "../styles/tokens.css";
 
 import HomeHero from "../components/HomeHero.astro";
 import LatestShow from "../components/LatestShow.astro";
+import nextShowResult from "../data/next-show.generated.json";
 import PlaylistGrid from "../components/PlaylistGrid.astro";
 import ShowArchive from "../components/ShowArchive.astro";
 import playlists from "../data/playlists.generated.json";
@@ -11,9 +12,13 @@ import shows from "../data/shows.generated.json";
 import PuntersLayout from "../layouts/PuntersLayout.astro";
 import {
   buildCollectionPageStructuredData,
+  buildNextShowEventStructuredData,
   serializeJsonLd,
 } from "../lib/structured-data";
+import type { NextShowResult } from "../lib/next-show";
 
+const pageUrl = new URL("/", Astro.site || "https://punters.club").toString();
+const nextShowData = nextShowResult as NextShowResult;
 const latestShow = shows.at(-1);
 const archiveShows = shows.slice(0, -1).reverse();
 const structuredDataShows = latestShow
@@ -22,12 +27,20 @@ const structuredDataShows = latestShow
 const structuredData = buildCollectionPageStructuredData({
   shows: structuredDataShows,
   playlists,
-  pageUrl: new URL("/", Astro.site || "https://punters.club").toString(),
+  pageUrl,
 });
+const nextShowStructuredData = nextShowData.status === "upcoming"
+  ? buildNextShowEventStructuredData(nextShowData.show, {
+      pageUrl,
+    })
+  : undefined;
 ---
 
 <PuntersLayout title="The Punters' Club | Radio Waters">
   <script type="application/ld+json" set:html={serializeJsonLd(structuredData)} />
+  {nextShowStructuredData && (
+    <script type="application/ld+json" set:html={serializeJsonLd(nextShowStructuredData)} />
+  )}
   <HomeHero />
   <section id="latest-show" class="band band-latest" aria-labelledby="latest-title">
     <header class="band-header">

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   buildCollectionPageStructuredData,
+  buildNextShowEventStructuredData,
   buildShowDetailStructuredData,
   buildShowListStructuredData,
   serializeJsonLd,
@@ -23,6 +24,18 @@ const playlist = {
   description: "Source tracks",
   url: "https://open.spotify.com/playlist/0FHIhH7YFk4bsWVUYnJLu4",
   thumbnail_url: "https://example.com/playlist.jpg",
+};
+
+const nextShow = {
+  title: "The Punters’ Club – Summer Holiday Sounds",
+  slug: "the-punters-club-summer-holiday-sounds",
+  url: "https://www.radiowaters.co.uk/show/the-punters-club-summer-holiday-sounds/",
+  startsAtUtc: "2026-08-08T18:00:00.000Z",
+  endsAtUtc: "2026-08-08T20:00:00.000Z",
+  timezone: "Europe/London",
+  description: "Let’s celebrate the Summer.",
+  posterUrl: "https://www.radiowaters.co.uk/wp-content/uploads/31071.gif",
+  matchedBy: "title" as const,
 };
 
 describe("show structured data helpers", () => {
@@ -95,6 +108,58 @@ describe("collection page structured data", () => {
       "@type": "Organization",
       name: "Spotify",
     });
+  });
+});
+
+describe("next show event structured data", () => {
+  it("builds virtual event JSON-LD for upcoming show", () => {
+    const data = buildNextShowEventStructuredData(nextShow, {
+      pageUrl: "https://punters.club/",
+    });
+
+    expect(data).toEqual({
+      "@context": "https://schema.org",
+      "@type": "Event",
+      name: nextShow.title,
+      description: nextShow.description,
+      url: nextShow.url,
+      startDate: nextShow.startsAtUtc,
+      endDate: nextShow.endsAtUtc,
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+      location: {
+        "@type": "VirtualLocation",
+        url: nextShow.url,
+      },
+      image: nextShow.posterUrl,
+      organizer: {
+        "@type": "Organization",
+        name: "Radio Waters",
+        url: "https://www.radiowaters.co.uk/",
+      },
+      performer: {
+        "@type": "Organization",
+        name: "Radio Waters",
+        url: "https://www.radiowaters.co.uk/",
+      },
+      mainEntityOfPage: "https://punters.club/",
+    });
+  });
+
+  it("omits empty optional event fields after trimming", () => {
+    const data = buildNextShowEventStructuredData({
+      ...nextShow,
+      description: "   ",
+      startsAtUtc: " 2026-08-08T18:00:00.000Z ",
+      endsAtUtc: "   ",
+      posterUrl: "   ",
+    });
+
+    expect(data.description).toBeUndefined();
+    expect(data.startDate).toBe("2026-08-08T18:00:00.000Z");
+    expect(data.endDate).toBeUndefined();
+    expect(data.image).toBeUndefined();
+    expect(data.mainEntityOfPage).toBeUndefined();
   });
 });
 
