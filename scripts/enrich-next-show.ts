@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { NEXT_SHOW } from "../src/lib/constants";
 import {
   isSameResult,
   type NextShowConfig,
@@ -269,14 +270,14 @@ const fetchEvents = async (config: NextShowConfig): Promise<TribeEvent[]> => {
 };
 
 const staleFallback = (previous: NextShowResult | null): NextShowResult => {
-  if (previous?.status === "upcoming") {
+  if (previous?.status === NEXT_SHOW.upcomingStatus) {
     const stillFuture = new Date(previous.show.startsAtUtc) >= new Date();
     if (stillFuture) {
       return previous;
     }
   }
 
-  return { status: "none", source: "tribe/events/v1" };
+  return { status: NEXT_SHOW.noneStatus, source: NEXT_SHOW.source };
 };
 
 const main = async () => {
@@ -308,7 +309,7 @@ const main = async () => {
 
   await writeFile(generatedPath, `${JSON.stringify(result, null, 2)}\n`);
   console.log(
-    `[next-show] wrote ${generatedPath} (status=${result.status}${result.status === "upcoming" ? `, show=${result.show.url}` : ""})`,
+    `[next-show] wrote ${generatedPath} (status=${result.status}${result.status === NEXT_SHOW.upcomingStatus ? `, show=${result.show.url}` : ""})`,
   );
 };
 

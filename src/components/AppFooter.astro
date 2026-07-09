@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import { RADIO_WATERS, SITE } from "../lib/constants";
 ---
 
 <section id="about" class="pre-footer band" aria-labelledby="about-title">
@@ -10,9 +11,9 @@ import { Image } from "astro:assets";
   </div>
 </section>
 <footer class="site-footer band footer-statement">
-  <p>The Punters' Club · on Radio Waters</p>
-  <a class="radio-waters-logo-link" href="https://www.radiowaters.co.uk/" target="_blank" rel="noreferrer" aria-label="Radio Waters website">
-    <Image src="/assets/radio-waters-white-transparent.png" alt="Radio Waters" width={850} height={499} loading="lazy" decoding="async" />
-    <span class="sr-only">Radio Waters website (opens in new tab)</span>
+  <p>{SITE.name} · on {RADIO_WATERS.name}</p>
+  <a class="radio-waters-logo-link" href={RADIO_WATERS.url} target="_blank" rel="noreferrer" aria-label={`${RADIO_WATERS.name} website`}>
+    <Image src="/assets/radio-waters-white-transparent.png" alt={RADIO_WATERS.name} width={850} height={499} loading="lazy" decoding="async" />
+    <span class="sr-only">{RADIO_WATERS.name} website (opens in new tab)</span>
   </a>
 </footer>

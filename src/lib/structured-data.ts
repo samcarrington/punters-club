@@ -1,20 +1,19 @@
+import { RADIO_WATERS, SCHEMA, SITE } from "./constants";
 import type { Show } from "./mixcloud";
 import type { NextShow } from "./next-show";
 import { detectPlatform, platformName } from "./platform";
 import type { Playlist } from "./playlist";
 
-export const COLLECTION_PAGE_NAME = "The Punters' Club | Radio Waters";
-export const COLLECTION_PAGE_DESCRIPTION =
-  "The Punters' Club: disco and modern electronic selections from a husband-and-wife DJ duo on Radio Waters.";
-export const RADIO_SERIES_NAME = "The Punters' Club";
-export const RADIO_SERIES_URL = "https://www.mixcloud.com/radiowaters/";
-export const SHOWS_PAGE_NAME = "Shows | The Punters' Club | Radio Waters";
-export const SHOWS_PAGE_DESCRIPTION =
-  "Browse archived episodes of The Punters' Club, from disco to modern electronic selections broadcast on Radio Waters.";
-export const RADIO_WATERS_NAME = "Radio Waters";
-export const RADIO_WATERS_URL = "https://www.radiowaters.co.uk/";
+export const COLLECTION_PAGE_NAME = SITE.homeTitle;
+export const COLLECTION_PAGE_DESCRIPTION = SITE.homeDescription;
+export const RADIO_SERIES_NAME = SITE.name;
+export const RADIO_SERIES_URL = RADIO_WATERS.mixcloudUrl;
+export const SHOWS_PAGE_NAME = SITE.showsTitle;
+export const SHOWS_PAGE_DESCRIPTION = SITE.showsDescription;
+export const RADIO_WATERS_NAME = RADIO_WATERS.name;
+export const RADIO_WATERS_URL = RADIO_WATERS.url;
 
-type SchemaContext = "https://schema.org";
+type SchemaContext = typeof SCHEMA.context;
 
 type OrganizationStructuredData = {
   "@type": "Organization";
@@ -35,7 +34,7 @@ type RadioSeriesStructuredData = {
 
 type InteractionCounterStructuredData = {
   "@type": "InteractionCounter";
-  interactionType: "https://schema.org/ListenAction";
+  interactionType: typeof SCHEMA.listenAction;
   userInteractionCount: number;
 };
 
@@ -94,8 +93,8 @@ type EventStructuredData = {
   "@type": "Event";
   name: string;
   url: string;
-  eventStatus: "https://schema.org/EventScheduled";
-  eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode";
+  eventStatus: typeof SCHEMA.eventScheduled;
+  eventAttendanceMode: typeof SCHEMA.onlineEventAttendanceMode;
   location: VirtualLocationStructuredData;
   organizer: OrganizationStructuredData;
   performer: OrganizationStructuredData;
@@ -165,7 +164,7 @@ export const buildShowEntity = (show: Show): RadioEpisodeStructuredData => {
   if (typeof show.playCount === "number") {
     item.interactionStatistic = {
       "@type": "InteractionCounter",
-      interactionType: "https://schema.org/ListenAction",
+      interactionType: SCHEMA.listenAction,
       userInteractionCount: show.playCount,
     };
   }
@@ -178,7 +177,7 @@ export const buildShowListStructuredData = (
   options: { pageUrl?: string } = {},
 ): ShowListStructuredData => {
   const data: ShowListStructuredData = {
-    "@context": "https://schema.org",
+    "@context": SCHEMA.context,
     "@type": "CollectionPage",
     name: SHOWS_PAGE_NAME,
     description: SHOWS_PAGE_DESCRIPTION,
@@ -203,7 +202,7 @@ export const buildShowDetailStructuredData = (
   options: { pageUrl?: string } = {},
 ): ShowDetailStructuredData => {
   const data: ShowDetailStructuredData = {
-    "@context": "https://schema.org",
+    "@context": SCHEMA.context,
     ...buildShowEntity(show),
   };
 
@@ -246,7 +245,7 @@ export const buildCollectionPageStructuredData = ({
   playlists: Playlist[];
   pageUrl?: string;
 }): CollectionPageStructuredData => ({
-  "@context": "https://schema.org",
+  "@context": SCHEMA.context,
   "@type": "CollectionPage",
   name: COLLECTION_PAGE_NAME,
   description: COLLECTION_PAGE_DESCRIPTION,
@@ -278,12 +277,12 @@ export const buildNextShowEventStructuredData = (
   options: { pageUrl?: string } = {},
 ): EventStructuredData => {
   const data: EventStructuredData = {
-    "@context": "https://schema.org",
+    "@context": SCHEMA.context,
     "@type": "Event",
     name: show.title,
     url: show.url,
-    eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+    eventStatus: SCHEMA.eventScheduled,
+    eventAttendanceMode: SCHEMA.onlineEventAttendanceMode,
     location: {
       "@type": "VirtualLocation",
       url: show.url,
