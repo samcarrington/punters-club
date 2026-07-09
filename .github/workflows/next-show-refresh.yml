@@ -13,9 +13,9 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "22"
 
@@ -31,12 +31,30 @@ jobs:
         run: pnpm run enrich:next-show 2>&1 | tee /tmp/next-show.log
 
       - name: Open PR on change
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: bot/next-show
-          base: main
-          title: "chore: refresh next show"
-          commit-message: "chore: refresh next show data"
-          body-path: /tmp/next-show.log
-          add-paths: src/data/next-show.generated.json
-          delete-branch: false
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: bot/next-show
+        run: |
+          git add src/data/next-show.generated.json
+
+          if git diff --cached --quiet; then
+            echo "No next-show changes to publish."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh next show data"
+          git fetch --depth=1 origin "${BRANCH}:refs/remotes/origin/${BRANCH}" || true
+          git push --force-with-lease origin "HEAD:${BRANCH}"
+
+          if [ -n "$(gh pr list --head "${BRANCH}" --base main --json number --jq '.[0].number')" ]; then
+            echo "Pull request already exists for ${BRANCH}."
+            exit 0
+          fi
+
+          gh pr create \
+            --base main \
+            --head "${BRANCH}" \
+            --title "chore: refresh next show" \
+            --body-file /tmp/next-show.log
