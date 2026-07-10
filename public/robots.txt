@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thepunters.club/sitemap.xml
+Sitemap: https://www.thepunters.club/sitemap.xml
