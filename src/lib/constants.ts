@@ -1,6 +1,6 @@
 export const SITE = {
   name: "The Punters' Club",
-  url: "https://thepunters.club",
+  url: "https://www.thepunters.club",
   homePath: "/",
   showsPath: "/shows/",
   latestShowHash: "/#latest-show",
