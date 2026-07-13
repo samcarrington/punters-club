@@ -1,0 +1,263 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2017-03-01 16:08:08",
+    "containerVersion": {
+        "path": "accounts/1164259306/containers/6438266/versions/0",
+        "accountId": "1164259306",
+        "containerId": "6438266",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/1164259306/containers/6438266",
+            "accountId": "1164259306",
+            "containerId": "6438266",
+            "name": "Mixcloud recipe",
+            "publicId": "GTM-5C7GDG2",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1488381486220",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/1164259306/containers/6438266/workspaces?apiLink=container"
+        },
+        "tag": [
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "tagId": "2",
+                "name": "GA - Event - Mixcloud Interaction",
+                "type": "ua",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "nonInteraction",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "doubleClick",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setTrackerName",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "useDebugVersion",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventCategory",
+                        "value": "mixcloud"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "trackType",
+                        "value": "TRACK_EVENT"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableLinkId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventAction",
+                        "value": "{{dlv - mixcloudEvent.name}}:{{dlv - mixcloudEvent.key}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventLabel",
+                        "value": "{{dlv - mixcloudEvent.progress}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableEcommerce",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "trackingId",
+                        "value": "{{YOUR_GA_TRACKING_ID}}"
+                    }
+                ],
+                "fingerprint": "1488382022474",
+                "firingTriggerId": [
+                    "6"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT"
+            },
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "tagId": "1",
+                "name": "cHTML - Mixcloud Listener",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script src=\"//widget.mixcloud.com/media/js/widgetApi.js\" type=\"text/javascript\"></script>\n<script>\n  (function() {\n    /* Change the CSS selector within document.querySelector to capture\n     * the correct player iframe.\n     * \n     * Available events are 'progress', 'buffering', 'play', 'pause', \n     * 'ended' and 'error'. If you want to stop tracking any one of these, \n     * just remove them from the events Array.\n    */ \n    var playerIframe = document.querySelector('#myPlayer'),\n        events = ['progress', 'buffering', 'play', 'pause', 'ended', 'error'];\n    \n    if (playerIframe) {\n      var player = Mixcloud.PlayerWidget(playerIframe);\n      var key = '';\n      var sendDataLayer = function(event, key, currentProgress) {\n        window.dataLayer.push({\n          event: 'mixcloud',\n          mixcloudEvent: {\n            name: event,\n            key: key,\n            progress: currentProgress\n          }\n        });\n      };\n          \n      player.ready.then(function() {\n        events.forEach(function(event) {\n          try {\n            player.events[event].on(function(progress, duration) {\n              player.getCurrentKey().then(function(key) {\n                var currentProgress;\n                if (progress && duration) {\n                  if (progress === Math.round(duration * 0.25)) {\n                    currentProgress = '25%';\n                  } else if (progress === Math.round(duration * 0.5)) {\n                    currentProgress = '50%';\n                  } else if (progress === Math.round(duration * 0.75)) {\n                    currentProgress = '75%';\n                  }\n                }\n                if (event !== 'progress' || !!currentProgress) {\n                  sendDataLayer(event, key, currentProgress);\n                }\n              });\n            });\n          } catch(e) {}\n        });\n      });\n    }\n  })();\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1488381952133",
+                "firingTriggerId": [
+                    "5"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT"
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "triggerId": "6",
+                "name": "Custom - Mixcloud Interaction",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "mixcloud"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1488379277593"
+            },
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "triggerId": "5",
+                "name": "Pageview - DOM Ready",
+                "type": "DOM_READY",
+                "fingerprint": "1488379191602"
+            }
+        ],
+        "variable": [
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "variableId": "2",
+                "name": "dlv - mixcloudEvent.key",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "mixcloudEvent.key"
+                    }
+                ],
+                "fingerprint": "1488379308040"
+            },
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "variableId": "1",
+                "name": "dlv - mixcloudEvent.name",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "mixcloudEvent.name"
+                    }
+                ],
+                "fingerprint": "1488379297026"
+            },
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "variableId": "3",
+                "name": "dlv - mixcloudEvent.progress",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "mixcloudEvent.progress"
+                    }
+                ],
+                "fingerprint": "1488379319943"
+            }
+        ],
+        "builtInVariable": [
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "type": "PAGE_URL",
+                "name": "Page URL"
+            },
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "type": "PAGE_HOSTNAME",
+                "name": "Page Hostname"
+            },
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "type": "PAGE_PATH",
+                "name": "Page Path"
+            },
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "type": "REFERRER",
+                "name": "Referrer"
+            },
+            {
+                "accountId": "1164259306",
+                "containerId": "6438266",
+                "type": "EVENT",
+                "name": "Event"
+            }
+        ],
+        "fingerprint": "0",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/1164259306/containers/6438266/versions/0?apiLink=version"
+    }
+}
