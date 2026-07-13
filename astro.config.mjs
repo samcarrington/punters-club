@@ -15,6 +15,7 @@ export default defineConfig({
     icon({
       include: {
         gridicons: ["external"],
+        lucide: ["cookie"],
       },
     }),
   ],

@@ -1,6 +1,10 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
 <aside data-cookie-consent class="cookie-consent" hidden aria-live="polite" aria-label="Cookie preferences">
   <p>
-    We use cookies to see what's working and improve your experience.
+    We use cookies to see what's working, and improve your experience.
   </p>
   <div>
     <button type="button" data-cookie-consent-allow class="btn btn-primary">Allow</button>
@@ -9,12 +13,16 @@
 </aside>
 
 <button type="button" data-cookie-consent-change class="cookie-preferences" hidden>
-  <span class="sr-only">Change cookie preferences</span>
+  <Icon height="1.3em" width="1.3em" name="lucide:cookie" /><span class="sr-only">Change cookie preferences</span>
 </button>
 
 <script>
   import {
     COOKIE_CONSENT,
+    type AnalyticsEvent,
+    type ConsentPreference,
+    type GtmConsentValue,
+    type StoredConsentStatus,
     analyticsStorageConsent,
     createConsentPreference,
     discardQueuedEvents,
@@ -24,7 +32,13 @@
   } from "../lib/cookie-consent";
 
   (() => {
-    const analyticsWindow = window;
+    const analyticsWindow = window as Window & {
+      dataLayer?: unknown[];
+      gtag?: (...args: unknown[]) => void;
+      puntersAnalytics?: {
+        track: (event: AnalyticsEvent) => void;
+      };
+    };
 
     const banner = document.querySelector("[data-cookie-consent]");
     const allowButton = document.querySelector("[data-cookie-consent-allow]");
@@ -42,19 +56,19 @@
 
     let hasLoadedVercelAnalytics = false;
     let vercelAnalyticsLoadPromise: Promise<void> | null = null;
-    let inMemoryQueue = [];
+    let inMemoryQueue: AnalyticsEvent[] = [];
 
-    const readJson = (key, fallback) => {
+    const readJson = <T,>(key: string, fallback: T): T => {
       try {
         const value = window.localStorage.getItem(key);
         if (!value) return fallback;
-        return JSON.parse(value);
+        return JSON.parse(value) as T;
       } catch {
         return fallback;
       }
     };
 
-    const writeJson = (key, value) => {
+    const writeJson = (key: string, value: unknown) => {
       try {
         window.localStorage.setItem(key, JSON.stringify(value));
       } catch {
@@ -62,7 +76,7 @@
       }
     };
 
-    const removeItem = (key) => {
+    const removeItem = (key: string) => {
       try {
         window.localStorage.removeItem(key);
       } catch {
@@ -70,7 +84,7 @@
       }
     };
 
-    const readStoredConsent = () => {
+    const readStoredConsent = (): ConsentPreference | null => {
       const storedValue = (() => {
         try {
           return window.localStorage.getItem(COOKIE_CONSENT.storageKey);
@@ -89,27 +103,27 @@
       return null;
     };
 
-    const readStoredQueue = () => {
-      const parsed = readJson(COOKIE_CONSENT.queueKey, []);
+    const readStoredQueue = (): AnalyticsEvent[] => {
+      const parsed = readJson<unknown>(COOKIE_CONSENT.queueKey, []);
 
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+        return parsed as AnalyticsEvent[];
       }
 
       return inMemoryQueue;
     };
 
-    const writeStoredQueue = (queue) => {
+    const writeStoredQueue = (queue: AnalyticsEvent[]) => {
       inMemoryQueue = queue;
       writeJson(COOKIE_CONSENT.queueKey, queue);
     };
 
-    const setBannerVisible = (visible) => {
+    const setBannerVisible = (visible: boolean) => {
       banner.hidden = !visible;
       changeButton.hidden = visible;
     };
 
-    const updateConsent = (analyticsStorage) => {
+    const updateConsent = (analyticsStorage: GtmConsentValue) => {
       try {
         if (typeof analyticsWindow.gtag === "function") {
           analyticsWindow.gtag("consent", "update", { analytics_storage: analyticsStorage });
@@ -153,7 +167,7 @@
       removeItem(COOKIE_CONSENT.queueKey);
     };
 
-    const applyDecision = async (status) => {
+    const applyDecision = async (status: StoredConsentStatus) => {
       writeJson(COOKIE_CONSENT.storageKey, createConsentPreference(status));
 
       if (status === "accepted") {
@@ -169,7 +183,7 @@
     };
 
     analyticsWindow.puntersAnalytics = {
-      track(event) {
+      track(event: AnalyticsEvent) {
         const consent = readStoredConsent();
 
         if (consent?.status === "accepted") {
