@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import partytown from "@astrojs/partytown";
 import icon from "astro-icon";
 
 export default defineConfig({
@@ -12,6 +13,11 @@ export default defineConfig({
     ],
   },
   integrations: [
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
     icon({
       include: {
         gridicons: ["external"],

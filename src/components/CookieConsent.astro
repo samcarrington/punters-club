@@ -1,0 +1,205 @@
+---
+import { COOKIE_CONSENT } from "../lib/cookie-consent";
+---
+
+<aside data-cookie-consent class="cookie-consent" hidden aria-live="polite" aria-label="Cookie preferences">
+  <p>
+    Allow analytics cookies to help us understand what gets played.
+  </p>
+  <div>
+    <button type="button" data-cookie-consent-allow class="btn btn-primary">Allow</button>
+    <button type="button" data-cookie-consent-deny class="btn btn-secondary">Deny</button>
+  </div>
+</aside>
+
+<button type="button" data-cookie-consent-change class="cookie-preferences" hidden>
+  Change cookie preferences
+</button>
+
+<script
+  is:inline
+  define:vars={{
+    consentStorageKey: COOKIE_CONSENT.storageKey,
+    queueStorageKey: COOKIE_CONSENT.queueKey,
+    maxAgeMs: COOKIE_CONSENT.maxAgeMs,
+  }}
+>
+  (() => {
+    const banner = document.querySelector("[data-cookie-consent]");
+    const allowButton = document.querySelector("[data-cookie-consent-allow]");
+    const denyButton = document.querySelector("[data-cookie-consent-deny]");
+    const changeButton = document.querySelector("[data-cookie-consent-change]");
+
+    if (!(banner instanceof HTMLElement)) return;
+    if (!(allowButton instanceof HTMLButtonElement)) return;
+    if (!(denyButton instanceof HTMLButtonElement)) return;
+    if (!(changeButton instanceof HTMLButtonElement)) return;
+
+    const dataLayer = Array.isArray(window.dataLayer)
+      ? window.dataLayer
+      : (window.dataLayer = []);
+
+    let inMemoryQueue = [];
+
+    const createPreference = (status) => ({
+      status,
+      expiresAt: Date.now() + maxAgeMs,
+    });
+
+    const readJson = (key, fallback) => {
+      try {
+        const value = window.localStorage.getItem(key);
+        if (!value) return fallback;
+        return JSON.parse(value);
+      } catch {
+        return fallback;
+      }
+    };
+
+    const writeJson = (key, value) => {
+      try {
+        window.localStorage.setItem(key, JSON.stringify(value));
+      } catch {
+        // Ignore storage failures. Consent UI must still work.
+      }
+    };
+
+    const removeItem = (key) => {
+      try {
+        window.localStorage.removeItem(key);
+      } catch {
+        // Ignore storage failures. Consent UI must still work.
+      }
+    };
+
+    const readStoredConsent = () => {
+      const parsed = readJson(consentStorageKey, null);
+
+      if (
+        parsed &&
+        (parsed.status === "accepted" || parsed.status === "rejected") &&
+        typeof parsed.expiresAt === "number" &&
+        parsed.expiresAt > Date.now()
+      ) {
+        return parsed;
+      }
+
+      if (parsed) {
+        removeItem(consentStorageKey);
+      }
+
+      return null;
+    };
+
+    const readStoredQueue = () => {
+      const parsed = readJson(queueStorageKey, []);
+
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+
+      return inMemoryQueue;
+    };
+
+    const writeStoredQueue = (queue) => {
+      inMemoryQueue = queue;
+      writeJson(queueStorageKey, queue);
+    };
+
+    const setBannerVisible = (visible) => {
+      banner.hidden = !visible;
+      changeButton.hidden = visible;
+    };
+
+    const updateConsent = (analyticsStorage) => {
+      try {
+        if (typeof window.gtag === "function") {
+          window.gtag("consent", "update", { analytics_storage: analyticsStorage });
+        }
+      } catch {
+        // Ignore analytics failures. Consent state still persists.
+      }
+    };
+
+    const flushQueue = () => {
+      const queue = readStoredQueue();
+
+      for (const event of queue) {
+        dataLayer.push(event);
+      }
+
+      writeStoredQueue([]);
+    };
+
+    const discardQueue = () => {
+      inMemoryQueue = [];
+      removeItem(queueStorageKey);
+    };
+
+    const applyDecision = (status) => {
+      writeJson(consentStorageKey, createPreference(status));
+
+      if (status === "accepted") {
+        updateConsent("granted");
+        flushQueue();
+      } else {
+        updateConsent("denied");
+        discardQueue();
+      }
+
+      setBannerVisible(false);
+    };
+
+    window.puntersAnalytics = {
+      track(event) {
+        const consent = readStoredConsent();
+
+        if (consent?.status === "accepted") {
+          dataLayer.push(event);
+          return;
+        }
+
+        if (consent?.status === "rejected") {
+          return;
+        }
+
+        const queue = [...readStoredQueue(), event];
+        writeStoredQueue(queue);
+      },
+    };
+
+    allowButton.addEventListener("click", () => {
+      applyDecision("accepted");
+    });
+
+    denyButton.addEventListener("click", () => {
+      applyDecision("rejected");
+    });
+
+    changeButton.addEventListener("click", () => {
+      setBannerVisible(true);
+    });
+
+    const initialConsent = readStoredConsent();
+
+    if (initialConsent?.status === "accepted") {
+      updateConsent("granted");
+      flushQueue();
+      setBannerVisible(false);
+      return;
+    }
+
+    if (initialConsent?.status === "rejected") {
+      updateConsent("denied");
+      discardQueue();
+      setBannerVisible(false);
+      return;
+    }
+
+    if (inMemoryQueue.length > 0) {
+      writeStoredQueue(inMemoryQueue);
+    }
+
+    setBannerVisible(true);
+  })();
+</script>
