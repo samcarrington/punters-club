@@ -1,0 +1,226 @@
+<aside data-cookie-consent class="cookie-consent" hidden aria-live="polite" aria-label="Cookie preferences">
+  <p>
+    We use cookies to see what's working and improve your experience.
+  </p>
+  <div>
+    <button type="button" data-cookie-consent-allow class="btn btn-primary">Allow</button>
+    <button type="button" data-cookie-consent-deny class="btn btn-secondary">Deny</button>
+  </div>
+</aside>
+
+<button type="button" data-cookie-consent-change class="cookie-preferences" hidden>
+  <span class="sr-only">Change cookie preferences</span>
+</button>
+
+<script>
+  import {
+    COOKIE_CONSENT,
+    analyticsStorageConsent,
+    createConsentPreference,
+    discardQueuedEvents,
+    injectQueuedEvents,
+    queueAnalyticsEvent,
+    readConsentPreference,
+  } from "../lib/cookie-consent";
+
+  (() => {
+    const analyticsWindow = window;
+
+    const banner = document.querySelector("[data-cookie-consent]");
+    const allowButton = document.querySelector("[data-cookie-consent-allow]");
+    const denyButton = document.querySelector("[data-cookie-consent-deny]");
+    const changeButton = document.querySelector("[data-cookie-consent-change]");
+
+    if (!(banner instanceof HTMLElement)) return;
+    if (!(allowButton instanceof HTMLButtonElement)) return;
+    if (!(denyButton instanceof HTMLButtonElement)) return;
+    if (!(changeButton instanceof HTMLButtonElement)) return;
+
+    const dataLayer = Array.isArray(analyticsWindow.dataLayer)
+      ? analyticsWindow.dataLayer
+      : (analyticsWindow.dataLayer = []);
+
+    let hasLoadedVercelAnalytics = false;
+    let vercelAnalyticsLoadPromise: Promise<void> | null = null;
+    let inMemoryQueue = [];
+
+    const readJson = (key, fallback) => {
+      try {
+        const value = window.localStorage.getItem(key);
+        if (!value) return fallback;
+        return JSON.parse(value);
+      } catch {
+        return fallback;
+      }
+    };
+
+    const writeJson = (key, value) => {
+      try {
+        window.localStorage.setItem(key, JSON.stringify(value));
+      } catch {
+        // Ignore storage failures. Consent UI must still work.
+      }
+    };
+
+    const removeItem = (key) => {
+      try {
+        window.localStorage.removeItem(key);
+      } catch {
+        // Ignore storage failures. Consent UI must still work.
+      }
+    };
+
+    const readStoredConsent = () => {
+      const storedValue = (() => {
+        try {
+          return window.localStorage.getItem(COOKIE_CONSENT.storageKey);
+        } catch {
+          return null;
+        }
+      })();
+      const parsed = readConsentPreference(storedValue, Date.now());
+
+      if (parsed) return parsed;
+
+      if (storedValue) {
+        removeItem(COOKIE_CONSENT.storageKey);
+      }
+
+      return null;
+    };
+
+    const readStoredQueue = () => {
+      const parsed = readJson(COOKIE_CONSENT.queueKey, []);
+
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+
+      return inMemoryQueue;
+    };
+
+    const writeStoredQueue = (queue) => {
+      inMemoryQueue = queue;
+      writeJson(COOKIE_CONSENT.queueKey, queue);
+    };
+
+    const setBannerVisible = (visible) => {
+      banner.hidden = !visible;
+      changeButton.hidden = visible;
+    };
+
+    const updateConsent = (analyticsStorage) => {
+      try {
+        if (typeof analyticsWindow.gtag === "function") {
+          analyticsWindow.gtag("consent", "update", { analytics_storage: analyticsStorage });
+        }
+      } catch {
+        // Ignore analytics failures. Consent state still persists.
+      }
+    };
+
+    const loadVercelAnalytics = async () => {
+      if (hasLoadedVercelAnalytics) return;
+      if (vercelAnalyticsLoadPromise) {
+        await vercelAnalyticsLoadPromise;
+        return;
+      }
+
+      vercelAnalyticsLoadPromise = (async () => {
+        try {
+          const { inject } = await import("@vercel/analytics");
+          inject();
+          hasLoadedVercelAnalytics = true;
+        } catch {
+          // Ignore analytics failures. Consent UI must still work.
+        } finally {
+          vercelAnalyticsLoadPromise = null;
+        }
+      })();
+
+      await vercelAnalyticsLoadPromise;
+    };
+
+    const flushQueue = () => {
+      const queue = readStoredQueue();
+      const remainingQueue = injectQueuedEvents(queue, dataLayer);
+
+      writeStoredQueue(remainingQueue);
+    };
+
+    const discardQueue = () => {
+      inMemoryQueue = discardQueuedEvents(readStoredQueue());
+      removeItem(COOKIE_CONSENT.queueKey);
+    };
+
+    const applyDecision = async (status) => {
+      writeJson(COOKIE_CONSENT.storageKey, createConsentPreference(status));
+
+      if (status === "accepted") {
+        updateConsent(analyticsStorageConsent(status));
+        await loadVercelAnalytics();
+        flushQueue();
+      } else {
+        updateConsent(analyticsStorageConsent(status));
+        discardQueue();
+      }
+
+      setBannerVisible(false);
+    };
+
+    analyticsWindow.puntersAnalytics = {
+      track(event) {
+        const consent = readStoredConsent();
+
+        if (consent?.status === "accepted") {
+          dataLayer.push(event);
+          return;
+        }
+
+        if (consent?.status === "rejected") {
+          return;
+        }
+
+        const queue = queueAnalyticsEvent(readStoredQueue(), event);
+        writeStoredQueue(queue);
+      },
+    };
+
+    allowButton.addEventListener("click", () => {
+      applyDecision("accepted");
+    });
+
+    denyButton.addEventListener("click", () => {
+      applyDecision("rejected");
+    });
+
+    changeButton.addEventListener("click", () => {
+      setBannerVisible(true);
+    });
+
+    const initialConsent = readStoredConsent();
+
+    void (async () => {
+      if (initialConsent?.status === "accepted") {
+        updateConsent(analyticsStorageConsent(initialConsent.status));
+        await loadVercelAnalytics();
+        flushQueue();
+        setBannerVisible(false);
+        return;
+      }
+
+      if (initialConsent?.status === "rejected") {
+        updateConsent(analyticsStorageConsent(initialConsent.status));
+        discardQueue();
+        setBannerVisible(false);
+        return;
+      }
+
+      if (inMemoryQueue.length > 0) {
+        writeStoredQueue(inMemoryQueue);
+      }
+
+      setBannerVisible(true);
+    })();
+  })();
+</script>

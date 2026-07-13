@@ -8,6 +8,8 @@ describe("robots.txt", () => {
 
     expect(robots).toContain("User-agent: *");
     expect(robots).toContain("Allow: /");
-    expect(robots).toContain("Sitemap: https://punters.club/sitemap.xml");
+    expect(robots).toContain(
+      "Sitemap: https://www.thepunters.club/sitemap.xml/",
+    );
   });
 });
