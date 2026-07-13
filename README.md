@@ -1,10 +1,16 @@
 # The Punters' Club
 
+[![Live Site](https://img.shields.io/badge/live-thepunters.club-CB6D43?logo=safari&logoColor=white)](https://www.thepunters.club)
+[![Deploy Status](https://deploy-badge.vercel.app/?url=https://www.thepunters.club&name=vercel)](https://vercel.com/samcarrington-8470s-projects/punters-club/)
+[![Astro](https://img.shields.io/badge/Astro-7.0-FF5D01?logo=astro&logoColor=white)](https://astro.build)
+[![Node](https://img.shields.io/badge/Node-%3E%3D22.12-5FA04E?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![pnpm](https://img.shields.io/badge/pnpm-11.9-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
+
 Static Astro site for The Punters' Club on Radio Waters: latest Mixcloud show, archive links, and playlist offshoots.
 
 ## Requirements
 
-- Node `^20.19.0` or `>=22.12.0`
+- Node `>=22.12.0`
 - pnpm (this repo uses `pnpm-lock.yaml`)
 
 ## Commands
