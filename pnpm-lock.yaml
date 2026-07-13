@@ -21,6 +21,9 @@ importers:
       '@iconify-json/gridicons':
         specifier: ^1.2.5
         version: 1.2.5
+      '@iconify-json/lucide':
+        specifier: 1.2.117
+        version: 1.2.117
       '@vitest/coverage-v8':
         specifier: 4.1.9
         version: 4.1.9(vitest@4.1.9)
@@ -372,6 +375,9 @@ packages:
 
   '@iconify-json/gridicons@1.2.5':
     resolution: {integrity: sha512-0LieHY9F/bNdJgQ07QcE5huhYpNEg5QsBYC3N4BGbIUOTzxFNNaPw+UvLtqgP4nbegASQPLGSOeSrN8/Y7xKng==}
+
+  '@iconify-json/lucide@1.2.117':
+    resolution: {integrity: sha512-7isYKJKWRZ8NfLNSY8pIYmRWiMBkopL4/X22gZfFmePFhc7az0hQ5biqBLG6vdDEvMctFu2suZB3yQ29RL+8tA==}
 
   '@iconify/tools@4.2.0':
     resolution: {integrity: sha512-WRxPva/ipxYkqZd1+CkEAQmd86dQmrwH0vwK89gmp2Kh2WyyVw57XbPng0NehP3x4V1LzLsXUneP1uMfTMZmUA==}
@@ -2259,6 +2265,10 @@ snapshots:
     optional: true
 
   '@iconify-json/gridicons@1.2.5':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/lucide@1.2.117':
     dependencies:
       '@iconify/types': 2.0.0
 
