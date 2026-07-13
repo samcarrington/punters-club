@@ -45,6 +45,7 @@
 - Run the Consent Mode default-denied snippet as a normal inline head script before GTM; do not mark that default-denied script as `type="text/partytown"`.
 - Mark only the GTM loader script as `type="text/partytown"`.
 - Remove or disable `@vercel/analytics` rendering because this plan treats GTM/GA as the only analytics path covered by consent.
+- If `@vercel/analytics` remains installed, gate its client `inject()` call behind accepted consent as a separate analytics path; GTM consent updates alone do not load or control Vercel Analytics.
 - Use `pnpm exec astro build` for UI-only build verification so generated Mixcloud/Spotify/next-show data does not churn.
 - Keep copy plain and short. The banner should not feel like a SaaS modal or another rounded card section.
 

@@ -1355,7 +1355,7 @@ h1 {
 .cookie-preferences {
   position: fixed;
   bottom: 0;
-  right: var(--space-xl);
+  right: var(--space-2xl);
   z-index: 99;
   background: var(--color-paper-3);
   color: var(--color-ink-muted);
