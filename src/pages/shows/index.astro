@@ -82,7 +82,7 @@ const getSortDate = (value?: string) => {
         return (
           <a class="archive-index-item show-item" href={`${SITE.showsPath}${show.slug}/`} data-date={getSortDate(show.publishedAt)} data-listens={show.playCount ?? ""} data-title={show.title}>
             {show.artwork ? (
-              <Image class="archive-index-artwork" src={show.artwork} alt="" width="400" height="400" loading="lazy" />
+              <Image class="archive-index-artwork" src={show.artwork} alt={show.title} width="400" height="400" loading="lazy" />
             ) : (
               <div class="archive-index-artwork" aria-hidden="true"></div>
             )}
