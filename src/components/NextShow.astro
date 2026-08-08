@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import rawResult from "../data/next-show.generated.json";
 import { NEXT_SHOW } from "../lib/constants";
-import { formatShowTime } from "../lib/local-time";
+import { formatShowTime, SHOW_TIME_FORMAT_OPTIONS } from "../lib/local-time";
 import type { NextShowResult } from "../lib/next-show";
 
 const result = rawResult as NextShowResult;
@@ -13,7 +13,7 @@ const upcoming =
 const cueLabel =
   upcoming?.matchedBy === "guest" ? NEXT_SHOW.guestLabel : NEXT_SHOW.showLabel;
 ---
-<script is:inline>
+<script is:inline define:vars={{ formatOptions: SHOW_TIME_FORMAT_OPTIONS }}>
   const nextShowTime = document.querySelector("[data-next-show-time]");
 
   if (nextShowTime instanceof HTMLTimeElement) {
@@ -23,13 +23,7 @@ const cueLabel =
     if (startsAtUtc && visitorTimeZone) {
       const startsAt = new Date(startsAtUtc);
       const formatter = new Intl.DateTimeFormat(navigator.language || "en-GB", {
-        weekday: "short",
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZoneName: "short",
+        ...formatOptions,
         timeZone: visitorTimeZone,
       });
 

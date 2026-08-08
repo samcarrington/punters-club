@@ -86,9 +86,7 @@ export function queueAnalyticsEvent(
   return [...queue, event];
 }
 
-export function discardQueuedEvents(
-  _queue: AnalyticsEvent[],
-): AnalyticsEvent[] {
+export function discardQueuedEvents(): AnalyticsEvent[] {
   return [];
 }
 

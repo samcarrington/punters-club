@@ -26,21 +26,14 @@ external fetch fails.
 pnpm run dev
 ```
 
-### Build (UI-only, default)
-```bash
-pnpm exec astro build
-```
-Skips the enrich step. Use this for day-to-day UI/content work — it's faster and
-doesn't touch generated show/playlist JSON.
-
-### Full production build (with data refresh)
+### Build (production and UI-only, same command)
 ```bash
 pnpm run build
 ```
-Runs `pnpm run enrich` (Mixcloud shows, Spotify playlists, next-show) then
-`astro build`. This is what generates fresh `*.generated.json` files. Only use
-when you actually want to refresh show/playlist/play-count data — otherwise it
-introduces unrelated JSON churn into a UI-only change.
+Equivalent to `pnpm exec astro build`. The build does **not** call any
+third-party API — it never touches generated show/playlist/next-show JSON.
+Generated data is refreshed separately (see below) and committed to the repo,
+so builds are deterministic and unaffected by upstream API outages.
 
 ### Preview built site
 ```bash
@@ -57,12 +50,17 @@ pnpm run test
 pnpm run test:coverage
 ```
 
-### Enrich data only (without building)
+### Refresh generated show/playlist/next-show data
 ```bash
 pnpm run enrich
 ```
 Individual steps: `pnpm run enrich:shows`, `pnpm run enrich:playlists`,
-`pnpm run enrich:next-show`.
+`pnpm run enrich:next-show`. Run this when you intentionally want to refresh
+show/playlist/play-count data — otherwise it introduces unrelated JSON churn
+into a UI-only change. In production this runs on a schedule via
+`.github/workflows/shows-refresh.yml` and `.github/workflows/next-show-refresh.yml`,
+which open a PR when the generated data changes; it is no longer part of the
+build step.
 
 ## Opt-in / Manual-Only Commands
 
@@ -101,20 +99,23 @@ Astro files have `noUnusedImports`/`noUnusedVariables` disabled via an override
 in `biome.json` (Astro frontmatter produces false positives) — don't "fix" that
 override unless the underlying false positives are addressed upstream.
 
-There is **no typecheck script** in this repo. `pnpm exec astro build` (or the
-full `pnpm run build`) is the fallback verification step for type errors.
+### Typecheck
+```bash
+pnpm run typecheck
+```
+Runs `tsc --noEmit`.
 
 ## Common Flags
 
 | Flag/Pattern | Purpose | When to Use |
 |---|---|---|
-| `pnpm exec astro build` | Build without enrich | Default for UI-only changes |
-| `pnpm run build` | Build with enrich | Only when refreshing generated data intentionally |
+| `pnpm run build` | Build (astro build only) | Always — build never touches generated data |
+| `pnpm run enrich` | Refresh generated JSON | Only when refreshing generated data intentionally |
 | `pnpm install --frozen-lockfile` | Strict install (used in CI) | CI/reproducible installs; local dev can use plain `pnpm install` |
 
 ## Troubleshooting
 
 - If a UI-only change unexpectedly modifies `src/data/*.generated.json`, you likely
-  ran `pnpm run build` instead of `pnpm exec astro build` — revert the unrelated
-  generated-file churn.
+  ran `pnpm run enrich` (or one of the `enrich:*` scripts) unintentionally —
+  revert the unrelated generated-file churn.
 - Do not reintroduce `package-lock.json`; this repo is pnpm-only.

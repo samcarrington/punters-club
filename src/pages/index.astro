@@ -8,10 +8,12 @@ import PlaylistGrid from "../components/PlaylistGrid.astro";
 import ShowArchive from "../components/ShowArchive.astro";
 import nextShowResult from "../data/next-show.generated.json";
 import playlists from "../data/playlists.generated.json";
-import shows from "../data/shows.generated.json";
+import generatedShowsData from "../data/shows.generated.json";
 import PuntersLayout from "../layouts/PuntersLayout.astro";
 import { NEXT_SHOW, SITE } from "../lib/constants";
+import type { Show } from "../lib/mixcloud";
 import type { NextShowResult } from "../lib/next-show";
+import { sortShows } from "../lib/shows";
 import {
   buildCollectionPageStructuredData,
   buildNextShowEventStructuredData,
@@ -23,13 +25,10 @@ const pageUrl = new URL(
   Astro.site?.toString() ?? SITE.url,
 ).toString();
 const nextShowData = nextShowResult as NextShowResult;
-const latestShow = shows.at(-1);
-const archiveShows = shows.slice(0, -1).reverse();
-const structuredDataShows = latestShow
-  ? [latestShow, ...archiveShows]
-  : archiveShows;
+const shows = sortShows(generatedShowsData as Show[], "newest");
+const [latestShow, ...archiveShows] = shows;
 const structuredData = buildCollectionPageStructuredData({
-  shows: structuredDataShows,
+  shows,
   playlists,
   pageUrl,
 });

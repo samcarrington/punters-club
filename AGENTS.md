@@ -4,21 +4,22 @@
 - Single Astro static site; source root is `src/` (`astro.config.mjs` sets `srcDir: './src'`).
 - Use pnpm and `pnpm-lock.yaml`; do not reintroduce `package-lock.json`.
 - Astro dependency requires a current Node line (`^20.19.0 || >=22.12.0` via lockfile packages).
+- Deployed on Vercel; build/install/output settings are pinned in `vercel.json` (framework `astro`, `pnpm run build`, `pnpm install --frozen-lockfile`, output `dist`) rather than left to dashboard defaults - keep it in sync if the build pipeline changes.
 
 ## Commands
 - Dev server: `pnpm run dev`.
-- Full production build: `pnpm run build` (`pnpm run enrich && astro build`).
-- Build without refreshing generated Mixcloud/Spotify metadata: `pnpm exec astro build`.
+- Production build: `pnpm run build` (`astro build` only - does not call live third-party APIs).
+- Refresh generated Mixcloud/Spotify/Tidal metadata locally: `pnpm run enrich` (or the individual `pnpm run enrich:shows` / `enrich:playlists` / `enrich:next-show` scripts).
 - Preview the built site: `pnpm run preview`.
+- Typecheck: `pnpm run typecheck` (`tsc --noEmit`).
 - Lint (formatting, lint rules, import order via Biome): `pnpm run lint`; auto-fix safe issues with `pnpm run lint:fix`.
-- There are no repo scripts for typecheck; use build as a secondary verification step for type errors.
 
 ## Data flow and generated files
 - Human-edited content inputs are `src/data/show-sources.json` and `src/data/playlist-sources.json`; `docs/shows.md` is a reference list for show ordering/titles and should stay consistent when show sources change.
 - `scripts/enrich-shows.ts` writes `src/data/shows.generated.json` from Mixcloud API data, falling back to the previous generated entry or source-only data on fetch failure.
 - `scripts/enrich-playlists.ts` writes `src/data/playlists.generated.json` from Spotify oEmbed data, falling back the same way.
-- `pnpm run build` can update generated play counts/artwork metadata. If the task is UI-only, restore unrelated generated JSON churn or use `pnpm exec astro build` for validation.
-- Homepage ordering is code-defined in `src/pages/index.astro`: `shows.at(-1)` is the latest show; `shows.slice(0, -1).reverse()` is the archive.
+- Generated JSON (`shows.generated.json`, `playlists.generated.json`, `next-show.generated.json`) is committed to the repo and refreshed by scheduled GitHub Actions (`.github/workflows/shows-refresh.yml`, `.github/workflows/next-show-refresh.yml`), not by the production build. `pnpm run build` runs `astro build` only and does not refetch third-party data, so it is deterministic and unaffected by upstream API outages. If a task needs fresh metadata, run `pnpm run enrich` locally or dispatch the relevant workflow.
+- Homepage ordering is code-defined in `src/pages/index.astro` via `sortShows(..., "newest")` from `src/lib/shows.ts`.
 
 ## UI/product constraints
 - `PRODUCT.md` is the compact brand brief: listening-first, nocturnal/crate-dug tone, avoid SaaS/festival/corporate polish, target WCAG 2.2 AA.

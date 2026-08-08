@@ -8,7 +8,7 @@
     "enrich:playlists": "tsx scripts/enrich-playlists.ts",
     "enrich:next-show": "tsx scripts/enrich-next-show.ts",
     "enrich": "pnpm run enrich:shows && pnpm run enrich:playlists && pnpm run enrich:next-show",
-    "build": "pnpm run enrich && astro build",
+    "build": "astro build",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

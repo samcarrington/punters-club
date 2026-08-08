@@ -1,17 +1,9 @@
-import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { normalizeShow, type Show, toApiUrl } from "../src/lib/mixcloud";
+import { fetchWithFallback, readJson, writeJson } from "./lib/enrich-utils";
 
 const sourcePath = resolve("src/data/show-sources.json");
 const generatedPath = resolve("src/data/shows.generated.json");
-
-const readJson = async <T>(path: string): Promise<T | null> => {
-  try {
-    return JSON.parse(await readFile(path, "utf8")) as T;
-  } catch {
-    return null;
-  }
-};
 
 const main = async () => {
   const sources = (await readJson<Show[]>(sourcePath)) ?? [];
@@ -19,19 +11,29 @@ const main = async () => {
   const previousByUrl = new Map(previous.map((show) => [show.url, show]));
 
   const enriched = await Promise.all(
-    sources.map(async (source) => {
-      try {
-        const response = await fetch(toApiUrl(source.url));
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const api = (await response.json()) as Record<string, unknown>;
-        return normalizeShow(source, api);
-      } catch {
-        return previousByUrl.get(source.url) ?? normalizeShow(source);
-      }
-    }),
+    sources.map((source) =>
+      fetchWithFallback({
+        label: "enrich-shows",
+        identify: source.url,
+        fetchAndNormalize: async () => {
+          const response = await fetch(toApiUrl(source.url));
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const api = (await response.json()) as Record<string, unknown>;
+          return normalizeShow(source, api);
+        },
+        fallback: () => ({
+          ...(previousByUrl.get(source.url) ?? normalizeShow(source)),
+          // Hand-authored fields never come from the Mixcloud API, so keep
+          // them fresh from the source file even when a fetch fails and the
+          // rest of the show falls back to previously-generated data.
+          title: source.title,
+          tracklist: source.tracklist,
+        }),
+      }),
+    ),
   );
 
-  await writeFile(generatedPath, `${JSON.stringify(enriched, null, 2)}\n`);
+  await writeJson(generatedPath, enriched);
 };
 
 main().catch((error) => {

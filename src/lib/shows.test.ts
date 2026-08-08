@@ -1,23 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { Show, ShowSource } from "./mixcloud";
-import {
-  assertValidShowSlugs,
-  mergeShowsWithSources,
-  sortShows,
-} from "./shows";
-
-const sourceShows: ShowSource[] = [
-  {
-    title: "Source A",
-    url: "https://www.mixcloud.com/samcarrington/source-a/",
-    tracklist: [{ position: 1, artist: "Artist A", title: "Track A" }],
-  },
-  {
-    title: "Source B",
-    url: "https://www.mixcloud.com/samcarrington/source-b/",
-    tracklist: [{ position: 1, artist: "Artist B", title: "Track B" }],
-  },
-];
+import type { Show } from "./mixcloud";
+import { assertValidShowSlugs, sortShows } from "./shows";
 
 const generatedShows: Show[] = [
   {
@@ -26,6 +9,7 @@ const generatedShows: Show[] = [
     slug: "source-a",
     publishedAt: "2025-06-01T12:00:00Z",
     playCount: 10,
+    tracklist: [{ position: 1, artist: "Artist A", title: "Track A" }],
   },
   {
     title: "Generated B",
@@ -33,6 +17,7 @@ const generatedShows: Show[] = [
     slug: "source-b",
     publishedAt: "2025-05-01T12:00:00Z",
     playCount: 3,
+    tracklist: [{ position: 1, artist: "Artist B", title: "Track B" }],
   },
   {
     title: "Generated C",
@@ -41,18 +26,8 @@ const generatedShows: Show[] = [
   },
 ];
 
-describe("mergeShowsWithSources", () => {
-  it("merges tracklists by url first, then by slug fallback", () => {
-    const merged = mergeShowsWithSources(generatedShows, sourceShows);
-
-    expect(merged[0].tracklist?.[0]?.title).toBe("Track A");
-    expect(merged[1].tracklist?.[0]?.title).toBe("Track B");
-    expect(merged[2].tracklist).toBeUndefined();
-  });
-});
-
 describe("sortShows", () => {
-  const shows = mergeShowsWithSources(generatedShows, sourceShows);
+  const shows = generatedShows;
 
   it("sorts newest first and pushes missing dates to the end", () => {
     expect(sortShows(shows, "newest").map((show) => show.slug)).toEqual([

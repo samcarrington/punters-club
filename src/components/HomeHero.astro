@@ -1,5 +1,6 @@
 ---
 import NextShow from "../components/NextShow.astro";
+import { SITE } from "../lib/constants";
 ---
 <section class="hero marquee-hero" aria-labelledby="hero-title">
   <div class="hero-content">
@@ -13,8 +14,8 @@ import NextShow from "../components/NextShow.astro";
       and left-field electronic.
     </p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#latest-show">Play latest show</a>
-      <a class="btn btn-secondary" href="/shows">Browse archive</a>
+      <a class="btn btn-primary" href={SITE.latestShowHash}>Play latest show</a>
+      <a class="btn btn-secondary" href={SITE.showsPath}>Browse archive</a>
     </div>
   </div>
   <aside class="hero-next-show-rail" aria-label="Next show">

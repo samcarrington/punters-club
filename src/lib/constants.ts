@@ -16,6 +16,10 @@ export const SITE = {
     "Listen to this episode of The Punters' Club on Radio Waters.",
 } as const;
 
+export const ANALYTICS = {
+  gtmContainerId: "GTM-MSSM6ZK7",
+} as const;
+
 export const RADIO_WATERS = {
   name: "Radio Waters",
   url: "https://www.radiowaters.co.uk/",

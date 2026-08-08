@@ -3,32 +3,31 @@ import "../../styles/global.css";
 import "../../styles/tokens.css";
 
 import MixcloudWidget from "../../components/MixcloudWidget.astro";
-import showSourcesData from "../../data/show-sources.json";
 import generatedShowsData from "../../data/shows.generated.json";
 import PuntersLayout from "../../layouts/PuntersLayout.astro";
 import { SITE } from "../../lib/constants";
 import type { Show } from "../../lib/mixcloud";
-import type { ShowWithTracklist } from "../../lib/shows";
-import { assertValidShowSlugs, mergeShowsWithSources } from "../../lib/shows";
+import { assertValidShowSlugs } from "../../lib/shows";
 import {
   buildShowDetailStructuredData,
   serializeJsonLd,
 } from "../../lib/structured-data";
 
 export async function getStaticPaths() {
-  assertValidShowSlugs(generatedShowsData as Show[]);
-  const allShows = mergeShowsWithSources(
-    generatedShowsData as unknown as Show[],
-    showSourcesData,
-  );
+  const allShows = generatedShowsData as Show[];
+  assertValidShowSlugs(allShows);
   return allShows.map((show) => ({
     params: { slug: show.slug },
     props: { show },
   }));
 }
 
-const { show } = Astro.props as { show: ShowWithTracklist };
-type TracklistItem = NonNullable<ShowWithTracklist["tracklist"]>[number];
+export interface Props {
+  show: Show;
+}
+
+const { show } = Astro.props;
+type TracklistItem = NonNullable<Show["tracklist"]>[number];
 
 const canonicalUrl = new URL(
   `${SITE.showsPath}${show.slug}/`,

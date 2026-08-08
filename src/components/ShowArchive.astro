@@ -5,7 +5,11 @@ import { Icon } from "astro-icon/components";
 import { SHOW_ARCHIVE, SITE } from "../lib/constants";
 import type { Show } from "../lib/mixcloud";
 
-const { shows } = Astro.props as { shows: Show[] };
+export interface Props {
+  shows: Show[];
+}
+
+const { shows } = Astro.props;
 const visibleShowCount = SHOW_ARCHIVE.visibleCount;
 const hasOverflowShows = shows.length > visibleShowCount;
 ---

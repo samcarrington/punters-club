@@ -1,15 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import showSourcesData from "../../data/show-sources.json";
 import generatedShowsData from "../../data/shows.generated.json";
 import PuntersLayout from "../../layouts/PuntersLayout.astro";
 import { RADIO_WATERS, SITE } from "../../lib/constants";
 import type { Show } from "../../lib/mixcloud";
-import {
-  assertValidShowSlugs,
-  mergeShowsWithSources,
-  sortShows,
-} from "../../lib/shows";
+import { assertValidShowSlugs, sortShows } from "../../lib/shows";
 import {
   buildShowListStructuredData,
   SHOWS_PAGE_DESCRIPTION,
@@ -20,11 +15,8 @@ import {
 import "../../styles/global.css";
 import "../../styles/tokens.css";
 
-assertValidShowSlugs(generatedShowsData as Show[]);
-const allShows = mergeShowsWithSources(
-  generatedShowsData as Show[],
-  showSourcesData,
-);
+const allShows = generatedShowsData as Show[];
+assertValidShowSlugs(allShows);
 
 const shows = sortShows(allShows, "newest");
 const canonicalUrl = new URL(
@@ -83,7 +75,7 @@ const getSortDate = (value?: string) => {
       {shows.map((show) => {
         const description = show.description?.trim();
         return (
-          <a class="archive-index-item show-item" href={`${SITE.showsPath}${show.slug}/`} data-date={getSortDate(show.publishedAt)} data-listens={show.playCount ?? ""} data-title={show.title}>
+          <a class="archive-index-item show-item" href={`${SITE.showsPath}${show.slug}/`} data-date={getSortDate(show.publishedAt)} data-listens={show.playCount ?? ""} data-tiebreak={show.slug ?? show.url ?? show.title}>
             {show.artwork ? (
               <Image class="archive-index-artwork" src={show.artwork} alt={show.title} width="400" height="400" loading="lazy" />
             ) : (
@@ -147,7 +139,7 @@ const getSortDate = (value?: string) => {
 
       const compareFallback = (a, b) =>
         compareMaybeNumber(a, b, 'data-date', 'desc') ||
-        (a.getAttribute('data-title') || '').localeCompare(b.getAttribute('data-title') || '');
+        (a.getAttribute('data-tiebreak') || '').localeCompare(b.getAttribute('data-tiebreak') || '');
 
       items.sort((a, b) => {
         if (sort === 'newest') return compareMaybeNumber(a, b, 'data-date', 'desc') || compareFallback(a, b);

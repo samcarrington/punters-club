@@ -1,0 +1,62 @@
+name: Refresh shows and playlists
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # 06:00 UTC daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.9.0 --activate
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Enrich shows and playlists
+        run: |
+          pnpm run enrich:shows 2>&1 | tee /tmp/shows-refresh.log
+          pnpm run enrich:playlists 2>&1 | tee -a /tmp/shows-refresh.log
+
+      - name: Open PR on change
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: bot/shows-refresh
+        run: |
+          git add src/data/shows.generated.json src/data/playlists.generated.json
+
+          if git diff --cached --quiet; then
+            echo "No shows/playlists changes to publish."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh shows and playlists data"
+          git fetch --depth=1 origin "${BRANCH}:refs/remotes/origin/${BRANCH}" || true
+          git push --force-with-lease origin "HEAD:${BRANCH}"
+
+          if [ -n "$(gh pr list --head "${BRANCH}" --base main --json number --jq '.[0].number')" ]; then
+            echo "Pull request already exists for ${BRANCH}."
+            exit 0
+          fi
+
+          gh pr create \
+            --base main \
+            --head "${BRANCH}" \
+            --title "chore: refresh shows and playlists" \
+            --body-file /tmp/shows-refresh.log

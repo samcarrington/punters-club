@@ -93,8 +93,73 @@ describeRemote("Radio Waters next-show remote endpoint", () => {
 
       const event = eventFromBySlugResponse(await response.json());
       expect(event, `${slug} event payload`).not.toBeNull();
-      expect(event?.slug).toBe(slug);
-      assertEventShape(event!);
+      if (!event) throw new Error(`${slug} event payload was null`);
+
+      expect(event.slug).toBe(slug);
+      assertEventShape(event);
     }
+  });
+
+  // The following tests exercise the failure paths that
+  // scripts/enrich-next-show.ts relies on for its fallback design: a
+  // non-ok response for a lookup that fails (skip + warn, per HIGH #2/#6 of
+  // the 2026-08-08 review), and a genuinely empty result set for a window
+  // with no shows (which must stay distinguishable from a fetch failure).
+
+  it("returns a non-ok response for an unknown by-slug lookup", async () => {
+    const url = bySlugEndpoint(
+      remoteConfig.endpoint,
+      "this-slug-should-never-exist-punters-club-remote-test",
+    );
+    const response = await withTimeout((signal) =>
+      fetch(url, { headers: requestHeaders, signal }),
+    );
+
+    // Production code treats a non-ok by-slug response as "skip this slug,
+    // log a warning and move on" rather than a hard failure - confirm the
+    // real API actually signals an unknown slug this way, rather than (say)
+    // succeeding with an empty or error-shaped 200 body.
+    expect(
+      response.ok,
+      `${url} unexpectedly succeeded for a slug that should not exist`,
+    ).toBe(false);
+  });
+
+  it("returns a well-formed empty events array for a window with no shows", async () => {
+    // Far enough in the past that no shows should be scheduled, while still
+    // a well-formed request. This is the case staleFallback has to
+    // distinguish from a fetch failure: a genuinely empty result is a
+    // successful response, not a thrown error.
+    const url = new URL(remoteConfig.endpoint);
+    url.searchParams.set("start_date", "1999-01-01");
+    url.searchParams.set("end_date", "1999-01-02");
+    url.searchParams.set("per_page", "50");
+    url.searchParams.set("page", "1");
+
+    const response = await withTimeout((signal) =>
+      fetch(url, { headers: requestHeaders, signal }),
+    );
+    expect(response.ok, `${url.toString()} HTTP ${response.status}`).toBe(true);
+
+    const body = (await response.json()) as { events?: TribeEvent[] };
+    expect(Array.isArray(body.events)).toBe(true);
+    expect(body.events).toHaveLength(0);
+  });
+
+  it("returns a non-ok response for a malformed events endpoint", async () => {
+    const brokenEndpoint = new URL(remoteConfig.endpoint);
+    brokenEndpoint.pathname = `${brokenEndpoint.pathname.replace(/\/$/, "")}/not-a-real-resource`;
+
+    const response = await withTimeout((signal) =>
+      fetch(brokenEndpoint, { headers: requestHeaders, signal }),
+    );
+
+    // fetchEvents() throws on a non-ok response and lets the caller fall
+    // back to stale data - confirm the real API actually fails this way for
+    // a bad endpoint path rather than, say, redirecting to a 200.
+    expect(
+      response.ok,
+      `${brokenEndpoint.toString()} unexpectedly succeeded`,
+    ).toBe(false);
   });
 });

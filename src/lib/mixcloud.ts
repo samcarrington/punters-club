@@ -1,3 +1,5 @@
+import type { Normalizer } from "./normalizer";
+
 export type ShowSource = {
   title: string;
   url: string;
@@ -45,10 +47,11 @@ export const widgetUrl = (
   return `https://www.mixcloud.com/widget/iframe/?${params.toString()}`;
 };
 
-export const normalizeShow = (
-  source: ShowSource,
-  api?: Record<string, unknown>,
-): Show => {
+export const normalizeShow: Normalizer<
+  ShowSource,
+  Record<string, unknown>,
+  Show
+> = (source, api) => {
   const show = api ?? {};
   const pictures =
     typeof show.pictures === "object" && show.pictures

@@ -71,9 +71,7 @@ describe("analytics event queue", () => {
   });
 
   it("discards queued events when consent is denied", () => {
-    const queue = [{ event: "page_view", page_path: "/" }];
-
-    expect(discardQueuedEvents(queue)).toEqual([]);
+    expect(discardQueuedEvents()).toEqual([]);
   });
 
   it("injects queued events into dataLayer in order and clears queue", () => {

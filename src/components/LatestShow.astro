@@ -3,7 +3,11 @@ import { Icon } from "astro-icon/components";
 import type { Show } from "../lib/mixcloud";
 import MixcloudWidget from "./MixcloudWidget.astro";
 
-const { show } = Astro.props as { show: Show };
+export interface Props {
+  show: Show;
+}
+
+const { show } = Astro.props;
 ---
 
 <article class="feature-card">

@@ -2,7 +2,15 @@
 import AppFooter from "../components/AppFooter.astro";
 import AppHeader from "../components/AppHeader.astro";
 import CookieConsent from "../components/CookieConsent.astro";
-import { SITE } from "../lib/constants";
+import { ANALYTICS, SITE } from "../lib/constants";
+
+export interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+}
 
 const {
   title,
@@ -23,7 +31,7 @@ const {
       window.gtag("consent", "default", { analytics_storage: "denied" });
     </script>
     <!-- Google Tag Manager -->
-    <script is:inline>
+    <script is:inline define:vars={{ gtmContainerId: ANALYTICS.gtmContainerId }}>
       ((w, d, s, l, i) => {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -33,7 +41,7 @@ const {
         j.async = true;
         j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
         f.parentNode?.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-MSSM6ZK7");
+      })(window, document, "script", "dataLayer", gtmContainerId);
     </script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
@@ -51,7 +59,7 @@ const {
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MSSM6ZK7"
+    <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${ANALYTICS.gtmContainerId}`}
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <AppHeader />

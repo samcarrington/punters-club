@@ -11,9 +11,11 @@ interface PlaylistData {
   provider_name?: string;
 }
 
-const { playlists } = Astro.props as {
+export interface Props {
   playlists: PlaylistData[];
-};
+}
+
+const { playlists } = Astro.props;
 ---
 
 <div class="playlist-grid">

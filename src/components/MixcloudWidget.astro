@@ -1,15 +1,15 @@
 ---
 import { type Show, widgetUrl } from "../lib/mixcloud";
 
-const { show, variant = "mini" } = Astro.props as {
+export interface Props {
   show: Show;
   variant?: "mini" | "classic";
-  placement?: "home" | "show";
-};
+}
+
+const { show, variant = "mini" } = Astro.props;
 ---
 
 <iframe
-  id={`mxc-widget`}
   class:list={["mixcloud-widget", `mixcloud-widget-${variant}`]}
   src={widgetUrl(show.url, variant)}
   title={`Mixcloud player for ${show.title}`}
