@@ -1,4 +1,3 @@
-import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { NEXT_SHOW } from "../src/lib/constants";
 import {
@@ -8,17 +7,15 @@ import {
   selectNextShow,
   type TribeEvent,
 } from "../src/lib/next-show";
+import {
+  extractShowSlugsFromHtml,
+  extractViewsTokens,
+  type ViewsTokens,
+} from "../src/lib/next-show-html";
+import { readJson, writeJson } from "./lib/enrich-utils";
 
 const configPath = resolve("src/data/next-show-config.json");
 const generatedPath = resolve("src/data/next-show.generated.json");
-
-const readJson = async <T>(path: string): Promise<T | null> => {
-  try {
-    return JSON.parse(await readFile(path, "utf8")) as T;
-  } catch {
-    return null;
-  }
-};
 
 const isoDate = (date: Date): string => date.toISOString().slice(0, 10);
 
@@ -77,35 +74,6 @@ const monthSeedPaths = (today: Date, lookaheadDays: number): string[] => {
   return [...paths];
 };
 
-const extractViewsTokens = (
-  html: string,
-): { tvn1: string; tvn2: string } | null => {
-  const tvn1 = html.match(/"tvn1":"([^"]*)"/);
-  const tvn2 = html.match(/"tvn2":"([^"]*)"/);
-
-  if (!tvn1 || !tvn2) {
-    return null;
-  }
-
-  return { tvn1: tvn1[1], tvn2: tvn2[1] };
-};
-
-const extractShowSlugsFromHtml = (html: string, limit = 20): string[] => {
-  const matches = html.matchAll(
-    /\/show\/([^/"'#?]+)(?:\/\d{4}-\d{2}-\d{2})?\//g,
-  );
-  const slugs = new Set<string>();
-
-  for (const match of matches) {
-    const slug = match[1];
-    if (!slug) continue;
-    slugs.add(slug);
-    if (slugs.size >= limit) break;
-  }
-
-  return [...slugs];
-};
-
 const isTribeEvent = (value: unknown): value is TribeEvent =>
   !!value && typeof value === "object";
 
@@ -141,7 +109,7 @@ const discoverOrganizerSlugsFromViews = async (
     return discovered;
   }
 
-  let tokens: { tvn1: string; tvn2: string } | null = null;
+  let tokens: ViewsTokens | null = null;
   for (const organizerSlug of organizerSlugs) {
     const html = await fetchText(
       organizerPageUrl(config.endpoint, organizerSlug),
@@ -290,6 +258,10 @@ const staleFallback = (previous: NextShowResult | null): NextShowResult => {
     if (stillFuture) {
       return previous;
     }
+
+    console.error(
+      `[next-show] STATUS FLIP: discovery failed and the previously-known show "${previous.show.slug}" (${previous.show.startsAtUtc}) has passed. Downgrading to "none" - this may be a sustained fetch failure rather than a genuine schedule gap.`,
+    );
   }
 
   return { status: NEXT_SHOW.noneStatus, source: NEXT_SHOW.source };
@@ -322,7 +294,7 @@ const main = async () => {
     return;
   }
 
-  await writeFile(generatedPath, `${JSON.stringify(result, null, 2)}\n`);
+  await writeJson(generatedPath, result);
   console.log(
     `[next-show] wrote ${generatedPath} (status=${result.status}${result.status === NEXT_SHOW.upcomingStatus ? `, show=${result.show.url}` : ""})`,
   );

@@ -1,12 +1,5 @@
+import type { Normalizer } from "./normalizer";
 import type { Playlist, PlaylistSource } from "./playlist";
-
-export const isTidalUrl = (url: string) => {
-  try {
-    return new URL(url).hostname === "tidal.com";
-  } catch {
-    return false;
-  }
-};
 
 /** Extract the playlist ID from a tidal.com/playlist/{id} URL. */
 export const extractTidalPlaylistId = (url: string): string | null => {
@@ -40,10 +33,11 @@ export const scrapeTidalThumbnail = (html: string): string | null => {
   return null;
 };
 
-export const normalizeTidalPlaylist = (
-  source: PlaylistSource,
-  thumbnailUrl?: string,
-): Playlist => ({
+export const normalizeTidalPlaylist: Normalizer<
+  PlaylistSource,
+  string,
+  Playlist
+> = (source, thumbnailUrl) => ({
   ...source,
   provider_name: "Tidal",
   thumbnail_url: thumbnailUrl,

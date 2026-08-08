@@ -1,22 +1,14 @@
+import type { Normalizer } from "./normalizer";
 import type { Playlist, PlaylistSource } from "./playlist";
-
-export type { Playlist, PlaylistSource };
 
 export const buildSpotifyOEmbedUrl = (url: string) =>
   `https://open.spotify.com/oembed?url=${encodeURIComponent(url)}`;
 
-export const isSpotifyUrl = (url: string) => {
-  try {
-    return new URL(url).host === "open.spotify.com";
-  } catch {
-    return false;
-  }
-};
-
-export const normalizePlaylist = (
-  source: PlaylistSource,
-  oembed?: Record<string, unknown>,
-): Playlist => ({
+export const normalizePlaylist: Normalizer<
+  PlaylistSource,
+  Record<string, unknown>,
+  Playlist
+> = (source, oembed) => ({
   ...source,
   title: source.title,
   author_name: oembed?.author_name as string | undefined,

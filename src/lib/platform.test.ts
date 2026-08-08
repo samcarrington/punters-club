@@ -25,12 +25,12 @@ describe("detectPlatform", () => {
     expect(detectPlatform(url)).toBe(platform);
   });
 
-  it.each([
-    "not a url",
-    "https://example.com/playlist/123",
-  ])("returns null for unsupported URL %s", (url) => {
-    expect(detectPlatform(url)).toBeNull();
-  });
+  it.each(["not a url", "https://example.com/playlist/123"])(
+    "returns null for unsupported URL %s",
+    (url) => {
+      expect(detectPlatform(url)).toBeNull();
+    },
+  );
 });
 
 describe("platformName", () => {

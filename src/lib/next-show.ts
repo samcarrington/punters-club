@@ -161,7 +161,7 @@ export const normalizeEvent = (
   }
 
   const descriptionSource = event.description ?? event.excerpt ?? "";
-  const timezone = event.timezone!;
+  const timezone = event.timezone;
 
   return {
     title,

@@ -1,13 +1,6 @@
-import type { Show, ShowSource } from "./mixcloud";
-
-export type ShowWithTracklist = Show & {
-  tracklist?: ShowSource["tracklist"];
-};
+import type { Show } from "./mixcloud";
 
 export type ShowSort = "newest" | "oldest" | "listens-high" | "listens-low";
-
-const urlKey = (value?: string) => value?.trim().toLowerCase();
-const slugKey = (value?: string) => value?.trim().toLowerCase();
 
 const compareText = (left?: string, right?: string) =>
   (left ?? "").localeCompare(right ?? "");
@@ -40,40 +33,7 @@ const compareDate = (
   return direction === "asc" ? leftTime - rightTime : rightTime - leftTime;
 };
 
-export const mergeShowsWithSources = (
-  generatedShows: Show[],
-  sourceShows: ShowSource[],
-): ShowWithTracklist[] => {
-  const sourceByUrl = new Map<string, ShowSource>();
-  const sourceBySlug = new Map<string, ShowSource>();
-
-  for (const source of sourceShows) {
-    const normalizedUrl = urlKey(source.url);
-    if (normalizedUrl) sourceByUrl.set(normalizedUrl, source);
-
-    const slugFromUrl = slugKey(
-      new URL(source.url).pathname.split("/").filter(Boolean).at(-1),
-    );
-    if (slugFromUrl && !sourceBySlug.has(slugFromUrl)) {
-      sourceBySlug.set(slugFromUrl, source);
-    }
-  }
-
-  return generatedShows.map((show) => {
-    const matchedSource =
-      (show.url ? sourceByUrl.get(urlKey(show.url) ?? "") : undefined) ??
-      (show.slug ? sourceBySlug.get(slugKey(show.slug) ?? "") : undefined);
-
-    return matchedSource?.tracklist
-      ? { ...show, tracklist: matchedSource.tracklist }
-      : { ...show };
-  });
-};
-
-export const sortShows = (
-  shows: ShowWithTracklist[],
-  sort: ShowSort,
-): ShowWithTracklist[] => {
+export const sortShows = (shows: Show[], sort: ShowSort): Show[] => {
   const sorted = [...shows];
 
   sorted.sort((left, right) => {
@@ -104,13 +64,14 @@ export const assertValidShowSlugs = (shows: Show[]): void => {
   const seen = new Map<string, string>();
 
   for (const show of shows) {
-    if (!show.slug?.trim()) {
+    const trimmedSlug = show.slug?.trim();
+    if (!trimmedSlug) {
       throw new Error(
         `Generated show is missing a slug: ${show.title} (${show.url})`,
       );
     }
 
-    const normalizedSlug = slugKey(show.slug)!;
+    const normalizedSlug = trimmedSlug.toLowerCase();
     const existingUrl = seen.get(normalizedSlug);
     if (existingUrl) {
       throw new Error(

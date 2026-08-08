@@ -20,15 +20,15 @@ import { Icon } from "astro-icon/components";
   import {
     COOKIE_CONSENT,
     type AnalyticsEvent,
-    type ConsentPreference,
+    type ConsentStatus,
     type GtmConsentValue,
     type StoredConsentStatus,
     analyticsStorageConsent,
     createConsentPreference,
     discardQueuedEvents,
+    getConsentStatus,
     injectQueuedEvents,
     queueAnalyticsEvent,
-    readConsentPreference,
   } from "../lib/cookie-consent";
 
   (() => {
@@ -84,7 +84,7 @@ import { Icon } from "astro-icon/components";
       }
     };
 
-    const readStoredConsent = (): ConsentPreference | null => {
+    const readStoredConsentStatus = (): ConsentStatus => {
       const storedValue = (() => {
         try {
           return window.localStorage.getItem(COOKIE_CONSENT.storageKey);
@@ -92,15 +92,13 @@ import { Icon } from "astro-icon/components";
           return null;
         }
       })();
-      const parsed = readConsentPreference(storedValue, Date.now());
+      const status = getConsentStatus(storedValue, Date.now());
 
-      if (parsed) return parsed;
-
-      if (storedValue) {
+      if (status === "pending" && storedValue) {
         removeItem(COOKIE_CONSENT.storageKey);
       }
 
-      return null;
+      return status;
     };
 
     const readStoredQueue = (): AnalyticsEvent[] => {
@@ -163,7 +161,7 @@ import { Icon } from "astro-icon/components";
     };
 
     const discardQueue = () => {
-      inMemoryQueue = discardQueuedEvents(readStoredQueue());
+      inMemoryQueue = discardQueuedEvents();
       removeItem(COOKIE_CONSENT.queueKey);
     };
 
@@ -184,14 +182,14 @@ import { Icon } from "astro-icon/components";
 
     analyticsWindow.puntersAnalytics = {
       track(event: AnalyticsEvent) {
-        const consent = readStoredConsent();
+        const status = readStoredConsentStatus();
 
-        if (consent?.status === "accepted") {
+        if (status === "accepted") {
           dataLayer.push(event);
           return;
         }
 
-        if (consent?.status === "rejected") {
+        if (status === "rejected") {
           return;
         }
 
@@ -212,19 +210,19 @@ import { Icon } from "astro-icon/components";
       setBannerVisible(true);
     });
 
-    const initialConsent = readStoredConsent();
+    const initialStatus = readStoredConsentStatus();
 
     void (async () => {
-      if (initialConsent?.status === "accepted") {
-        updateConsent(analyticsStorageConsent(initialConsent.status));
+      if (initialStatus === "accepted") {
+        updateConsent(analyticsStorageConsent(initialStatus));
         await loadVercelAnalytics();
         flushQueue();
         setBannerVisible(false);
         return;
       }
 
-      if (initialConsent?.status === "rejected") {
-        updateConsent(analyticsStorageConsent(initialConsent.status));
+      if (initialStatus === "rejected") {
+        updateConsent(analyticsStorageConsent(initialStatus));
         discardQueue();
         setBannerVisible(false);
         return;

@@ -29,9 +29,9 @@ const platforms = Object.entries(PLATFORM_DEFINITIONS) as [
   (typeof PLATFORM_DEFINITIONS)[Platform],
 ][];
 
-const hostToPlatform = new Map(
+const hostToPlatform = new Map<string, Platform>(
   platforms.flatMap(([platform, definition]) =>
-    definition.hosts.map((host) => [host, platform] as const),
+    definition.hosts.map((host): [string, Platform] => [host, platform]),
   ),
 );
 

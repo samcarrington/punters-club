@@ -18,16 +18,17 @@ Static Astro site for The Punters' Club on Radio Waters: latest Mixcloud show, a
 ```sh
 pnpm install
 pnpm run dev       # local Astro dev server
-pnpm run build     # refresh generated show/playlist metadata, then build
+pnpm run build     # astro build only - does not call any third-party APIs
 pnpm run preview   # preview the built static site
 pnpm run lint      # check formatting, lint rules, and import order (Biome)
 pnpm run lint:fix  # apply safe fixes for the above
+pnpm run typecheck # tsc --noEmit
 ```
 
-For UI-only validation without refreshing generated metadata:
+To refresh generated show/playlist/next-show metadata locally:
 
 ```sh
-pnpm exec astro build
+pnpm run enrich    # runs enrich:shows, enrich:playlists, enrich:next-show in sequence
 ```
 
 ## Content and data flow
@@ -38,9 +39,10 @@ pnpm exec astro build
 - `pnpm run enrich` updates:
   - `src/data/shows.generated.json` from Mixcloud API data
   - `src/data/playlists.generated.json` from Spotify oEmbed data
-- Enrichment falls back to previous generated data or source-only data when external fetches fail.
+- Enrichment falls back to previous generated data or source-only data when external fetches fail, and logs a warning with context when it does.
+- Generated JSON is committed to the repo and kept fresh by scheduled GitHub Actions (`.github/workflows/shows-refresh.yml` and `.github/workflows/next-show-refresh.yml`), which open a PR when the data changes. The production build (`pnpm run build`) never calls Mixcloud/Spotify/Tidal/Tribe Events itself, so deploys aren't affected by unrelated upstream outages and rebuilding an old commit reproduces the same output.
 
-Homepage ordering is defined in `src/pages/index.astro`: the last generated show is the latest show; previous shows are reversed into the archive.
+Homepage ordering is defined in `src/pages/index.astro` using the shared `sortShows` helper from `src/lib/shows.ts`.
 
 ## Project notes
 
