@@ -10,7 +10,8 @@
 - Full production build: `pnpm run build` (`pnpm run enrich && astro build`).
 - Build without refreshing generated Mixcloud/Spotify metadata: `pnpm exec astro build`.
 - Preview the built site: `pnpm run preview`.
-- There are no repo scripts for tests, lint, or typecheck; use build as the main verification step unless you add those scripts.
+- Lint (formatting, lint rules, import order via Biome): `pnpm run lint`; auto-fix safe issues with `pnpm run lint:fix`.
+- There are no repo scripts for typecheck; use build as a secondary verification step for type errors.
 
 ## Data flow and generated files
 - Human-edited content inputs are `src/data/show-sources.json` and `src/data/playlist-sources.json`; `docs/shows.md` is a reference list for show ordering/titles and should stay consistent when show sources change.
@@ -25,6 +26,6 @@
 - `src/components/ShowArchive.astro` intentionally shows 6 archive shows first, then reveals the rest; keep the `has-js`/data-attribute disclosure behavior scoped to this component.
 
 ## Tooling quirks
-- `biome.json` exists for formatting/lint rules, but Biome is not currently in `package.json` scripts or devDependencies.
+- `biome.json` configures formatting/lint rules; wired into `pnpm run lint` / `pnpm run lint:fix`. It respects `.gitignore` (`vcs.useIgnoreFile`) and explicitly excludes non-project tool-cache dirs (`.build-cache`, `.pnpm-store`, `.claude`, `.dialogue`, `.vscode`, `.hallmark`, `.impeccable`).
 - Astro files have Biome unused-import/unused-variable rules disabled via `overrides`; do not “fix” that unless the Astro false positives are addressed.
 - Repo-local `opencode.json` only configures the Astro docs MCP; use it for Astro API/docs checks when needed.

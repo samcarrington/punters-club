@@ -24,13 +24,17 @@ const scriptTags = readFileSync(join("dist", "index.html"), "utf8").match(
 );
 
 const jsonLdScripts =
-  scriptTags?.filter((tag) => /type=["']application\/ld\+json["']/i.test(tag)) ?? [];
+  scriptTags?.filter((tag) =>
+    /type=["']application\/ld\+json["']/i.test(tag),
+  ) ?? [];
 
 if (jsonLdScripts.length !== 1) {
   fail(`expected exactly one JSON-LD script, found ${jsonLdScripts.length}`);
 }
 
-const scriptBody = jsonLdScripts[0]?.replace(/^<script\b[^>]*>/i, "").replace(/<\/script>$/i, "");
+const scriptBody = jsonLdScripts[0]
+  ?.replace(/^<script\b[^>]*>/i, "")
+  .replace(/<\/script>$/i, "");
 if (!scriptBody) fail("JSON-LD script is empty");
 
 const structuredData = JSON.parse(scriptBody) as {
@@ -65,8 +69,12 @@ const playlistList =
   itemLists.find((list) => list.name === "Playlists") ??
   fail('missing ItemList named "Playlists"');
 
-const showSources = readJson<unknown[]>(join("src", "data", "shows.generated.json"));
-const playlistSources = readJson<unknown[]>(join("src", "data", "playlists.generated.json"));
+const showSources = readJson<unknown[]>(
+  join("src", "data", "shows.generated.json"),
+);
+const playlistSources = readJson<unknown[]>(
+  join("src", "data", "playlists.generated.json"),
+);
 
 const archiveItems: unknown[] = Array.isArray(archiveList.itemListElement)
   ? archiveList.itemListElement
@@ -77,11 +85,15 @@ const playlistItems: unknown[] = Array.isArray(playlistList.itemListElement)
 
 const expectedArchiveCount = showSources.length;
 if (archiveItems.length !== expectedArchiveCount) {
-  fail(`expected ${expectedArchiveCount} archive shows, found ${archiveItems.length}`);
+  fail(
+    `expected ${expectedArchiveCount} archive shows, found ${archiveItems.length}`,
+  );
 }
 
 if (playlistItems.length !== playlistSources.length) {
-  fail(`expected ${playlistSources.length} playlists, found ${playlistItems.length}`);
+  fail(
+    `expected ${playlistSources.length} playlists, found ${playlistItems.length}`,
+  );
 }
 
 const verifyPositions = (items: unknown[], listName: string) => {

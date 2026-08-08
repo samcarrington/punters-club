@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  COOKIE_CONSENT,
   analyticsStorageConsent,
+  COOKIE_CONSENT,
   canUseAnalytics,
   createConsentPreference,
   discardQueuedEvents,
@@ -36,12 +36,17 @@ describe("cookie consent preference", () => {
 
     expect(getConsentStatus(JSON.stringify(preference), now)).toBe("rejected");
     expect(canUseAnalytics(JSON.stringify(preference), now)).toBe(false);
-    expect(shouldShowConsentBanner(JSON.stringify(preference), now)).toBe(false);
+    expect(shouldShowConsentBanner(JSON.stringify(preference), now)).toBe(
+      false,
+    );
   });
 
   it("treats expired or malformed consent as pending", () => {
     const now = Date.UTC(2026, 6, 1);
-    const expired = JSON.stringify({ status: "accepted", expiresAt: Date.UTC(2026, 0, 1) });
+    const expired = JSON.stringify({
+      status: "accepted",
+      expiresAt: Date.UTC(2026, 0, 1),
+    });
 
     expect(readConsentPreference(expired, now)).toBeNull();
     expect(getConsentStatus(expired, now)).toBe("pending");
@@ -57,7 +62,10 @@ describe("analytics event queue", () => {
   });
 
   it("queues captured analytics events locally before consent", () => {
-    const queue = queueAnalyticsEvent([], { event: "page_view", page_path: "/shows/" });
+    const queue = queueAnalyticsEvent([], {
+      event: "page_view",
+      page_path: "/shows/",
+    });
 
     expect(queue).toEqual([{ event: "page_view", page_path: "/shows/" }]);
   });

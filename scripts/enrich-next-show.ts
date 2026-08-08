@@ -59,8 +59,12 @@ const monthSeedPath = (value: Date): string => {
 
 const monthSeedPaths = (today: Date, lookaheadDays: number): string[] => {
   const paths = new Set<string>();
-  const cursor = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1));
-  const horizon = new Date(today.getTime() + lookaheadDays * 24 * 60 * 60 * 1000);
+  const cursor = new Date(
+    Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1),
+  );
+  const horizon = new Date(
+    today.getTime() + lookaheadDays * 24 * 60 * 60 * 1000,
+  );
   const horizonMonth = new Date(
     Date.UTC(horizon.getUTCFullYear(), horizon.getUTCMonth(), 1),
   );
@@ -73,7 +77,9 @@ const monthSeedPaths = (today: Date, lookaheadDays: number): string[] => {
   return [...paths];
 };
 
-const extractViewsTokens = (html: string): { tvn1: string; tvn2: string } | null => {
+const extractViewsTokens = (
+  html: string,
+): { tvn1: string; tvn2: string } | null => {
   const tvn1 = html.match(/"tvn1":"([^"]*)"/);
   const tvn2 = html.match(/"tvn2":"([^"]*)"/);
 
@@ -85,7 +91,9 @@ const extractViewsTokens = (html: string): { tvn1: string; tvn2: string } | null
 };
 
 const extractShowSlugsFromHtml = (html: string, limit = 20): string[] => {
-  const matches = html.matchAll(/\/show\/([^/"'#?]+)(?:\/\d{4}-\d{2}-\d{2})?\//g);
+  const matches = html.matchAll(
+    /\/show\/([^/"'#?]+)(?:\/\d{4}-\d{2}-\d{2})?\//g,
+  );
   const slugs = new Set<string>();
 
   for (const match of matches) {
@@ -135,7 +143,9 @@ const discoverOrganizerSlugsFromViews = async (
 
   let tokens: { tvn1: string; tvn2: string } | null = null;
   for (const organizerSlug of organizerSlugs) {
-    const html = await fetchText(organizerPageUrl(config.endpoint, organizerSlug));
+    const html = await fetchText(
+      organizerPageUrl(config.endpoint, organizerSlug),
+    );
     if (!html) {
       console.warn(
         `[next-show] organizer seed fetch skipped for "${organizerSlug}" when extracting TEC tokens.`,
@@ -183,7 +193,9 @@ const discoverOrganizerSlugsFromPages = async (
   const discovered = new Set<string>();
 
   for (const organizerSlug of config.organizerSlugs ?? []) {
-    const html = await fetchText(organizerPageUrl(config.endpoint, organizerSlug));
+    const html = await fetchText(
+      organizerPageUrl(config.endpoint, organizerSlug),
+    );
     if (!html) {
       console.warn(
         `[next-show] organizer discovery skipped for "${organizerSlug}": page unavailable.`,
@@ -228,7 +240,10 @@ const fetchEvents = async (config: NextShowConfig): Promise<TribeEvent[]> => {
     }
   }
 
-  let organizerDiscoveredSlugs = await discoverOrganizerSlugsFromViews(config, today);
+  let organizerDiscoveredSlugs = await discoverOrganizerSlugsFromViews(
+    config,
+    today,
+  );
   if (organizerDiscoveredSlugs.size === 0) {
     organizerDiscoveredSlugs = await discoverOrganizerSlugsFromPages(config);
   }

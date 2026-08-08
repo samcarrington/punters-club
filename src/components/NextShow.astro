@@ -8,10 +8,10 @@ import type { NextShowResult } from "../lib/next-show";
 
 const result = rawResult as NextShowResult;
 
-const upcoming = result.status === NEXT_SHOW.upcomingStatus ? result.show : undefined;
+const upcoming =
+  result.status === NEXT_SHOW.upcomingStatus ? result.show : undefined;
 const cueLabel =
   upcoming?.matchedBy === "guest" ? NEXT_SHOW.guestLabel : NEXT_SHOW.showLabel;
-
 ---
 <script is:inline>
   const nextShowTime = document.querySelector("[data-next-show-time]");

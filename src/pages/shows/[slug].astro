@@ -10,7 +10,10 @@ import { SITE } from "../../lib/constants";
 import type { Show } from "../../lib/mixcloud";
 import type { ShowWithTracklist } from "../../lib/shows";
 import { assertValidShowSlugs, mergeShowsWithSources } from "../../lib/shows";
-import { buildShowDetailStructuredData, serializeJsonLd } from "../../lib/structured-data";
+import {
+  buildShowDetailStructuredData,
+  serializeJsonLd,
+} from "../../lib/structured-data";
 
 export async function getStaticPaths() {
   assertValidShowSlugs(generatedShowsData as Show[]);
@@ -27,7 +30,10 @@ export async function getStaticPaths() {
 const { show } = Astro.props as { show: ShowWithTracklist };
 type TracklistItem = NonNullable<ShowWithTracklist["tracklist"]>[number];
 
-const canonicalUrl = new URL(`${SITE.showsPath}${show.slug}/`, Astro.site?.toString() ?? SITE.url).toString();
+const canonicalUrl = new URL(
+  `${SITE.showsPath}${show.slug}/`,
+  Astro.site?.toString() ?? SITE.url,
+).toString();
 const jsonLd = buildShowDetailStructuredData(show, { pageUrl: canonicalUrl });
 
 const date = show.publishedAt
@@ -38,9 +44,7 @@ const date = show.publishedAt
     })
   : "";
 const ogTitle = `${show.title} | ${SITE.name}`;
-const description =
-  show.description ||
-  SITE.showDetailDescription;
+const description = show.description || SITE.showDetailDescription;
 ---
 
 <PuntersLayout

@@ -66,7 +66,10 @@ export function shouldShowConsentBanner(
   return getConsentStatus(value, now) === "pending";
 }
 
-export function canUseAnalytics(value: string | null, now = Date.now()): boolean {
+export function canUseAnalytics(
+  value: string | null,
+  now = Date.now(),
+): boolean {
   return getConsentStatus(value, now) === "accepted";
 }
 
@@ -83,7 +86,9 @@ export function queueAnalyticsEvent(
   return [...queue, event];
 }
 
-export function discardQueuedEvents(_queue: AnalyticsEvent[]): AnalyticsEvent[] {
+export function discardQueuedEvents(
+  _queue: AnalyticsEvent[],
+): AnalyticsEvent[] {
   return [];
 }
 

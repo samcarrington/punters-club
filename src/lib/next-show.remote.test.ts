@@ -12,7 +12,9 @@ const requestHeaders = {
 
 const timeoutMs = 10_000;
 
-const withTimeout = async <T>(operation: (signal: AbortSignal) => Promise<T>) => {
+const withTimeout = async <T>(
+  operation: (signal: AbortSignal) => Promise<T>,
+) => {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 

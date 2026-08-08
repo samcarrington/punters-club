@@ -26,7 +26,9 @@ describe("buildSitemapXml", () => {
     expect(xml).toContain("<changefreq>monthly</changefreq>");
     expect(xml).toContain("<priority>0.8</priority>");
 
-    expect(xml).toContain("<loc>https://punters.club/shows/encoded-show/</loc>");
+    expect(xml).toContain(
+      "<loc>https://punters.club/shows/encoded-show/</loc>",
+    );
     expect(xml).toContain("<lastmod>2026-03-28</lastmod>");
     expect(xml).toContain("<priority>0.6</priority>");
   });

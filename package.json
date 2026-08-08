@@ -14,9 +14,12 @@
     "test:coverage": "vitest run --coverage",
     "test:next-show:remote": "RUN_REMOTE_TESTS=1 vitest run src/lib/next-show.remote.test.ts",
     "verify:structured-data": "tsx scripts/verify-structured-data.ts",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write ."
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.1",
     "@iconify-json/gridicons": "^1.2.5",
     "@iconify-json/lucide": "1.2.117",
     "@vitest/coverage-v8": "4.1.9",

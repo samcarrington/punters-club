@@ -4,3 +4,7 @@ dist/
 .DS_Store
 .serena
 coverage/
+.build-cache/
+.claude/.cc-writes/
+.claude/settings.local.json
+.pnpm-store/
