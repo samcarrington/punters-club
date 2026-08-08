@@ -26,7 +26,12 @@ const dateOnlyFromOptionalIso = (value: string | undefined, fallback: Date) => {
     : dateOnly(fallback);
 };
 
-const sitemapEntry = ({ url, lastmod, changefreq, priority }: SitemapEntry) => `  <url>
+const sitemapEntry = ({
+  url,
+  lastmod,
+  changefreq,
+  priority,
+}: SitemapEntry) => `  <url>
     <loc>${xmlEscape(url)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
@@ -57,7 +62,10 @@ export const buildSitemapXml = ({
       show.slug
         ? [
             {
-              url: new URL(`${SITE.showsPath}${show.slug}/`, baseUrl).toString(),
+              url: new URL(
+                `${SITE.showsPath}${show.slug}/`,
+                baseUrl,
+              ).toString(),
               lastmod: dateOnlyFromOptionalIso(show.publishedAt, generatedAt),
               changefreq: "monthly" as const,
               priority: "0.6" as const,

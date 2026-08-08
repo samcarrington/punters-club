@@ -172,7 +172,8 @@ describe("selectNextShow", () => {
     );
 
     expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
-    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
+    if (result.status !== NEXT_SHOW.upcomingStatus)
+      throw new Error("expected upcoming");
     expect(result.show.url).toBe(guestJul4.url);
     expect(result.show.matchedBy).toBe("guest");
   });
@@ -180,7 +181,8 @@ describe("selectNextShow", () => {
   it("resolves guest by slug AND date only (ignores wrong-date same slug)", () => {
     const { result } = selectNextShow([augEvent, guestAug29], config, now);
 
-    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
+    if (result.status !== NEXT_SHOW.upcomingStatus)
+      throw new Error("expected upcoming");
     expect(result.show.url).toBe(augEvent.url);
   });
 
@@ -196,7 +198,8 @@ describe("selectNextShow", () => {
     );
 
     expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
-    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
+    if (result.status !== NEXT_SHOW.upcomingStatus)
+      throw new Error("expected upcoming");
     expect(result.show.url).toBe(guestJul4.url);
     expect(result.show.matchedBy).toBe("guest");
   });
@@ -213,7 +216,8 @@ describe("selectNextShow", () => {
     );
 
     expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
-    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
+    if (result.status !== NEXT_SHOW.upcomingStatus)
+      throw new Error("expected upcoming");
     expect(result.show.url).toBe(guestJul4.url);
   });
 
@@ -281,7 +285,10 @@ describe("selectNextShow", () => {
       now,
     );
 
-    expect(result).toEqual({ status: NEXT_SHOW.noneStatus, source: NEXT_SHOW.source });
+    expect(result).toEqual({
+      status: NEXT_SHOW.noneStatus,
+      source: NEXT_SHOW.source,
+    });
     expect(
       warnings.some(
         (warning) =>
@@ -312,7 +319,8 @@ describe("selectNextShow", () => {
     );
 
     expect(result.status).toBe(NEXT_SHOW.upcomingStatus);
-    if (result.status !== NEXT_SHOW.upcomingStatus) throw new Error("expected upcoming");
+    if (result.status !== NEXT_SHOW.upcomingStatus)
+      throw new Error("expected upcoming");
     expect(result.show.url).toBe(augEvent.url);
     expect(result.show.matchedBy).toBe("title");
   });
@@ -320,7 +328,10 @@ describe("selectNextShow", () => {
   it("returns none for an empty event list", () => {
     const { result } = selectNextShow([], config, now);
 
-    expect(result).toEqual({ status: NEXT_SHOW.noneStatus, source: NEXT_SHOW.source });
+    expect(result).toEqual({
+      status: NEXT_SHOW.noneStatus,
+      source: NEXT_SHOW.source,
+    });
   });
 });
 

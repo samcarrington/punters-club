@@ -1379,7 +1379,11 @@ h1 {
 .cookie-preferences:focus-visible {
   color: var(--color-accent);
   border-color: var(--color-accent);
-  background-color: color-mix(in oklch, var(--color-accent) 15%, var(--color-paper-3));
+  background-color: color-mix(
+    in oklch,
+    var(--color-accent) 15%,
+    var(--color-paper-3)
+  );
 }
 
 .cookie-preferences:focus-visible {

@@ -5,20 +5,32 @@ import { detectPlatform, platformIconSvg, platformName } from "./platform";
 describe("detectPlatform", () => {
   it.each([
     ["https://open.spotify.com/playlist/37i9dQZEVXddQ2lzBCQuaj", "spotify"],
-    ["https://tidal.com/playlist/c7db223a-6940-46ea-bf84-e758f5fce676", "tidal"],
-    ["https://www.tidal.com/playlist/c7db223a-6940-46ea-bf84-e758f5fce676", "tidal"],
-    ["https://www.mixcloud.com/radiowaters/the-punters-club-spring-forward/", "mixcloud"],
-    ["https://mixcloud.com/radiowaters/the-punters-club-spring-forward/", "mixcloud"],
+    [
+      "https://tidal.com/playlist/c7db223a-6940-46ea-bf84-e758f5fce676",
+      "tidal",
+    ],
+    [
+      "https://www.tidal.com/playlist/c7db223a-6940-46ea-bf84-e758f5fce676",
+      "tidal",
+    ],
+    [
+      "https://www.mixcloud.com/radiowaters/the-punters-club-spring-forward/",
+      "mixcloud",
+    ],
+    [
+      "https://mixcloud.com/radiowaters/the-punters-club-spring-forward/",
+      "mixcloud",
+    ],
   ] as const)("detects %s as %s", (url, platform) => {
     expect(detectPlatform(url)).toBe(platform);
   });
 
-  it.each(["not a url", "https://example.com/playlist/123"])(
-    "returns null for unsupported URL %s",
-    (url) => {
-      expect(detectPlatform(url)).toBeNull();
-    },
-  );
+  it.each([
+    "not a url",
+    "https://example.com/playlist/123",
+  ])("returns null for unsupported URL %s", (url) => {
+    expect(detectPlatform(url)).toBeNull();
+  });
 });
 
 describe("platformName", () => {

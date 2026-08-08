@@ -66,7 +66,7 @@ const main = async () => {
       console.log(
         `Scraped thumbnail URL for ${source.title}: ${thumbnailUrl ?? "none"}`,
       );
-      
+
       return normalizeTidalPlaylist(source, thumbnailUrl);
     } catch {
       return previousByUrl.get(source.url) ?? normalizeTidalPlaylist(source);

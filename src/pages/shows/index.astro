@@ -27,7 +27,10 @@ const allShows = mergeShowsWithSources(
 );
 
 const shows = sortShows(allShows, "newest");
-const canonicalUrl = new URL(SITE.showsPath, Astro.site?.toString() ?? SITE.url).toString();
+const canonicalUrl = new URL(
+  SITE.showsPath,
+  Astro.site?.toString() ?? SITE.url,
+).toString();
 const jsonLd = buildShowListStructuredData(shows, { pageUrl: canonicalUrl });
 
 const formatDate = (value?: string) =>
