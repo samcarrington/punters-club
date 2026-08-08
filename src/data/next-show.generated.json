@@ -1,14 +1,14 @@
 {
   "status": "upcoming",
   "show": {
-    "title": "The Punters’ Club – Summer Holiday Sounds",
-    "slug": "the-punters-club-summer-holiday-sounds",
-    "url": "https://www.radiowaters.co.uk/show/the-punters-club-summer-holiday-sounds/",
-    "startsAtUtc": "2026-08-08T18:00:00.000Z",
-    "endsAtUtc": "2026-08-08T20:00:00.000Z",
+    "title": "The Punters’ Back to School Special",
+    "slug": "the-punters-back-to-school-special",
+    "url": "https://www.radiowaters.co.uk/show/the-punters-back-to-school-special/",
+    "startsAtUtc": "2026-09-05T18:00:00.000Z",
+    "endsAtUtc": "2026-09-05T20:00:00.000Z",
     "timezone": "Europe/London",
-    "description": "Let’s celebrate the Summer. Join us for festival-forward sounds and a cracking good time.",
-    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/31071.gif",
+    "description": "Get your new pencil case out and realise last term’s trousers don’t fit any more.",
+    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/31070.gif",
     "matchedBy": "title"
   },
   "source": "tribe/events/v1"
