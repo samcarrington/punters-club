@@ -15,6 +15,7 @@
     "test:next-show:remote": "RUN_REMOTE_TESTS=1 vitest run src/lib/next-show.remote.test.ts",
     "verify:structured-data": "tsx scripts/verify-structured-data.ts",
     "preview": "astro preview",
+    "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "lint:fix": "biome check --write ."
   },
