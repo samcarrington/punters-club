@@ -28,4 +28,4 @@
 ## Tooling quirks
 - `biome.json` configures formatting/lint rules; wired into `pnpm run lint` / `pnpm run lint:fix`. It respects `.gitignore` (`vcs.useIgnoreFile`) and explicitly excludes non-project tool-cache dirs (`.build-cache`, `.pnpm-store`, `.claude`, `.dialogue`, `.vscode`, `.hallmark`, `.impeccable`).
 - Astro files have Biome unused-import/unused-variable rules disabled via `overrides`; do not “fix” that unless the Astro false positives are addressed.
-- Repo-local `opencode.json` only configures the Astro docs MCP; use it for Astro API/docs checks when needed.
+- The Astro docs MCP (`https://mcp.docs.astro.build/mcp`) is configured for both OpenCode (`opencode.json`) and Claude Code (`.mcp.json`); use it for Astro API/docs checks when needed.
