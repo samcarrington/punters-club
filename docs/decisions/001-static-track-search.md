@@ -20,6 +20,8 @@ Generate `/api/tracks.json` as an Astro static endpoint during `astro build`. Bu
 
 Add an Astro component with a bundled, framework-free TypeScript script. It lazily fetches the static endpoint on first interaction and performs normalized, ranked filtering in the browser. The server-rendered archive remains complete without JavaScript; only search enhancement depends on JavaScript.
 
+The initial archive-only consumer was subsequently moved into the shared header as a native dialog. This makes the same static index available from every page without changing the endpoint, ranking, grouping, or framework-free architecture. The archive remains independently browsable, while search and mobile-menu controls are progressively enhanced and hidden if their scripts cannot initialize.
+
 ## Alternatives Considered
 
 ### Vercel serverless search function

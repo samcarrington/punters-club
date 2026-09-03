@@ -10,6 +10,11 @@
   --color-focus: oklch(82% 0.18 326);
   --color-success: oklch(74% 0.14 148);
   --color-error: oklch(66% 0.17 20);
+  --color-overlay-surface: oklch(97% 0.01 85);
+  --color-overlay-surface-muted: oklch(93% 0.015 85);
+  --color-overlay-ink: oklch(22% 0.035 280);
+  --color-overlay-ink-muted: oklch(43% 0.03 280);
+  --color-overlay-rule: oklch(81% 0.025 280);
 
   --content-max-width: 72rem;
   --content-half-width: calc(var(--content-max-width) / 2);

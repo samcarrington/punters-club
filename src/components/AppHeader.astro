@@ -1,14 +1,75 @@
 ---
+import { Icon } from "astro-icon/components";
 import { SITE } from "../lib/constants";
+import SiteSearch from "./SiteSearch.astro";
 ---
 <header class="site-header">
-  <nav class="nav nav-floating-pill" aria-label="Primary navigation">
+  <nav class="nav nav-floating-pill" aria-label="Primary navigation" data-site-nav>
     <a class="wordmark" href={SITE.homePath}>{SITE.name}</a>
-    <div class="nav-links">
-      <a href={SITE.showsPath}>Archive</a>
-      <a href={SITE.playlistsHash}>Playlists</a>
-      <a href={SITE.aboutHash}>About</a>
+    <div class="nav-controls">
+      <SiteSearch />
+      <button
+        class="nav-menu-trigger"
+        type="button"
+        aria-controls="primary-nav-links"
+        aria-expanded="false"
+        aria-label="Open menu"
+        hidden
+        data-nav-menu-trigger
+      >
+        <Icon aria-hidden="true" name="lucide:menu" width="1.25em" height="1.25em" />
+      </button>
     </div>
-    <a class="btn btn-primary" href={SITE.latestShowHash}>Listen now</a>
+    <div class="nav-disclosure" id="primary-nav-links" data-nav-disclosure>
+      <div class="nav-links">
+        <a href={SITE.showsPath}>Archive</a>
+        <a href={SITE.playlistsHash}>Playlists</a>
+        <a href={SITE.aboutHash}>About</a>
+      </div>
+      <a class="btn btn-primary" href={SITE.latestShowHash}>Listen now</a>
+    </div>
   </nav>
 </header>
+
+<script>
+  const nav = document.querySelector<HTMLElement>("[data-site-nav]");
+  const menuTrigger = nav?.querySelector<HTMLButtonElement>(
+    "[data-nav-menu-trigger]",
+  );
+  const disclosure = nav?.querySelector<HTMLElement>("[data-nav-disclosure]");
+
+  if (nav && menuTrigger && disclosure) {
+    const closeMenu = (restoreFocus = false) => {
+      nav.removeAttribute("data-menu-open");
+      menuTrigger.setAttribute("aria-expanded", "false");
+      menuTrigger.setAttribute("aria-label", "Open menu");
+      if (restoreFocus) menuTrigger.focus();
+    };
+
+    const openMenu = () => {
+      window.dispatchEvent(new CustomEvent("site-menu-open"));
+      nav.setAttribute("data-menu-open", "");
+      menuTrigger.setAttribute("aria-expanded", "true");
+      menuTrigger.setAttribute("aria-label", "Close menu");
+    };
+
+    menuTrigger.addEventListener("click", () => {
+      if (nav.hasAttribute("data-menu-open")) closeMenu();
+      else openMenu();
+    });
+
+    disclosure.addEventListener("click", (event) => {
+      if ((event.target as Element).closest("a")) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && nav.hasAttribute("data-menu-open")) {
+        closeMenu(true);
+      }
+    });
+
+    window.addEventListener("site-search-open", () => closeMenu());
+    nav.setAttribute("data-menu-ready", "");
+    menuTrigger.hidden = false;
+  }
+</script>
