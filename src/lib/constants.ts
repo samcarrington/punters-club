@@ -3,6 +3,7 @@ export const SITE = {
   url: "https://www.thepunters.club",
   homePath: "/",
   showsPath: "/shows/",
+  trackSearchEndpoint: "/api/tracks.json",
   latestShowHash: "/#latest-show",
   playlistsHash: "/#playlists",
   aboutHash: "/#about",

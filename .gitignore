@@ -8,3 +8,5 @@ coverage/
 .claude/.cc-writes/
 .claude/settings.local.json
 .pnpm-store/
+# CocoIndex Code (ccc)
+/.cocoindex_code/

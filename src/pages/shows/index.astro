@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import TrackSearch from "../../components/TrackSearch.astro";
 import generatedShowsData from "../../data/shows.generated.json";
 import PuntersLayout from "../../layouts/PuntersLayout.astro";
 import { RADIO_WATERS, SITE } from "../../lib/constants";
@@ -57,6 +58,8 @@ const getSortDate = (value?: string) => {
         <p>Dig through every episode of The Punters' Club. Find what you missed, revisit the ones you loved, and check-out the tracklist if we have it.</p>
       </div>
     </header>
+
+    <TrackSearch />
 
     <div class="archive-toolbar">
       <div class="archive-count">{shows.length} Sessions</div>

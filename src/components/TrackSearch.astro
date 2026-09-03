@@ -1,0 +1,271 @@
+---
+import { SITE } from "../lib/constants";
+---
+
+<section
+  class="archive-search"
+  aria-labelledby="track-search-title"
+  data-track-search
+  data-endpoint={SITE.trackSearchEndpoint}
+>
+  <div class="archive-search-intro">
+    <h2 id="track-search-title">Find a record</h2>
+    <p>
+      Search the tracklists by artist or title, then jump back to the show where
+      you heard it.
+    </p>
+  </div>
+
+  <form class="archive-search-form" role="search" data-search-form>
+    <label class="archive-search-label" for="track-search-input"
+      >Artist or song title</label
+    >
+    <div class="archive-search-control">
+      <input
+        class="archive-search-input"
+        id="track-search-input"
+        name="q"
+        type="search"
+        inputmode="search"
+        autocomplete="off"
+        spellcheck="false"
+        aria-describedby="track-search-hint track-search-status"
+        aria-controls="track-search-results"
+        placeholder="Try Four Tet or Feel The Sunshine"
+        data-search-input
+      />
+      <button
+        class="archive-search-clear"
+        type="button"
+        hidden
+        data-search-clear
+      >
+        Clear
+      </button>
+    </div>
+    <p class="archive-search-hint" id="track-search-hint">
+      Type at least 2 characters.
+    </p>
+  </form>
+
+  <p
+    class="archive-search-status"
+    id="track-search-status"
+    role="status"
+    aria-live="polite"
+    data-search-status
+  >
+  </p>
+  <div
+    class="archive-search-results"
+    id="track-search-results"
+    hidden
+    data-search-results
+  >
+    <ul class="archive-search-result-list" data-search-result-list></ul>
+  </div>
+
+  <noscript>
+    <p class="archive-search-unavailable">
+      Track search needs JavaScript. Every show and tracklist is still available
+      in the archive below.
+    </p>
+  </noscript>
+</section>
+
+<script>
+  import {
+    searchTrackIndex,
+    type TrackSearchEntry,
+    type TrackSearchResponse,
+  } from "../lib/track-search";
+
+  const root = document.querySelector<HTMLElement>("[data-track-search]");
+  const form = root?.querySelector<HTMLFormElement>("[data-search-form]");
+  const input = root?.querySelector<HTMLInputElement>("[data-search-input]");
+  const clearButton = root?.querySelector<HTMLButtonElement>(
+    "[data-search-clear]",
+  );
+  const results = root?.querySelector<HTMLElement>("[data-search-results]");
+  const resultList = root?.querySelector<HTMLUListElement>(
+    "[data-search-result-list]",
+  );
+  const status = root?.querySelector<HTMLElement>("[data-search-status]");
+  const endpoint = root?.dataset.endpoint;
+
+  if (
+    root &&
+    form &&
+    input &&
+    clearButton &&
+    results &&
+    resultList &&
+    status &&
+    endpoint
+  ) {
+    let indexPromise: Promise<readonly TrackSearchEntry[]> | undefined;
+
+    const hideResults = () => {
+      results.hidden = true;
+      resultList.replaceChildren();
+    };
+
+    const setStatus = (message: string) => {
+      status.textContent = message;
+    };
+
+    const loadIndex = () => {
+      indexPromise ??= fetch(endpoint, {
+        headers: { Accept: "application/json" },
+      })
+        .then(async (response) => {
+          if (!response.ok)
+            throw new Error(`Track index request failed: ${response.status}`);
+
+          const payload =
+            (await response.json()) as Partial<TrackSearchResponse>;
+          if (payload.version !== 1 || !Array.isArray(payload.entries)) {
+            throw new Error("Track index response was not recognised");
+          }
+
+          return payload.entries;
+        })
+        .catch((error) => {
+          indexPromise = undefined;
+          throw error;
+        });
+
+      return indexPromise;
+    };
+
+    const showMatches = (matches: readonly TrackSearchEntry[]) => {
+      const fragment = document.createDocumentFragment();
+
+      for (const match of matches) {
+        const item = document.createElement("li");
+        item.className = "archive-search-result";
+
+        const track = document.createElement("div");
+        track.className = "archive-search-track";
+
+        const artist = document.createElement("span");
+        artist.className = "archive-search-artist";
+        artist.textContent = match.artist;
+
+        const title = document.createElement("span");
+        title.className = "archive-search-title";
+        title.textContent = match.title;
+
+        track.append(artist, title);
+
+        const appearances = document.createElement("div");
+        appearances.className = "archive-search-appearances";
+
+        const appearanceLabel = document.createElement("span");
+        appearanceLabel.className = "archive-search-appearance-label";
+        appearanceLabel.textContent =
+          match.appearances.length === 1
+            ? "Played in"
+            : `Played in ${match.appearances.length} shows`;
+
+        const showList = document.createElement("ul");
+        showList.className = "archive-search-show-list";
+
+        for (const appearance of match.appearances) {
+          const showItem = document.createElement("li");
+          const showLink = document.createElement("a");
+          showLink.href = appearance.showPath;
+          showLink.textContent = appearance.showTitle;
+
+          const position = document.createElement("span");
+          position.className = "archive-search-position";
+          position.textContent = `Track ${appearance.position}`;
+
+          showItem.append(showLink, position);
+          showList.append(showItem);
+        }
+
+        appearances.append(appearanceLabel, showList);
+        item.append(track, appearances);
+        fragment.append(item);
+      }
+
+      resultList.replaceChildren(fragment);
+      results.hidden = false;
+    };
+
+    const search = async () => {
+      const query = input.value.trim();
+      clearButton.hidden = query.length === 0;
+
+      if (query.length < 2) {
+        hideResults();
+        setStatus(
+          query.length === 1 ? "Type one more character to search." : "",
+        );
+        return;
+      }
+
+      const requestedQuery = query;
+      setStatus("Loading tracklists…");
+
+      try {
+        const index = await loadIndex();
+        if (input.value.trim() !== requestedQuery) return;
+
+        const matches = searchTrackIndex(index, requestedQuery);
+        if (matches.length === 0) {
+          hideResults();
+          setStatus(`No tracks found for “${requestedQuery}”.`);
+          return;
+        }
+
+        showMatches(matches);
+        setStatus(
+          `${matches.length} ${matches.length === 1 ? "track" : "tracks"} found for “${requestedQuery}”.`,
+        );
+      } catch {
+        hideResults();
+        setStatus("Track search is unavailable just now. Please try again.");
+      }
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      void search();
+    });
+
+    input.addEventListener("input", () => void search());
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        input.value = "";
+        clearButton.hidden = true;
+        hideResults();
+        setStatus("Search cleared.");
+      }
+
+      if (event.key === "ArrowDown" && !results.hidden) {
+        const firstLink = resultList.querySelector<HTMLAnchorElement>("a");
+        if (firstLink) {
+          event.preventDefault();
+          firstLink.focus();
+        }
+      }
+    });
+
+    results.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        input.focus();
+      }
+    });
+
+    clearButton.addEventListener("click", () => {
+      input.value = "";
+      clearButton.hidden = true;
+      hideResults();
+      setStatus("Search cleared.");
+      input.focus();
+    });
+  }
+</script>
