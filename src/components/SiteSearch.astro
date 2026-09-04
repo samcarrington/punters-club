@@ -1,0 +1,489 @@
+---
+import { Icon } from "astro-icon/components";
+import { SITE } from "../lib/constants";
+---
+
+<div
+  class="site-search"
+  data-site-search
+  data-endpoint={SITE.trackSearchEndpoint}
+>
+  <button
+    class="site-search-trigger"
+    type="button"
+    aria-haspopup="dialog"
+    aria-controls="site-search-dialog"
+    hidden
+    data-site-search-trigger
+  >
+    <Icon
+      aria-hidden="true"
+      name="lucide:search"
+      width="1.2em"
+      height="1.2em"
+    />
+    <span class="site-search-trigger-label">Search</span>
+    <span class="sr-only site-search-trigger-mobile-label"
+      >Search tracklists</span
+    >
+  </button>
+
+  <dialog
+    class="site-search-dialog"
+    id="site-search-dialog"
+    aria-labelledby="site-search-title"
+    data-site-search-dialog
+  >
+    <div class="site-search-panel">
+      <header class="site-search-header">
+        <div>
+          <h2 id="site-search-title">Find a track</h2>
+          <p>Search every tracklist by artist or title, to jump to a show.</p>
+        </div>
+        <button
+          class="site-search-close"
+          type="button"
+          aria-label="Close search"
+          data-site-search-close
+        >
+          <Icon
+            aria-hidden="true"
+            name="lucide:x"
+            width="1.25em"
+            height="1.25em"
+          />
+        </button>
+      </header>
+
+      <form class="site-search-form" role="search" data-site-search-form>
+        <label class="site-search-label" for="site-search-input"
+          >Artist or song title</label
+        >
+        <div class="site-search-control">
+          <Icon
+            aria-hidden="true"
+            name="lucide:search"
+            width="1.15em"
+            height="1.15em"
+          />
+          <input
+            class="site-search-input"
+            id="site-search-input"
+            name="q"
+            type="search"
+            inputmode="search"
+            autocomplete="off"
+            spellcheck="false"
+            aria-describedby="site-search-hint site-search-status"
+            aria-controls="site-search-results"
+            placeholder="Try Four Tet or Feel The Sunshine"
+            data-site-search-input
+          />
+          <button
+            class="site-search-clear"
+            type="button"
+            hidden
+            data-site-search-clear
+          >
+            Clear
+          </button>
+        </div>
+        <p class="site-search-hint" id="site-search-hint">
+          Type at least 2 characters.
+        </p>
+      </form>
+
+      <div class="site-search-feedback">
+        <p
+          class="site-search-status"
+          id="site-search-status"
+          role="status"
+          aria-live="polite"
+          data-site-search-status
+        >
+        </p>
+        <button
+          class="site-search-retry"
+          type="button"
+          hidden
+          data-site-search-retry
+        >
+          Try again
+        </button>
+      </div>
+
+      <div
+        class="site-search-results"
+        id="site-search-results"
+        hidden
+        data-site-search-results
+      >
+        <ul class="site-search-result-list" data-site-search-result-list></ul>
+      </div>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  import type { AnalyticsEvent } from "../lib/cookie-consent";
+  import {
+    type SearchCloseReason,
+    type SearchErrorStage,
+    createSearchCloseEvent,
+    createSearchErrorEvent,
+    createSearchOpenEvent,
+    createSearchOutcomeEvent,
+    createSearchResultSelectEvent,
+  } from "../lib/search-analytics";
+  import {
+    normalizeSearchText,
+    searchTrackIndex,
+    type TrackSearchEntry,
+    type TrackSearchResponse,
+  } from "../lib/track-search";
+
+  const root = document.querySelector<HTMLElement>("[data-site-search]");
+  const trigger = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-trigger]",
+  );
+  const dialog = root?.querySelector<HTMLDialogElement>(
+    "[data-site-search-dialog]",
+  );
+  const closeButton = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-close]",
+  );
+  const form = root?.querySelector<HTMLFormElement>("[data-site-search-form]");
+  const input = root?.querySelector<HTMLInputElement>(
+    "[data-site-search-input]",
+  );
+  const clearButton = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-clear]",
+  );
+  const retryButton = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-retry]",
+  );
+  const results = root?.querySelector<HTMLElement>(
+    "[data-site-search-results]",
+  );
+  const resultList = root?.querySelector<HTMLUListElement>(
+    "[data-site-search-result-list]",
+  );
+  const status = root?.querySelector<HTMLElement>("[data-site-search-status]");
+  const endpoint = root?.dataset.endpoint;
+
+  if (
+    root &&
+    trigger &&
+    dialog &&
+    closeButton &&
+    form &&
+    input &&
+    clearButton &&
+    retryButton &&
+    results &&
+    resultList &&
+    status &&
+    endpoint &&
+    typeof dialog.showModal === "function"
+  ) {
+    type AnalyticsWindow = Window & {
+      puntersAnalytics?: { track: (event: AnalyticsEvent) => void };
+    };
+
+    let indexPromise: Promise<readonly TrackSearchEntry[]> | undefined;
+    let searchTimer: number | undefined;
+    let searchSequence = 0;
+    let displayedResultCount = 0;
+    let closeReason: SearchCloseReason = "button";
+    let openedBy: HTMLButtonElement = trigger;
+    let trackedQueries = new Set<string>();
+
+    const track = (event: AnalyticsEvent) => {
+      try {
+        (window as AnalyticsWindow).puntersAnalytics?.track(event);
+      } catch {
+        // Analytics must never interrupt search.
+      }
+    };
+
+    const hideResults = () => {
+      displayedResultCount = 0;
+      results.hidden = true;
+      resultList.replaceChildren();
+    };
+
+    const setStatus = (message: string) => {
+      status.textContent = message;
+    };
+
+    const setLoading = (loading: boolean) => {
+      root.toggleAttribute("data-loading", loading);
+      results.setAttribute("aria-busy", String(loading));
+    };
+
+    const resetSearch = () => {
+      window.clearTimeout(searchTimer);
+      searchSequence += 1;
+      input.value = "";
+      clearButton.hidden = true;
+      retryButton.hidden = true;
+      hideResults();
+      setLoading(false);
+      setStatus("");
+    };
+
+    const fail = (stage: SearchErrorStage) => {
+      hideResults();
+      setLoading(false);
+      retryButton.hidden = false;
+      setStatus("Track search is unavailable just now.");
+      track(createSearchErrorEvent(stage));
+    };
+
+    const loadIndex = () => {
+      indexPromise ??= fetch(endpoint, {
+        headers: { Accept: "application/json" },
+      })
+        .then(async (response) => {
+          if (!response.ok) {
+            throw { searchStage: "fetch" };
+          }
+
+          let payload: Partial<TrackSearchResponse>;
+          try {
+            payload = (await response.json()) as Partial<TrackSearchResponse>;
+          } catch {
+            throw { searchStage: "validate" };
+          }
+
+          if (payload.version !== 1 || !Array.isArray(payload.entries)) {
+            throw { searchStage: "validate" };
+          }
+
+          return payload.entries;
+        })
+        .catch((error: { searchStage?: SearchErrorStage }) => {
+          indexPromise = undefined;
+          throw error;
+        });
+
+      return indexPromise;
+    };
+
+    const renderMatches = (matches: readonly TrackSearchEntry[]) => {
+      const fragment = document.createDocumentFragment();
+
+      matches.forEach((match, resultIndex) => {
+        const item = document.createElement("li");
+        item.className = "site-search-result";
+
+        const record = document.createElement("div");
+        record.className = "site-search-record";
+
+        const artist = document.createElement("span");
+        artist.className = "site-search-artist";
+        artist.textContent = match.artist;
+
+        const title = document.createElement("span");
+        title.className = "site-search-track-title";
+        title.textContent = match.title;
+
+        record.append(artist, title);
+
+        const appearances = document.createElement("div");
+        appearances.className = "site-search-appearances";
+
+        const appearanceLabel = document.createElement("span");
+        appearanceLabel.className = "site-search-appearance-label";
+        appearanceLabel.textContent =
+          match.appearances.length === 1
+            ? "Played in"
+            : `Played in ${match.appearances.length} shows`;
+
+        const showList = document.createElement("ul");
+        showList.className = "site-search-show-list";
+
+        match.appearances.forEach((appearance, appearanceIndex) => {
+          const showItem = document.createElement("li");
+          const showLink = document.createElement("a");
+          showLink.href = appearance.showPath;
+          showLink.textContent = appearance.showTitle;
+          showLink.addEventListener("click", () => {
+            track(
+              createSearchResultSelectEvent({
+                resultRank: resultIndex + 1,
+                appearanceRank: appearanceIndex + 1,
+                appearanceCount: match.appearances.length,
+                showPath: appearance.showPath,
+                trackPosition: appearance.position,
+              }),
+            );
+            closeReason = "navigation";
+            dialog.close();
+          });
+
+          const position = document.createElement("span");
+          position.className = "site-search-position";
+          position.textContent = `Track ${appearance.position}`;
+
+          showItem.append(showLink, position);
+          showList.append(showItem);
+        });
+
+        appearances.append(appearanceLabel, showList);
+        item.append(record, appearances);
+        fragment.append(item);
+      });
+
+      resultList.replaceChildren(fragment);
+      displayedResultCount = matches.length;
+      results.hidden = false;
+    };
+
+    const search = async () => {
+      const query = input.value.trim();
+      const normalizedQuery = normalizeSearchText(query);
+      const sequence = ++searchSequence;
+      clearButton.hidden = query.length === 0;
+      retryButton.hidden = true;
+
+      if (normalizedQuery.length < 2) {
+        hideResults();
+        setLoading(false);
+        setStatus(
+          normalizedQuery.length === 1
+            ? "Type one more character to search."
+            : "",
+        );
+        return;
+      }
+
+      setLoading(true);
+      setStatus("Loading tracklists…");
+
+      try {
+        const index = await loadIndex();
+        if (sequence !== searchSequence || !dialog.open) return;
+
+        const matches = searchTrackIndex(index, query);
+        try {
+          if (matches.length > 0) renderMatches(matches);
+          else hideResults();
+        } catch {
+          fail("render");
+          return;
+        }
+
+        setLoading(false);
+        setStatus(
+          matches.length === 0
+            ? `No tracks found for “${query}”.`
+            : `${matches.length} ${matches.length === 1 ? "track" : "tracks"} found.`,
+        );
+
+        if (!trackedQueries.has(normalizedQuery)) {
+          trackedQueries.add(normalizedQuery);
+          track(createSearchOutcomeEvent(query, matches.length));
+        }
+      } catch (error) {
+        if (sequence !== searchSequence || !dialog.open) return;
+        const stage =
+          typeof error === "object" &&
+          error !== null &&
+          "searchStage" in error &&
+          (error.searchStage === "validate" || error.searchStage === "fetch")
+            ? error.searchStage
+            : "fetch";
+        fail(stage);
+      }
+    };
+
+    const queueSearch = () => {
+      window.clearTimeout(searchTimer);
+      searchTimer = window.setTimeout(() => void search(), 250);
+    };
+
+    const openSearch = () => {
+      if (dialog.open) return;
+
+      window.dispatchEvent(new CustomEvent("site-search-open"));
+      openedBy = trigger;
+      trackedQueries = new Set<string>();
+      closeReason = "button";
+      dialog.showModal();
+      input.focus();
+
+      const triggerVariant = window.matchMedia("(min-width: 768px)").matches
+        ? "label"
+        : "icon";
+      track(createSearchOpenEvent(triggerVariant));
+    };
+
+    const closeSearch = (reason: SearchCloseReason) => {
+      if (!dialog.open) return;
+      closeReason = reason;
+      dialog.close();
+    };
+
+    trigger.addEventListener("click", openSearch);
+    closeButton.addEventListener("click", () => closeSearch("button"));
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      window.clearTimeout(searchTimer);
+      void search();
+    });
+
+    input.addEventListener("input", queueSearch);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown" && !results.hidden) {
+        const firstLink = resultList.querySelector<HTMLAnchorElement>("a");
+        if (firstLink) {
+          event.preventDefault();
+          firstLink.focus();
+        }
+      }
+    });
+
+    clearButton.addEventListener("click", () => {
+      resetSearch();
+      setStatus("Search cleared.");
+      input.focus();
+    });
+
+    retryButton.addEventListener("click", () => {
+      indexPromise = undefined;
+      void search();
+      input.focus();
+    });
+
+    dialog.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeSearch("escape");
+    });
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target !== dialog) return;
+
+      const bounds = dialog.getBoundingClientRect();
+      const inside =
+        event.clientX >= bounds.left &&
+        event.clientX <= bounds.right &&
+        event.clientY >= bounds.top &&
+        event.clientY <= bounds.bottom;
+      if (!inside) closeSearch("backdrop");
+    });
+
+    dialog.addEventListener("close", () => {
+      track(
+        createSearchCloseEvent(closeReason, input.value, displayedResultCount),
+      );
+      resetSearch();
+      openedBy.focus();
+    });
+
+    window.addEventListener("site-menu-open", () => closeSearch("menu_opened"));
+
+    trigger.hidden = false;
+  }
+</script>
