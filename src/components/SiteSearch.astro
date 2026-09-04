@@ -3,7 +3,11 @@ import { Icon } from "astro-icon/components";
 import { SITE } from "../lib/constants";
 ---
 
-<div class="site-search" data-site-search data-endpoint={SITE.trackSearchEndpoint}>
+<div
+  class="site-search"
+  data-site-search
+  data-endpoint={SITE.trackSearchEndpoint}
+>
   <button
     class="site-search-trigger"
     type="button"
@@ -12,9 +16,16 @@ import { SITE } from "../lib/constants";
     hidden
     data-site-search-trigger
   >
-    <Icon aria-hidden="true" name="lucide:search" width="1.2em" height="1.2em" />
+    <Icon
+      aria-hidden="true"
+      name="lucide:search"
+      width="1.2em"
+      height="1.2em"
+    />
     <span class="site-search-trigger-label">Search</span>
-    <span class="sr-only site-search-trigger-mobile-label">Search tracklists</span>
+    <span class="sr-only site-search-trigger-mobile-label"
+      >Search tracklists</span
+    >
   </button>
 
   <dialog
@@ -26,8 +37,8 @@ import { SITE } from "../lib/constants";
     <div class="site-search-panel">
       <header class="site-search-header">
         <div>
-          <h2 id="site-search-title">Find a record</h2>
-          <p>Search every tracklist by artist or title.</p>
+          <h2 id="site-search-title">Find a track</h2>
+          <p>Search every tracklist by artist or title, to jump to a show.</p>
         </div>
         <button
           class="site-search-close"
@@ -35,14 +46,26 @@ import { SITE } from "../lib/constants";
           aria-label="Close search"
           data-site-search-close
         >
-          <Icon aria-hidden="true" name="lucide:x" width="1.25em" height="1.25em" />
+          <Icon
+            aria-hidden="true"
+            name="lucide:x"
+            width="1.25em"
+            height="1.25em"
+          />
         </button>
       </header>
 
       <form class="site-search-form" role="search" data-site-search-form>
-        <label class="site-search-label" for="site-search-input">Artist or song title</label>
+        <label class="site-search-label" for="site-search-input"
+          >Artist or song title</label
+        >
         <div class="site-search-control">
-          <Icon aria-hidden="true" name="lucide:search" width="1.15em" height="1.15em" />
+          <Icon
+            aria-hidden="true"
+            name="lucide:search"
+            width="1.15em"
+            height="1.15em"
+          />
           <input
             class="site-search-input"
             id="site-search-input"
@@ -56,11 +79,18 @@ import { SITE } from "../lib/constants";
             placeholder="Try Four Tet or Feel The Sunshine"
             data-site-search-input
           />
-          <button class="site-search-clear" type="button" hidden data-site-search-clear>
+          <button
+            class="site-search-clear"
+            type="button"
+            hidden
+            data-site-search-clear
+          >
             Clear
           </button>
         </div>
-        <p class="site-search-hint" id="site-search-hint">Type at least 2 characters.</p>
+        <p class="site-search-hint" id="site-search-hint">
+          Type at least 2 characters.
+        </p>
       </form>
 
       <div class="site-search-feedback">
@@ -70,8 +100,14 @@ import { SITE } from "../lib/constants";
           role="status"
           aria-live="polite"
           data-site-search-status
-        ></p>
-        <button class="site-search-retry" type="button" hidden data-site-search-retry>
+        >
+        </p>
+        <button
+          class="site-search-retry"
+          type="button"
+          hidden
+          data-site-search-retry
+        >
           Try again
         </button>
       </div>
@@ -107,15 +143,31 @@ import { SITE } from "../lib/constants";
   } from "../lib/track-search";
 
   const root = document.querySelector<HTMLElement>("[data-site-search]");
-  const trigger = root?.querySelector<HTMLButtonElement>("[data-site-search-trigger]");
-  const dialog = root?.querySelector<HTMLDialogElement>("[data-site-search-dialog]");
-  const closeButton = root?.querySelector<HTMLButtonElement>("[data-site-search-close]");
+  const trigger = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-trigger]",
+  );
+  const dialog = root?.querySelector<HTMLDialogElement>(
+    "[data-site-search-dialog]",
+  );
+  const closeButton = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-close]",
+  );
   const form = root?.querySelector<HTMLFormElement>("[data-site-search-form]");
-  const input = root?.querySelector<HTMLInputElement>("[data-site-search-input]");
-  const clearButton = root?.querySelector<HTMLButtonElement>("[data-site-search-clear]");
-  const retryButton = root?.querySelector<HTMLButtonElement>("[data-site-search-retry]");
-  const results = root?.querySelector<HTMLElement>("[data-site-search-results]");
-  const resultList = root?.querySelector<HTMLUListElement>("[data-site-search-result-list]");
+  const input = root?.querySelector<HTMLInputElement>(
+    "[data-site-search-input]",
+  );
+  const clearButton = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-clear]",
+  );
+  const retryButton = root?.querySelector<HTMLButtonElement>(
+    "[data-site-search-retry]",
+  );
+  const results = root?.querySelector<HTMLElement>(
+    "[data-site-search-results]",
+  );
+  const resultList = root?.querySelector<HTMLUListElement>(
+    "[data-site-search-result-list]",
+  );
   const status = root?.querySelector<HTMLElement>("[data-site-search-status]");
   const endpoint = root?.dataset.endpoint;
 
@@ -189,7 +241,9 @@ import { SITE } from "../lib/constants";
     };
 
     const loadIndex = () => {
-      indexPromise ??= fetch(endpoint, { headers: { Accept: "application/json" } })
+      indexPromise ??= fetch(endpoint, {
+        headers: { Accept: "application/json" },
+      })
         .then(async (response) => {
           if (!response.ok) {
             throw { searchStage: "fetch" };
@@ -296,7 +350,11 @@ import { SITE } from "../lib/constants";
       if (normalizedQuery.length < 2) {
         hideResults();
         setLoading(false);
-        setStatus(normalizedQuery.length === 1 ? "Type one more character to search." : "");
+        setStatus(
+          normalizedQuery.length === 1
+            ? "Type one more character to search."
+            : "",
+        );
         return;
       }
 
@@ -417,7 +475,9 @@ import { SITE } from "../lib/constants";
     });
 
     dialog.addEventListener("close", () => {
-      track(createSearchCloseEvent(closeReason, input.value, displayedResultCount));
+      track(
+        createSearchCloseEvent(closeReason, input.value, displayedResultCount),
+      );
       resetSearch();
       openedBy.focus();
     });
