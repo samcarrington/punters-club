@@ -288,7 +288,7 @@ import { SITE } from "../lib/constants";
         title.className = "site-search-track-title";
         title.textContent = match.title;
 
-        record.append(artist, title);
+        record.append(title, artist);
 
         const appearances = document.createElement("div");
         appearances.className = "site-search-appearances";
