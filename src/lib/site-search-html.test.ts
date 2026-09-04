@@ -22,6 +22,18 @@ describe("global site search markup", () => {
     expect(search).toContain('aria-live="polite"');
   });
 
+  it("renders the track title first and emphasises it above the artist", async () => {
+    const [search, styles] = await Promise.all([
+      readSource("src/components/SiteSearch.astro"),
+      readSource("src/styles/global.css"),
+    ]);
+
+    expect(search).toContain("record.append(title, artist)");
+    expect(styles).toMatch(
+      /\.site-search-track-title\s*{[^}]*font-weight:\s*var\(--font-weight-title\)/s,
+    );
+  });
+
   it("does not mount search inside the archive page", async () => {
     const archive = await readSource("src/pages/shows/index.astro");
 
