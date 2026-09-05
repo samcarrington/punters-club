@@ -1,14 +1,14 @@
 {
   "status": "upcoming",
   "show": {
-    "title": "The Punters’ Back to School Special",
-    "slug": "the-punters-back-to-school-special",
-    "url": "https://www.radiowaters.co.uk/show/the-punters-back-to-school-special/",
-    "startsAtUtc": "2026-09-05T18:00:00.000Z",
-    "endsAtUtc": "2026-09-05T20:00:00.000Z",
+    "title": "The Punters’ Club – MumsAids Big Give",
+    "slug": "the-punters-club-mumsaids-big-give",
+    "url": "https://www.radiowaters.co.uk/show/the-punters-club-mumsaids-big-give/",
+    "startsAtUtc": "2026-10-09T21:00:00.000Z",
+    "endsAtUtc": "2026-10-09T23:00:00.000Z",
     "timezone": "Europe/London",
-    "description": "Get your new pencil case out and realise last term’s trousers don’t fit any more.",
-    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/31070.gif",
+    "description": "Stay tuned for info",
+    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/Kelly-and-Sam.jpg",
     "matchedBy": "title"
   },
   "source": "tribe/events/v1"
