@@ -1,4 +1,15 @@
 {
-  "status": "none",
+  "status": "upcoming",
+  "show": {
+    "title": "The Punters’ Club Fireworks and Sparkles",
+    "slug": "the-punters-club-fireworks-and-sparkles",
+    "url": "https://www.radiowaters.co.uk/show/the-punters-club-fireworks-and-sparkles/",
+    "startsAtUtc": "2026-11-14T19:00:00.000Z",
+    "endsAtUtc": "2026-11-14T21:00:00.000Z",
+    "timezone": "Europe/London",
+    "description": "Explosive sounds and revolutionary records.",
+    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/punters-sq.jpg",
+    "matchedBy": "title"
+  },
   "source": "tribe/events/v1"
 }
