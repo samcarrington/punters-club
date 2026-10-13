@@ -1087,12 +1087,12 @@ h1 {
   flex-direction: column;
 }
 
-.track-artist {
+.track-title {
   font-weight: var(--font-weight-semibold);
   color: var(--color-ink);
 }
 
-.track-title {
+.track-artist {
   color: var(--color-ink-muted);
   font-size: var(--text-sm);
 }
