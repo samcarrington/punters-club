@@ -33,8 +33,7 @@ export const createSearchOutcomeEvent = (
   query: string,
   resultCount: number,
 ): AnalyticsEvent => ({
-  event:
-    resultCount > 0 ? "track_search_results" : "track_search_no_results",
+  event: resultCount > 0 ? "track_search_results" : "track_search_no_results",
   search_location: SEARCH_LOCATION,
   ...queryMetrics(query),
   result_count: Math.max(0, resultCount),

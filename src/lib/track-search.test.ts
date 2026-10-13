@@ -41,7 +41,9 @@ describe("normalizeSearchText", () => {
 describe("buildTrackSearchIndex", () => {
   it("groups the same artist and title across shows", () => {
     const index = buildTrackSearchIndex(shows);
-    const restless = index.find((entry) => entry.title === "Restless (Club Mix)");
+    const restless = index.find(
+      (entry) => entry.title === "Restless (Club Mix)",
+    );
 
     expect(restless?.appearances).toEqual([
       {
@@ -79,10 +81,9 @@ describe("searchTrackIndex", () => {
   });
 
   it("ranks exact artist matches before other artist tracks", () => {
-    expect(searchTrackIndex(index, "Four Tet").map((entry) => entry.title)).toEqual([
-      "31 Bloom",
-      "Three Drums",
-    ]);
+    expect(
+      searchTrackIndex(index, "Four Tet").map((entry) => entry.title),
+    ).toEqual(["31 Bloom", "Three Drums"]);
   });
 
   it("requires two characters and respects the result limit", () => {
