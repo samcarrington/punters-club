@@ -9,7 +9,7 @@
     "timezone": "Europe/London",
     "description": "Friday night bangers to warm up your weekend.",
     "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/Show-Get-On-It-with-Kieran-and-Rach.jpg",
-    "matchedBy": "title"
+    "matchedBy": "guest"
   },
   "source": "tribe/events/v1"
 }
