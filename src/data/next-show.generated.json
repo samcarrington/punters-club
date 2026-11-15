@@ -1,14 +1,14 @@
 {
   "status": "upcoming",
   "show": {
-    "title": "The Punters’ Club Fireworks and Sparkles",
-    "slug": "the-punters-club-fireworks-and-sparkles",
-    "url": "https://www.radiowaters.co.uk/show/the-punters-club-fireworks-and-sparkles/",
-    "startsAtUtc": "2026-11-14T19:00:00.000Z",
-    "endsAtUtc": "2026-11-14T21:00:00.000Z",
+    "title": "Get On It with Punters",
+    "slug": "get-on-it-with-rach-2-2-2-3-3",
+    "url": "https://www.radiowaters.co.uk/show/get-on-it-with-rach-2-2-2-3-3/",
+    "startsAtUtc": "2026-12-11T19:00:00.000Z",
+    "endsAtUtc": "2026-12-11T23:00:00.000Z",
     "timezone": "Europe/London",
-    "description": "Explosive sounds and revolutionary records.",
-    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/punters-sq.jpg",
+    "description": "Friday night bangers to warm up your weekend.",
+    "posterUrl": "https://www.radiowaters.co.uk/wp-content/uploads/Show-Get-On-It-with-Kieran-and-Rach.jpg",
     "matchedBy": "title"
   },
   "source": "tribe/events/v1"
