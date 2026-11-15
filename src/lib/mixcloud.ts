@@ -87,7 +87,7 @@ export const normalizeShow: Normalizer<
 
   return {
     ...source,
-    title: (show.name as string | undefined) ?? source.title,
+    title: source.title || (show.name as string | undefined) || "",
     url: (show.url as string | undefined) ?? source.url,
     description:
       source.localDescription ??

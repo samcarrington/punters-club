@@ -21,14 +21,19 @@ const main = async () => {
           const api = (await response.json()) as Record<string, unknown>;
           return normalizeShow(source, api);
         },
-        fallback: () => ({
-          ...(previousByUrl.get(source.url) ?? normalizeShow(source)),
-          // Hand-authored fields never come from the Mixcloud API, so keep
-          // them fresh from the source file even when a fetch fails and the
-          // rest of the show falls back to previously-generated data.
-          title: source.title,
-          tracklist: source.tracklist,
-        }),
+        fallback: () => {
+          const previous =
+            previousByUrl.get(source.url) ?? normalizeShow(source);
+          return {
+            ...previous,
+            title: source.title || previous.title,
+            description:
+              source.localDescription ??
+              source.description ??
+              previous.description,
+            tracklist: source.tracklist,
+          };
+        },
       }),
     ),
   );
