@@ -3,7 +3,8 @@
   "titlePatterns": ["punters?['’]?\\s+club", "\\bpunters?['’]?\\b"],
   "organizerSlugs": ["gwawr"],
   "guestAppearances": [
-    { "slug": "saturday-night-in-with", "date": "2026-07-04" }
+    { "slug": "saturday-night-in-with", "date": "2026-07-04" },
+    { "slug": "get-on-it-with-rach-2-2-2-3-3", "date": "2026-12-11" }
   ],
   "lookaheadDays": 60
 }
