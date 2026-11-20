@@ -12,30 +12,30 @@
 
 ## EARS requirements
 
-| ID | Pattern | Requirement |
-| --- | --- | --- |
-| CC-001 | Optional-feature | Where the analytics cookie consent banner feature is included, the website shall block analytics cookies until analytics consent is accepted. |
-| CC-002 | State-driven | While no stored cookie consent preference exists, the website shall display the cookie consent banner on each page view. |
-| CC-003 | Event-driven | When the visitor selects "Accept analytics cookies", the website shall store an accepted cookie consent preference for 6 months. |
-| CC-004 | Event-driven | When the visitor selects "Reject analytics cookies", the website shall store a rejected cookie consent preference for 6 months. |
-| CC-005 | State-driven | While the stored cookie consent preference is accepted, the website shall permit analytics cookies. |
-| CC-006 | State-driven | While the stored cookie consent preference is rejected, the website shall block analytics cookies. |
-| CC-007 | Event-driven | When the visitor selects "Change cookie preferences", the website shall display the cookie consent banner. |
-| CC-008 | State-driven | While the cookie consent banner is displayed, the website shall provide a keyboard-operable control to accept analytics cookies. |
-| CC-009 | State-driven | While the cookie consent banner is displayed, the website shall provide a keyboard-operable control to reject analytics cookies. |
-| CC-010 | State-driven | While no stored cookie consent preference exists, the website shall store captured analytics events in a local queue. |
-| CC-011 | State-driven | While no stored cookie consent preference exists, the website shall block transmission of queued analytics events. |
-| CC-012 | Event-driven | When the visitor selects "Accept analytics cookies", the website shall set the Google Tag Manager `analytics_storage` consent permission to `granted`. |
-| CC-013 | Event-driven | When the visitor selects "Accept analytics cookies", the website shall inject queued analytics events into the analytics provider. |
-| CC-014 | Complex | While queued analytics events exist, when the visitor selects "Reject analytics cookies", the website shall discard queued analytics events. |
-| CC-015 | Unwanted-behavior | If analytics cookie loading fails, then the website shall render the requested page. |
-| CC-016 | State-driven | While the cookie consent banner is displayed, the website shall overlay the cookie consent banner above the page content at the bottom edge of the viewport. |
-| CC-017 | State-driven | While the cookie consent banner is displayed, the website shall keep the cookie consent banner visible at the bottom edge of the viewport during page scrolling. |
-| CC-018 | State-driven | While the cookie consent banner is displayed, the website shall render the cookie consent banner with a single flat background colour without background image, gradient, or texture. |
-| CC-019 | State-driven | While the cookie consent banner is displayed, the website shall label the analytics consent acceptance control "Allow". |
-| CC-020 | State-driven | While the cookie consent banner is displayed, the website shall label the analytics consent rejection control "Deny". |
-| CC-021 | State-driven | While the cookie consent banner is displayed, the website shall render the "Allow" control as the primary button. |
-| CC-022 | State-driven | While the cookie consent banner is displayed, the website shall render the "Deny" control as a secondary button. |
+| ID     | Pattern           | Requirement                                                                                                                                                                           |
+| ------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CC-001 | Optional-feature  | Where the analytics cookie consent banner feature is included, the website shall block analytics cookies until analytics consent is accepted.                                         |
+| CC-002 | State-driven      | While no stored cookie consent preference exists, the website shall display the cookie consent banner on each page view.                                                              |
+| CC-003 | Event-driven      | When the visitor selects "Accept analytics cookies", the website shall store an accepted cookie consent preference for 6 months.                                                      |
+| CC-004 | Event-driven      | When the visitor selects "Reject analytics cookies", the website shall store a rejected cookie consent preference for 6 months.                                                       |
+| CC-005 | State-driven      | While the stored cookie consent preference is accepted, the website shall permit analytics cookies.                                                                                   |
+| CC-006 | State-driven      | While the stored cookie consent preference is rejected, the website shall block analytics cookies.                                                                                    |
+| CC-007 | Event-driven      | When the visitor selects "Change cookie preferences", the website shall display the cookie consent banner.                                                                            |
+| CC-008 | State-driven      | While the cookie consent banner is displayed, the website shall provide a keyboard-operable control to accept analytics cookies.                                                      |
+| CC-009 | State-driven      | While the cookie consent banner is displayed, the website shall provide a keyboard-operable control to reject analytics cookies.                                                      |
+| CC-010 | State-driven      | While no stored cookie consent preference exists, the website shall store captured analytics events in a local queue.                                                                 |
+| CC-011 | State-driven      | While no stored cookie consent preference exists, the website shall block transmission of queued analytics events.                                                                    |
+| CC-012 | Event-driven      | When the visitor selects "Accept analytics cookies", the website shall set the Google Tag Manager `analytics_storage` consent permission to `granted`.                                |
+| CC-013 | Event-driven      | When the visitor selects "Accept analytics cookies", the website shall inject queued analytics events into the analytics provider.                                                    |
+| CC-014 | Complex           | While queued analytics events exist, when the visitor selects "Reject analytics cookies", the website shall discard queued analytics events.                                          |
+| CC-015 | Unwanted-behavior | If analytics cookie loading fails, then the website shall render the requested page.                                                                                                  |
+| CC-016 | State-driven      | While the cookie consent banner is displayed, the website shall overlay the cookie consent banner above the page content at the bottom edge of the viewport.                          |
+| CC-017 | State-driven      | While the cookie consent banner is displayed, the website shall keep the cookie consent banner visible at the bottom edge of the viewport during page scrolling.                      |
+| CC-018 | State-driven      | While the cookie consent banner is displayed, the website shall render the cookie consent banner with a single flat background colour without background image, gradient, or texture. |
+| CC-019 | State-driven      | While the cookie consent banner is displayed, the website shall label the analytics consent acceptance control "Allow".                                                               |
+| CC-020 | State-driven      | While the cookie consent banner is displayed, the website shall label the analytics consent rejection control "Deny".                                                                 |
+| CC-021 | State-driven      | While the cookie consent banner is displayed, the website shall render the "Allow" control as the primary button.                                                                     |
+| CC-022 | State-driven      | While the cookie consent banner is displayed, the website shall render the "Deny" control as a secondary button.                                                                      |
 
 ## Implementation notes
 
@@ -54,6 +54,7 @@
 ### Task 1: Install and configure Astro Partytown
 
 **Files:**
+
 - Modify: `astro.config.mjs`
 - Modify: `package.json`
 - Modify: `pnpm-lock.yaml`
@@ -115,6 +116,7 @@ git commit -m "feat: add Partytown for GTM"
 ### Task 2: Add tested consent state and queue helpers
 
 **Files:**
+
 - Create: `src/lib/cookie-consent.ts`
 - Create: `src/lib/cookie-consent.test.ts`
 
@@ -159,12 +161,17 @@ describe("cookie consent preference", () => {
 
     expect(getConsentStatus(JSON.stringify(preference), now)).toBe("rejected");
     expect(canUseAnalytics(JSON.stringify(preference), now)).toBe(false);
-    expect(shouldShowConsentBanner(JSON.stringify(preference), now)).toBe(false);
+    expect(shouldShowConsentBanner(JSON.stringify(preference), now)).toBe(
+      false,
+    );
   });
 
   it("treats expired or malformed consent as pending", () => {
     const now = Date.UTC(2026, 6, 1);
-    const expired = JSON.stringify({ status: "accepted", expiresAt: Date.UTC(2026, 0, 1) });
+    const expired = JSON.stringify({
+      status: "accepted",
+      expiresAt: Date.UTC(2026, 0, 1),
+    });
 
     expect(readConsentPreference(expired, now)).toBeNull();
     expect(getConsentStatus(expired, now)).toBe("pending");
@@ -174,7 +181,10 @@ describe("cookie consent preference", () => {
 
 describe("analytics event queue", () => {
   it("queues captured analytics events locally before consent", () => {
-    const queue = queueAnalyticsEvent([], { event: "page_view", page_path: "/shows/" });
+    const queue = queueAnalyticsEvent([], {
+      event: "page_view",
+      page_path: "/shows/",
+    });
 
     expect(queue).toEqual([{ event: "page_view", page_path: "/shows/" }]);
   });
@@ -254,15 +264,24 @@ export function readConsentPreference(
   return null;
 }
 
-export function getConsentStatus(value: string | null, now = Date.now()): ConsentStatus {
+export function getConsentStatus(
+  value: string | null,
+  now = Date.now(),
+): ConsentStatus {
   return readConsentPreference(value, now)?.status ?? "pending";
 }
 
-export function shouldShowConsentBanner(value: string | null, now = Date.now()): boolean {
+export function shouldShowConsentBanner(
+  value: string | null,
+  now = Date.now(),
+): boolean {
   return getConsentStatus(value, now) === "pending";
 }
 
-export function canUseAnalytics(value: string | null, now = Date.now()): boolean {
+export function canUseAnalytics(
+  value: string | null,
+  now = Date.now(),
+): boolean {
   return getConsentStatus(value, now) === "accepted";
 }
 
@@ -273,7 +292,9 @@ export function queueAnalyticsEvent(
   return [...queue, event];
 }
 
-export function discardQueuedEvents(_queue: AnalyticsEvent[]): AnalyticsEvent[] {
+export function discardQueuedEvents(
+  _queue: AnalyticsEvent[],
+): AnalyticsEvent[] {
   return [];
 }
 ```
@@ -300,6 +321,7 @@ git commit -m "feat: add cookie consent state helpers"
 ### Task 3: Add GTM consent helpers and queue injection tests
 
 **Files:**
+
 - Modify: `src/lib/cookie-consent.ts`
 - Modify: `src/lib/cookie-consent.test.ts`
 
@@ -360,7 +382,9 @@ Append to `src/lib/cookie-consent.ts`:
 ```ts
 export type GtmConsentValue = "granted" | "denied";
 
-export function analyticsStorageConsent(status: ConsentStatus): GtmConsentValue {
+export function analyticsStorageConsent(
+  status: ConsentStatus,
+): GtmConsentValue {
   return status === "accepted" ? "granted" : "denied";
 }
 
@@ -398,6 +422,7 @@ git commit -m "feat: add GTM consent queue helpers"
 ### Task 4: Render the consent banner component
 
 **Files:**
+
 - Create: `src/components/CookieConsent.astro`
 - Modify: `src/layouts/PuntersLayout.astro`
 
@@ -571,6 +596,7 @@ git commit -m "feat: render cookie consent banner"
 ### Task 5: Style the bottom overlay banner
 
 **Files:**
+
 - Modify: `src/styles/global.css`
 
 **Step 1: Add component styles**
@@ -642,7 +668,10 @@ Add near the existing `.btn`/component blocks in `src/styles/global.css`:
   .cookie-consent {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    padding-inline: max(var(--space-md), calc(50vw - var(--content-half-width)));
+    padding-inline: max(
+      var(--space-md),
+      calc(50vw - var(--content-half-width))
+    );
   }
 }
 ```
@@ -671,6 +700,7 @@ git commit -m "style: add cookie consent overlay"
 ### Task 6: Set GTM Consent Mode defaults before Partytown GTM loads
 
 **Files:**
+
 - Modify: `src/layouts/PuntersLayout.astro`
 - Modify: `package.json`
 - Modify: `pnpm-lock.yaml`
@@ -748,6 +778,7 @@ git commit -m "feat: default GTM analytics consent to denied"
 ### Task 7: Browser smoke test consent behavior
 
 **Files:**
+
 - No source changes expected unless smoke test finds a bug.
 
 **Step 1: Start dev server**
@@ -774,7 +805,7 @@ In browser DevTools:
 8. Confirm this console expression returns no queued transmission:
 
 ```js
-window.dataLayer.filter((item) => item && item.analytics_storage === 'granted')
+window.dataLayer.filter((item) => item && item.analytics_storage === "granted");
 ```
 
 Expected: no granted consent before Allow.
@@ -784,8 +815,11 @@ Expected: no granted consent before Allow.
 In console before clicking Allow:
 
 ```js
-window.puntersAnalytics.track({ event: 'test_pre_consent_event', source: 'smoke' })
-localStorage.getItem('puntersClub.analyticsQueue.v1')
+window.puntersAnalytics.track({
+  event: "test_pre_consent_event",
+  source: "smoke",
+});
+localStorage.getItem("puntersClub.analyticsQueue.v1");
 ```
 
 Expected: queue contains `test_pre_consent_event`.
@@ -793,9 +827,14 @@ Expected: queue contains `test_pre_consent_event`.
 Click `Allow`, then run:
 
 ```js
-localStorage.getItem('puntersClub.analyticsQueue.v1')
-window.dataLayer.some((item) => item && item.event === 'test_pre_consent_event')
-window.dataLayer.some((item) => item && item[0] === 'consent' && item[2]?.analytics_storage === 'granted')
+localStorage.getItem("puntersClub.analyticsQueue.v1");
+window.dataLayer.some(
+  (item) => item && item.event === "test_pre_consent_event",
+);
+window.dataLayer.some(
+  (item) =>
+    item && item[0] === "consent" && item[2]?.analytics_storage === "granted",
+);
 ```
 
 Expected: queue is `[]`, queued event is present in `dataLayer`, and consent update granted exists.
@@ -805,15 +844,15 @@ Expected: queue is `[]`, queued event is present in `dataLayer`, and consent upd
 Clear site data, reload, then run:
 
 ```js
-window.puntersAnalytics.track({ event: 'test_denied_event', source: 'smoke' })
-localStorage.getItem('puntersClub.analyticsQueue.v1')
+window.puntersAnalytics.track({ event: "test_denied_event", source: "smoke" });
+localStorage.getItem("puntersClub.analyticsQueue.v1");
 ```
 
 Click `Deny`, then run:
 
 ```js
-localStorage.getItem('puntersClub.analyticsQueue.v1')
-window.dataLayer.some((item) => item && item.event === 'test_denied_event')
+localStorage.getItem("puntersClub.analyticsQueue.v1");
+window.dataLayer.some((item) => item && item.event === "test_denied_event");
 ```
 
 Expected: queue is `[]`, denied event is not present in `dataLayer`.
@@ -832,6 +871,7 @@ git commit -m "fix: align cookie consent browser behavior"
 ### Task 8: Final verification
 
 **Files:**
+
 - No source changes expected.
 
 **Step 1: Run unit tests**

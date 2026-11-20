@@ -19,6 +19,7 @@
 ## Task 0: Add vitest tooling
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `vitest.config.ts`
 
@@ -66,6 +67,7 @@ git commit -m "chore: add vitest for utility testing (#13)"
 ## Task 1: Types + HTML decoding helpers in `src/lib/next-show.ts`
 
 **Files:**
+
 - Create: `src/lib/next-show.ts`
 - Create: `src/lib/next-show.test.ts`
 
@@ -206,6 +208,7 @@ git commit -m "feat: add next-show types and HTML decoding helpers (#13)"
 ## Task 2: Time + title-match helpers
 
 **Files:**
+
 - Modify: `src/lib/next-show.ts`
 - Modify: `src/lib/next-show.test.ts`
 
@@ -253,9 +256,9 @@ describe("isValidIanaZone", () => {
 describe("matchesTitle", () => {
   const patterns = ["punters?['’]?\\s+club"];
   it("matches an HTML-encoded Punters' Club title", () => {
-    expect(matchesTitle("The Punters&#8217; Club &#8211; Summer", patterns)).toBe(
-      true,
-    );
+    expect(
+      matchesTitle("The Punters&#8217; Club &#8211; Summer", patterns),
+    ).toBe(true);
   });
   it("matches a straight-apostrophe variant", () => {
     expect(matchesTitle("The Punter's Club", patterns)).toBe(true);
@@ -281,9 +284,7 @@ Append to `src/lib/next-show.ts`:
 /** Parse a TEC UTC wall time "YYYY-MM-DD HH:mm:ss" into an ISO-Z string. */
 export const utcWallTimeToIso = (value?: string): string | null => {
   if (!value) return null;
-  const m = value.match(
-    /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/,
-  );
+  const m = value.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/);
   if (!m) return null;
   const [, y, mo, d, h, mi, s] = m.map(Number) as unknown as number[];
   const date = new Date(Date.UTC(y, mo - 1, d, h, mi, s));
@@ -336,6 +337,7 @@ git commit -m "feat: add time and title-match helpers for next show (#13)"
 ## Task 3: `normalizeEvent` — raw event → internal NextShow
 
 **Files:**
+
 - Modify: `src/lib/next-show.ts`
 - Modify: `src/lib/next-show.test.ts`
 
@@ -376,11 +378,15 @@ describe("normalizeEvent", () => {
   });
 
   it("returns null when UTC start is missing (discard)", () => {
-    expect(normalizeEvent({ ...augEvent, utc_start_date: undefined }, "title")).toBeNull();
+    expect(
+      normalizeEvent({ ...augEvent, utc_start_date: undefined }, "title"),
+    ).toBeNull();
   });
 
   it("returns null when the timezone is not a real IANA zone", () => {
-    expect(normalizeEvent({ ...augEvent, timezone: "Not/AZone" }, "title")).toBeNull();
+    expect(
+      normalizeEvent({ ...augEvent, timezone: "Not/AZone" }, "title"),
+    ).toBeNull();
   });
 
   it("omits poster when image is false/absent", () => {
@@ -453,6 +459,7 @@ git commit -m "feat: add normalizeEvent for next show (#13)"
 ## Task 4: `selectNextShow` — candidate set, dedupe, sort, pick + warnings
 
 **Files:**
+
 - Modify: `src/lib/next-show.ts`
 - Modify: `src/lib/next-show.test.ts`
 
@@ -490,7 +497,11 @@ describe("selectNextShow", () => {
   const now = new Date("2026-07-02T00:00:00Z");
 
   it("picks the soonest qualifying show (guest before later named)", () => {
-    const { result } = selectNextShow([augEvent, guestJul4, guestAug29], config, now);
+    const { result } = selectNextShow(
+      [augEvent, guestJul4, guestAug29],
+      config,
+      now,
+    );
     expect(result.status).toBe("upcoming");
     if (result.status !== "upcoming") throw new Error("expected upcoming");
     expect(result.show.url).toBe(guestJul4.url); // Jul 4 beats Aug 22
@@ -512,14 +523,23 @@ describe("selectNextShow", () => {
 
   it("dedupes a show matched by both title and guest override", () => {
     const both = { ...augEvent, slug: "saturday-night-in-with" };
-    const cfg = { ...config, guestAppearances: [{ slug: "saturday-night-in-with", date: "2026-08-22" }] };
+    const cfg = {
+      ...config,
+      guestAppearances: [
+        { slug: "saturday-night-in-with", date: "2026-08-22" },
+      ],
+    };
     const { result } = selectNextShow([both], cfg, now);
     expect(result.status).toBe("upcoming");
   });
 
   it("warns about an unresolved future guest override", () => {
     const { warnings } = selectNextShow([augEvent], config, now); // Jul 4 override missing
-    expect(warnings.some((w) => w.includes("saturday-night-in-with") && w.includes("2026-07-04"))).toBe(true);
+    expect(
+      warnings.some(
+        (w) => w.includes("saturday-night-in-with") && w.includes("2026-07-04"),
+      ),
+    ).toBe(true);
   });
 
   it("returns none for an empty event list", () => {
@@ -568,14 +588,18 @@ export const selectNextShow = (
   const horizon = dayjsAdd(now, config.lookaheadDays);
   for (const guest of config.guestAppearances) {
     const match = events.find(
-      (e) => e.slug === guest.slug && localDatePart(e.start_date) === guest.date,
+      (e) =>
+        e.slug === guest.slug && localDatePart(e.start_date) === guest.date,
     );
     const show = match ? normalizeEvent(match, "guest") : null;
     if (show) {
       candidates.push(show);
     } else {
       const guestDate = new Date(`${guest.date}T00:00:00Z`);
-      if (guestDate >= new Date(now.toISOString().slice(0, 10)) && guestDate <= horizon) {
+      if (
+        guestDate >= new Date(now.toISOString().slice(0, 10)) &&
+        guestDate <= horizon
+      ) {
         warnings.push(
           `Unresolved guest override: slug "${guest.slug}" on ${guest.date} did not match any event in the fetched window.`,
         );
@@ -622,6 +646,7 @@ git commit -m "feat: add selectNextShow selection logic (#13)"
 ## Task 5: `isSameShow` — semantic equality for no-op writes
 
 **Files:**
+
 - Modify: `src/lib/next-show.ts`
 - Modify: `src/lib/next-show.test.ts`
 
@@ -633,18 +658,34 @@ Append:
 import { isSameResult } from "./next-show";
 
 describe("isSameResult", () => {
-  const base = selectNextShow([augEvent], { ...config, guestAppearances: [] }, new Date("2026-07-02T00:00:00Z")).result;
+  const base = selectNextShow(
+    [augEvent],
+    { ...config, guestAppearances: [] },
+    new Date("2026-07-02T00:00:00Z"),
+  ).result;
 
   it("is true for identical results", () => {
-    const again = selectNextShow([augEvent], { ...config, guestAppearances: [] }, new Date("2026-07-02T00:00:00Z")).result;
+    const again = selectNextShow(
+      [augEvent],
+      { ...config, guestAppearances: [] },
+      new Date("2026-07-02T00:00:00Z"),
+    ).result;
     expect(isSameResult(base, again)).toBe(true);
   });
   it("is false when the show changes", () => {
-    const other = selectNextShow([guestJul4], config, new Date("2026-07-02T00:00:00Z")).result;
+    const other = selectNextShow(
+      [guestJul4],
+      config,
+      new Date("2026-07-02T00:00:00Z"),
+    ).result;
     expect(isSameResult(base, other)).toBe(false);
   });
   it("is false when status differs", () => {
-    const none = selectNextShow([], config, new Date("2026-07-02T00:00:00Z")).result;
+    const none = selectNextShow(
+      [],
+      config,
+      new Date("2026-07-02T00:00:00Z"),
+    ).result;
     expect(isSameResult(base, none)).toBe(false);
   });
 });
@@ -684,6 +725,7 @@ git commit -m "feat: add isSameResult for no-op write detection (#13)"
 ## Task 6: Committed config file
 
 **Files:**
+
 - Create: `src/data/next-show-config.json`
 
 **Step 1: Create the config**
@@ -692,7 +734,9 @@ git commit -m "feat: add isSameResult for no-op write detection (#13)"
 {
   "endpoint": "https://www.radiowaters.co.uk/wp-json/tribe/events/v1/events",
   "titlePatterns": ["punters?['’]?\\s+club"],
-  "guestAppearances": [{ "slug": "saturday-night-in-with", "date": "2026-07-04" }],
+  "guestAppearances": [
+    { "slug": "saturday-night-in-with", "date": "2026-07-04" }
+  ],
   "lookaheadDays": 60
 }
 ```
@@ -709,6 +753,7 @@ git commit -m "feat: add next-show source config"
 ## Task 7: Enrichment script `scripts/enrich-next-show.ts`
 
 **Files:**
+
 - Create: `scripts/enrich-next-show.ts`
 
 **Step 1: Implement (mirrors `scripts/enrich-shows.ts` IO + fallback)**
@@ -741,7 +786,9 @@ const isoDate = (d: Date) => d.toISOString().slice(0, 10);
 const fetchEvents = async (config: NextShowConfig): Promise<TribeEvent[]> => {
   const now = new Date();
   const start = isoDate(now);
-  const end = isoDate(new Date(now.getTime() + config.lookaheadDays * 86_400_000));
+  const end = isoDate(
+    new Date(now.getTime() + config.lookaheadDays * 86_400_000),
+  );
   const events: TribeEvent[] = [];
   const maxPages = 5; // window is < 1 month; guard runaway paging.
   for (let page = 1; page <= maxPages; page++) {
@@ -778,7 +825,8 @@ const main = async () => {
     const events = await fetchEvents(config);
     const selected = selectNextShow(events, config, new Date());
     result = selected.result;
-    for (const warning of selected.warnings) console.warn(`[next-show] ${warning}`);
+    for (const warning of selected.warnings)
+      console.warn(`[next-show] ${warning}`);
   } catch (error) {
     console.warn(`[next-show] fetch failed, using fallback: ${String(error)}`);
     result = staleFallback(previous);
@@ -825,6 +873,7 @@ git commit -m "feat: add next-show enrichment script and initial data"
 ## Task 8: Wire into the build
 
 **Files:**
+
 - Modify: `package.json`
 
 **Step 1: Add the script + extend the enrich chain**
@@ -840,6 +889,7 @@ In `scripts`, add `enrich:next-show` and append it to `enrich`:
 
 Run: `pnpm run build`
 Expected: enrich runs all three, `astro build` succeeds.
+
 > Per AGENTS.md, this may also refresh Mixcloud/Spotify generated data. If that churn is unrelated, `git checkout` those files before committing, or use `pnpm exec astro build` for UI-only checks.
 
 **Step 3: Commit (config only, restoring unrelated generated churn)**
@@ -857,6 +907,7 @@ git commit -m "build: run next-show enrichment during build"
 > Visual/UX polish is deferred (`[design-001]`). This is a functional, low-styling consumer only.
 
 **Files:**
+
 - Create: `src/components/NextShow.astro`
 - Modify: `src/pages/index.astro`
 
@@ -941,6 +992,7 @@ git commit -m "feat: add minimal next-show module to homepage"
 ## Task 10: Scheduled refresh workflow
 
 **Files:**
+
 - Create: `.github/workflows/next-show-refresh.yml`
 
 **Step 1: Create the workflow**

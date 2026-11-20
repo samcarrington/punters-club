@@ -74,7 +74,7 @@ Tracklists exist only in `show-sources.json`, not in the generated output, so bo
 
 **Files:** `src/pages/index.astro:26-27`, `src/lib/shows.ts:73-101` (`sortShows`), `src/pages/shows/index.astro:123-163`
 
-The homepage uses raw array order (`shows.at(-1)` / `shows.slice(0, -1).reverse()`) — an *implicit* contract on whatever order `enrich-shows.ts` happens to write. The shows-index page uses the explicit, tested `sortShows(..., "newest")`. Separately, that same page's client-side `<script>` re-sort (lines 123-163) reimplements all four sort modes again, tie-breaking on `title` only (vs. `sortShows`'s `slug ?? url ?? title`) and reading from string `data-*` attributes instead of the typed `Show` object.
+The homepage uses raw array order (`shows.at(-1)` / `shows.slice(0, -1).reverse()`) — an _implicit_ contract on whatever order `enrich-shows.ts` happens to write. The shows-index page uses the explicit, tested `sortShows(..., "newest")`. Separately, that same page's client-side `<script>` re-sort (lines 123-163) reimplements all four sort modes again, tie-breaking on `title` only (vs. `sortShows`'s `slug ?? url ?? title`) and reading from string `data-*` attributes instead of the typed `Show` object.
 
 **Impact:** If the generator's write order ever changes, the homepage's "latest show" silently becomes wrong with no test to catch it. The client-side re-sort will keep drifting from the server-side sort since neither is tested against shared fixtures.
 

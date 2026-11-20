@@ -45,15 +45,15 @@ agent/
 
 Responsibilities:
 
-| File | Purpose |
-| --- | --- |
-| `agent/agent.ts` | Agent model/runtime configuration. |
-| `agent/instructions.md` | Always-on operating instructions for safe extraction. |
-| `agent/schedules/daily-bluesky-signal.ts` | Daily cron trigger. |
-| `agent/tools/fetch-bluesky-posts.ts` | Fetch recent posts from Bluesky. |
-| `agent/tools/parse-ilang-show-signal.ts` | Parse and validate `::SHOW{...}` strings. |
-| `agent/tools/save-show-signal.ts` | Persist the latest valid signal to the chosen sink. |
-| `agent/lib/*` | Shared typed helpers. |
+| File                                      | Purpose                                               |
+| ----------------------------------------- | ----------------------------------------------------- |
+| `agent/agent.ts`                          | Agent model/runtime configuration.                    |
+| `agent/instructions.md`                   | Always-on operating instructions for safe extraction. |
+| `agent/schedules/daily-bluesky-signal.ts` | Daily cron trigger.                                   |
+| `agent/tools/fetch-bluesky-posts.ts`      | Fetch recent posts from Bluesky.                      |
+| `agent/tools/parse-ilang-show-signal.ts`  | Parse and validate `::SHOW{...}` strings.             |
+| `agent/tools/save-show-signal.ts`         | Persist the latest valid signal to the chosen sink.   |
+| `agent/lib/*`                             | Shared typed helpers.                                 |
 
 ## Data contract
 
@@ -65,13 +65,13 @@ Use a compact I-Lang declaration that is easy to search and parse:
 
 Recommended fields:
 
-| Field | Required | Notes |
-| --- | --- | --- |
-| `title` | Yes | Human-readable show title. |
-| `when` | Yes | Prefer ISO 8601 with timezone offset. Display formatting can happen later. |
-| `desc` | Yes | Short public description. |
-| `poster` | Yes | Absolute `https://` image URL. |
-| `source` | No | Optional Bluesky post URL or AT URI. |
+| Field    | Required | Notes                                                                      |
+| -------- | -------- | -------------------------------------------------------------------------- |
+| `title`  | Yes      | Human-readable show title.                                                 |
+| `when`   | Yes      | Prefer ISO 8601 with timezone offset. Display formatting can happen later. |
+| `desc`   | Yes      | Short public description.                                                  |
+| `poster` | Yes      | Absolute `https://` image URL.                                             |
+| `source` | No       | Optional Bluesky post URL or AT URI.                                       |
 
 Example parsed object:
 
@@ -266,8 +266,7 @@ export default defineTool({
         Boolean(signal),
       )
       .sort(
-        (a, b) =>
-          Date.parse(b.sourceCreatedAt) - Date.parse(a.sourceCreatedAt),
+        (a, b) => Date.parse(b.sourceCreatedAt) - Date.parse(a.sourceCreatedAt),
       );
 
     const latest = candidates[0];

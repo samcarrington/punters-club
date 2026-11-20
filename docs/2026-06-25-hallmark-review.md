@@ -56,19 +56,19 @@
 
 ## Passes (Strengths)
 
-| Gate | Criteria | Status |
-|------|----------|--------|
-| **Gate 48** | All colours are OKLCH tokens (no inline hex/rgb) | ✓ PASS |
-| **Gate 48** | All fonts reference `var(--font-*)` tokens | ✓ PASS |
-| **Gate 34** | No horizontal scroll (`overflow-x: clip` on html/body) | ✓ PASS |
-| **Gate 49** | Buttons and nav links have `white-space: nowrap` to prevent two-line text | ✓ PASS |
-| **Gate 50** | Grids use `minmax(0, 1fr)` for proper mobile scaling | ✓ PASS |
-| **Gate 38a** | No italic headers (only roman font-style) | ✓ PASS |
-| **Gate 54** | No left-margin section labels; hero kicker stacks above heading | ✓ PASS |
-| **Motion** | `prefers-reduced-motion: reduce` respected (`transform: none` on reduced motion) | ✓ PASS |
-| **Focus** | `:focus-visible` with visible outline ring and proper contrast | ✓ PASS |
-| **State design** | Buttons have hover, focus, active, disabled states defined | ✓ PASS |
-| **Semantic HTML** | Proper heading hierarchy, section `aria-labelledby` | ✓ PASS |
+| Gate              | Criteria                                                                         | Status |
+| ----------------- | -------------------------------------------------------------------------------- | ------ |
+| **Gate 48**       | All colours are OKLCH tokens (no inline hex/rgb)                                 | ✓ PASS |
+| **Gate 48**       | All fonts reference `var(--font-*)` tokens                                       | ✓ PASS |
+| **Gate 34**       | No horizontal scroll (`overflow-x: clip` on html/body)                           | ✓ PASS |
+| **Gate 49**       | Buttons and nav links have `white-space: nowrap` to prevent two-line text        | ✓ PASS |
+| **Gate 50**       | Grids use `minmax(0, 1fr)` for proper mobile scaling                             | ✓ PASS |
+| **Gate 38a**      | No italic headers (only roman font-style)                                        | ✓ PASS |
+| **Gate 54**       | No left-margin section labels; hero kicker stacks above heading                  | ✓ PASS |
+| **Motion**        | `prefers-reduced-motion: reduce` respected (`transform: none` on reduced motion) | ✓ PASS |
+| **Focus**         | `:focus-visible` with visible outline ring and proper contrast                   | ✓ PASS |
+| **State design**  | Buttons have hover, focus, active, disabled states defined                       | ✓ PASS |
+| **Semantic HTML** | Proper heading hierarchy, section `aria-labelledby`                              | ✓ PASS |
 
 ---
 
@@ -76,9 +76,10 @@
 
 **Slop-test score: 54 / 58** ✓ (Very strong build)
 
-The Punters' Club is a clean, well-structured design. It passes all responsive and token discipline checks. The four flags above are *refinement* notes, not blockers — your medium-priority items are about distinguishing sections and ensuring mobile coverage is complete. The type-pairing note is a stylistic consideration, not an error.
+The Punters' Club is a clean, well-structured design. It passes all responsive and token discipline checks. The four flags above are _refinement_ notes, not blockers — your medium-priority items are about distinguishing sections and ensuring mobile coverage is complete. The type-pairing note is a stylistic consideration, not an error.
 
 **Next steps:**
+
 1. Fix the 375px breakpoint gap and ensure media-query coverage is complete at 320 / 375 / 414 / 768px
 2. Consider one visual variation (panel treatment, grid rhythm, or type pairing) to earn the final four points
 3. Optionally revisit the type pairing to add serif/sans contrast for stronger character

@@ -51,7 +51,7 @@ Links such as "Open playlist" and "Open on Mixcloud" rely on surrounding visual 
 
 **WCAG/Standard:** WCAG 2.4.4 Link Purpose (In Context).
 
-**Recommendation:** Add contextual accessible names, for example 
+**Recommendation:** Add contextual accessible names, for example
 
 ```plaintext
 aria-label={/`Open ${playlist.title} on Spotify/`}`

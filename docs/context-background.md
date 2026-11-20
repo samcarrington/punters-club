@@ -8,7 +8,7 @@
 
 A Punter is an attendee at an event. Not a hanger-on, jockey slut[^1] or ligger[^2]. Well maybe sometimes a ligger and occasionally in receipt of a box of records to carry.
 
-Essentially not a performer, artist or professional and not versed in the usual skills or business of a DJ. The founder-members of The Punters' Club are therefore passionate about attending and enjoying music as received by their professional and experienced friends.  But they're not known for, or in the habit of playing in public. 
+Essentially not a performer, artist or professional and not versed in the usual skills or business of a DJ. The founder-members of The Punters' Club are therefore passionate about attending and enjoying music as received by their professional and experienced friends. But they're not known for, or in the habit of playing in public.
 
 Therefore having the Punters Club play music on the radio is a reversal of expectation, a chance for the passionate amateurs to entertain the professionals for once, and do so with a likely lack of polish, but a true love for music and many years of listening to, dancing to, and finding quality music which they enjoy and want to share.
 

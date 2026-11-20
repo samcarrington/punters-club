@@ -1,10 +1,10 @@
 # The Punters' Club
 
-[![Live Site](https://img.shields.io/badge/live-thepunters.club-CB6D43?logo=safari&logoColor=white)](https://www.thepunters.club)
-[![Deploy Status](https://deploy-badge.vercel.app/?url=https://www.thepunters.club&name=vercel)](https://vercel.com/samcarrington-8470s-projects/punters-club/)
-[![Astro](https://img.shields.io/badge/Astro-7.4.2-881ABD?logo=astro&logoColor=white)](https://astro.build)
+[![Live Site](https://img.shields.io/badge/live-thepunters.club-CB6D43?logo=firefox&logoColor=white)](https://www.thepunters.club)
+[![Deploy Status](https://deploy-badge.vercel.app/?url=https://www.thepunters.club&name=vercel&logo=vercel)](https://vercel.com/samcarrington-8470s-projects/punters-club/)
+[![Astro](https://img.shields.io/badge/Astro-7.4.13-881ABD?logo=astro&logoColor=white)](https://astro.build)
 [![Node](https://img.shields.io/badge/Node-%3E%3D22.12-5FA04E?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-[![pnpm](https://img.shields.io/badge/pnpm-11.28.8-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![pnpm](https://img.shields.io/badge/pnpm-12.21.0-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
 
 Static Astro site for The Punters' Club on Radio Waters: latest Mixcloud show, archive links, and playlist offshoots.
 
@@ -24,6 +24,18 @@ pnpm run lint      # check formatting, lint rules, and import order (Biome)
 pnpm run lint:fix  # apply safe fixes for the above
 pnpm run typecheck # tsc --noEmit
 ```
+
+Verify the built homepage's structured data after building:
+
+```sh
+pnpm run build
+pnpm run verify:structured-data
+```
+
+The verifier requires one CollectionPage and an Event only when the generated
+next-show data has an upcoming show. It checks archive and playlist counts and
+positions, plus the Event's identity and dates. Rebuild after content changes so
+the HTML matches the current generated data.
 
 To refresh generated show/playlist/next-show metadata locally:
 
