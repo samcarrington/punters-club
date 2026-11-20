@@ -38,38 +38,38 @@ A listener should be able to look up a remembered artist or track from anywhere 
 
 ## EARS requirements
 
-| ID | Pattern | Requirement |
-| --- | --- | --- |
-| SRCH2-001 | Ubiquitous | The website shall expose the track-search trigger in the shared header on every page. |
-| SRCH2-002 | Event-driven | When a visitor activates the search trigger, the website shall open the search overlay and focus the search input. |
-| SRCH2-003 | Event-driven | When a visitor closes the search overlay, the website shall close it and restore focus to the search trigger. |
-| SRCH2-004 | State-driven | While the search overlay is open, the website shall prevent keyboard focus from moving into obscured page content. |
-| SRCH2-005 | Event-driven | When a visitor presses Escape while search is open, the website shall close the search overlay. |
-| SRCH2-006 | State-driven | While the viewport is below the desktop navigation breakpoint, the header shall display search and menu as peer icon buttons with at least 44 by 44 CSS-pixel targets. |
-| SRCH2-007 | State-driven | While the viewport is below the desktop navigation breakpoint, primary navigation links shall be hidden until the visitor activates the menu button. |
-| SRCH2-008 | State-driven | While the mobile menu is open, its trigger shall expose the expanded state and the navigation links shall be keyboard accessible. |
-| SRCH2-009 | Unwanted-behaviour | If the visitor opens search while the mobile menu is open, then the website shall close the mobile menu before opening search. |
-| SRCH2-010 | Unwanted-behaviour | If the visitor opens the mobile menu while search is open, then the website shall close search before opening the menu. |
-| SRCH2-011 | State-driven | While the viewport is below the desktop navigation breakpoint, search shall render as a near-full-screen overlay sheet without horizontal overflow. |
-| SRCH2-012 | State-driven | While the viewport is at or above the desktop navigation breakpoint, search shall render as a bounded panel visually aligned beneath the shared header. |
-| SRCH2-013 | Ubiquitous | The search overlay shall use a near-white surface, dark text meeting WCAG 2.2 AA, existing accent colours, and existing small/medium radius tokens. |
-| SRCH2-014 | State-driven | While the search query contains fewer than two trimmed characters, the website shall show guidance and shall not display result rows. |
-| SRCH2-015 | Event-driven | When a query produces matches, the website shall display up to eight ranked tracks and every show appearance associated with each displayed track. |
-| SRCH2-016 | Unwanted-behaviour | If the track index request fails, then the website shall keep the overlay operable and display a retryable error state. |
-| SRCH2-017 | Event-driven | When a visitor clears search, the website shall clear the query and results while retaining focus in the input. |
-| SRCH2-018 | Ubiquitous | The archive page shall not render a second in-content search interface. |
-| SRCH2-019 | Optional-feature | Where JavaScript is unavailable, the website shall keep normal navigation and archive browsing usable without displaying an inert search control. |
-| SRCH2-020 | Ubiquitous | Search opening, loading, result counts, empty results, errors, and closure shall be exposed to assistive technology without duplicate announcements. |
-| SRCH2-021 | Event-driven | When the search overlay opens successfully, the website shall submit one `track_search_open` analytics event through `window.puntersAnalytics.track()`. |
-| SRCH2-022 | Event-driven | When a distinct normalized query produces one or more results, the website shall submit one `track_search_results` analytics event for that query during the current overlay session. |
-| SRCH2-023 | Event-driven | When a distinct normalized query produces no results, the website shall submit one `track_search_no_results` analytics event for that query during the current overlay session. |
-| SRCH2-024 | Event-driven | When a visitor activates a show link in a search result, the website shall submit one `track_search_result_select` event before navigation. |
-| SRCH2-025 | Event-driven | When loading or validating the track index fails, the website shall submit one `track_search_error` event for that failed attempt. |
-| SRCH2-026 | Event-driven | When the search overlay closes, the website shall submit one `track_search_close` event containing a stable close-reason value. |
-| SRCH2-027 | Ubiquitous | Search analytics events shall use the existing consent-aware analytics bridge so pending-consent events are queued, accepted-consent events are sent, and rejected-consent events are discarded. |
-| SRCH2-028 | Unwanted-behaviour | The website shall not include the raw query, normalized query, artist name, song title, free text, or other user-entered content in analytics payloads. |
-| SRCH2-029 | Unwanted-behaviour | If Google Tag Manager, Google Analytics, or the analytics bridge is unavailable, then search and result navigation shall continue without visible error or delay. |
-| SRCH2-030 | Ubiquitous | Analytics event names and parameter values shall use the stable schema defined in this plan and shall not derive event names from content or viewport dimensions. |
+| ID        | Pattern            | Requirement                                                                                                                                                                                      |
+| --------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| SRCH2-001 | Ubiquitous         | The website shall expose the track-search trigger in the shared header on every page.                                                                                                            |
+| SRCH2-002 | Event-driven       | When a visitor activates the search trigger, the website shall open the search overlay and focus the search input.                                                                               |
+| SRCH2-003 | Event-driven       | When a visitor closes the search overlay, the website shall close it and restore focus to the search trigger.                                                                                    |
+| SRCH2-004 | State-driven       | While the search overlay is open, the website shall prevent keyboard focus from moving into obscured page content.                                                                               |
+| SRCH2-005 | Event-driven       | When a visitor presses Escape while search is open, the website shall close the search overlay.                                                                                                  |
+| SRCH2-006 | State-driven       | While the viewport is below the desktop navigation breakpoint, the header shall display search and menu as peer icon buttons with at least 44 by 44 CSS-pixel targets.                           |
+| SRCH2-007 | State-driven       | While the viewport is below the desktop navigation breakpoint, primary navigation links shall be hidden until the visitor activates the menu button.                                             |
+| SRCH2-008 | State-driven       | While the mobile menu is open, its trigger shall expose the expanded state and the navigation links shall be keyboard accessible.                                                                |
+| SRCH2-009 | Unwanted-behaviour | If the visitor opens search while the mobile menu is open, then the website shall close the mobile menu before opening search.                                                                   |
+| SRCH2-010 | Unwanted-behaviour | If the visitor opens the mobile menu while search is open, then the website shall close search before opening the menu.                                                                          |
+| SRCH2-011 | State-driven       | While the viewport is below the desktop navigation breakpoint, search shall render as a near-full-screen overlay sheet without horizontal overflow.                                              |
+| SRCH2-012 | State-driven       | While the viewport is at or above the desktop navigation breakpoint, search shall render as a bounded panel visually aligned beneath the shared header.                                          |
+| SRCH2-013 | Ubiquitous         | The search overlay shall use a near-white surface, dark text meeting WCAG 2.2 AA, existing accent colours, and existing small/medium radius tokens.                                              |
+| SRCH2-014 | State-driven       | While the search query contains fewer than two trimmed characters, the website shall show guidance and shall not display result rows.                                                            |
+| SRCH2-015 | Event-driven       | When a query produces matches, the website shall display up to eight ranked tracks and every show appearance associated with each displayed track.                                               |
+| SRCH2-016 | Unwanted-behaviour | If the track index request fails, then the website shall keep the overlay operable and display a retryable error state.                                                                          |
+| SRCH2-017 | Event-driven       | When a visitor clears search, the website shall clear the query and results while retaining focus in the input.                                                                                  |
+| SRCH2-018 | Ubiquitous         | The archive page shall not render a second in-content search interface.                                                                                                                          |
+| SRCH2-019 | Optional-feature   | Where JavaScript is unavailable, the website shall keep normal navigation and archive browsing usable without displaying an inert search control.                                                |
+| SRCH2-020 | Ubiquitous         | Search opening, loading, result counts, empty results, errors, and closure shall be exposed to assistive technology without duplicate announcements.                                             |
+| SRCH2-021 | Event-driven       | When the search overlay opens successfully, the website shall submit one `track_search_open` analytics event through `window.puntersAnalytics.track()`.                                          |
+| SRCH2-022 | Event-driven       | When a distinct normalized query produces one or more results, the website shall submit one `track_search_results` analytics event for that query during the current overlay session.            |
+| SRCH2-023 | Event-driven       | When a distinct normalized query produces no results, the website shall submit one `track_search_no_results` analytics event for that query during the current overlay session.                  |
+| SRCH2-024 | Event-driven       | When a visitor activates a show link in a search result, the website shall submit one `track_search_result_select` event before navigation.                                                      |
+| SRCH2-025 | Event-driven       | When loading or validating the track index fails, the website shall submit one `track_search_error` event for that failed attempt.                                                               |
+| SRCH2-026 | Event-driven       | When the search overlay closes, the website shall submit one `track_search_close` event containing a stable close-reason value.                                                                  |
+| SRCH2-027 | Ubiquitous         | Search analytics events shall use the existing consent-aware analytics bridge so pending-consent events are queued, accepted-consent events are sent, and rejected-consent events are discarded. |
+| SRCH2-028 | Unwanted-behaviour | The website shall not include the raw query, normalized query, artist name, song title, free text, or other user-entered content in analytics payloads.                                          |
+| SRCH2-029 | Unwanted-behaviour | If Google Tag Manager, Google Analytics, or the analytics bridge is unavailable, then search and result navigation shall continue without visible error or delay.                                |
+| SRCH2-030 | Ubiquitous         | Analytics event names and parameter values shall use the stable schema defined in this plan and shall not derive event names from content or viewport dimensions.                                |
 
 ## Google event tracking specification
 
@@ -85,31 +85,31 @@ A listener should be able to look up a remembered artist or track from anywhere 
 
 All event names are lower-case snake case and remain below GA4's 40-character event-name limit. Ranks are one-based integers.
 
-| Event | Emit when | Parameters | Deduplication |
-| --- | --- | --- | --- |
-| `track_search_open` | `showModal()` succeeds and input focus is requested. | `search_location: "site_header"`; `trigger_variant: "icon" \| "label"` | Once per overlay opening. |
-| `track_search_results` | A query of at least two normalized characters resolves with matches. | `search_location: "site_header"`; `query_length`; `query_token_count`; `result_count` | Once per distinct normalized query per overlay opening. Do not emit for stale responses. |
-| `track_search_no_results` | A query of at least two normalized characters resolves with zero matches. | `search_location: "site_header"`; `query_length`; `query_token_count`; `result_count: 0` | Once per distinct normalized query per overlay opening. Do not emit for stale responses. |
-| `track_search_result_select` | A rendered show-appearance link is activated. | `search_location: "site_header"`; `result_rank`; `appearance_rank`; `appearance_count`; `show_path`; `track_position` | Once per activation. |
-| `track_search_error` | Index fetch, response validation, or result rendering fails. | `search_location: "site_header"`; `error_stage: "fetch" \| "validate" \| "render"` | Once per failed attempt; no exception message, URL, or status text. |
-| `track_search_close` | An open dialog closes. | `search_location: "site_header"`; `close_reason: "button" \| "escape" \| "backdrop" \| "menu_opened" \| "navigation"`; `query_length`; `result_count` | Once per overlay opening, after the final state is known. |
+| Event                        | Emit when                                                                 | Parameters                                                                                                                                            | Deduplication                                                                            |
+| ---------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `track_search_open`          | `showModal()` succeeds and input focus is requested.                      | `search_location: "site_header"`; `trigger_variant: "icon" \| "label"`                                                                                | Once per overlay opening.                                                                |
+| `track_search_results`       | A query of at least two normalized characters resolves with matches.      | `search_location: "site_header"`; `query_length`; `query_token_count`; `result_count`                                                                 | Once per distinct normalized query per overlay opening. Do not emit for stale responses. |
+| `track_search_no_results`    | A query of at least two normalized characters resolves with zero matches. | `search_location: "site_header"`; `query_length`; `query_token_count`; `result_count: 0`                                                              | Once per distinct normalized query per overlay opening. Do not emit for stale responses. |
+| `track_search_result_select` | A rendered show-appearance link is activated.                             | `search_location: "site_header"`; `result_rank`; `appearance_rank`; `appearance_count`; `show_path`; `track_position`                                 | Once per activation.                                                                     |
+| `track_search_error`         | Index fetch, response validation, or result rendering fails.              | `search_location: "site_header"`; `error_stage: "fetch" \| "validate" \| "render"`                                                                    | Once per failed attempt; no exception message, URL, or status text.                      |
+| `track_search_close`         | An open dialog closes.                                                    | `search_location: "site_header"`; `close_reason: "button" \| "escape" \| "backdrop" \| "menu_opened" \| "navigation"`; `query_length`; `result_count` | Once per overlay opening, after the final state is known.                                |
 
 ### Parameter definitions
 
-| Parameter | Type | Definition |
-| --- | --- | --- |
-| `search_location` | string enum | Always `site_header` in v2; retained to support future search placements without changing event names. |
-| `trigger_variant` | string enum | `icon` for the compact mobile trigger; `label` for the wider icon-plus-label trigger. |
-| `query_length` | integer | Character count of the normalized query; the query value itself is never sent. Use `0` when the dialog closes without a query. |
-| `query_token_count` | integer | Count of non-empty whitespace-delimited normalized query tokens. |
-| `result_count` | integer | Number of ranked track rows displayed, bounded by the existing limit of eight. |
-| `result_rank` | integer | One-based rank of the selected track row in the displayed result set. |
-| `appearance_rank` | integer | One-based rank of the selected show within that track row's appearance list. |
-| `appearance_count` | integer | Total show appearances attached to the selected track row. |
-| `show_path` | string | Existing internal path such as `/shows/the-punters-club-spring-forward/`; never a full external URL. |
-| `track_position` | integer | Track number from the selected show appearance. |
-| `error_stage` | string enum | Stable failure stage only; never an exception message or arbitrary error text. |
-| `close_reason` | string enum | The user/system action that closed the overlay. Programmatic close paths must set this before calling `close()`. |
+| Parameter           | Type        | Definition                                                                                                                     |
+| ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `search_location`   | string enum | Always `site_header` in v2; retained to support future search placements without changing event names.                         |
+| `trigger_variant`   | string enum | `icon` for the compact mobile trigger; `label` for the wider icon-plus-label trigger.                                          |
+| `query_length`      | integer     | Character count of the normalized query; the query value itself is never sent. Use `0` when the dialog closes without a query. |
+| `query_token_count` | integer     | Count of non-empty whitespace-delimited normalized query tokens.                                                               |
+| `result_count`      | integer     | Number of ranked track rows displayed, bounded by the existing limit of eight.                                                 |
+| `result_rank`       | integer     | One-based rank of the selected track row in the displayed result set.                                                          |
+| `appearance_rank`   | integer     | One-based rank of the selected show within that track row's appearance list.                                                   |
+| `appearance_count`  | integer     | Total show appearances attached to the selected track row.                                                                     |
+| `show_path`         | string      | Existing internal path such as `/shows/the-punters-club-spring-forward/`; never a full external URL.                           |
+| `track_position`    | integer     | Track number from the selected show appearance.                                                                                |
+| `error_stage`       | string enum | Stable failure stage only; never an exception message or arbitrary error text.                                                 |
+| `close_reason`      | string enum | The user/system action that closed the overlay. Programmatic close paths must set this before calling `close()`.               |
 
 ### Google Tag Manager and GA4 configuration
 

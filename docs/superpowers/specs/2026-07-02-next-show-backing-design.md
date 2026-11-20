@@ -3,7 +3,7 @@
 - **Date:** 2026-07-02
 - **Status:** Approved (design), oracle-reviewed (2026-07-02)
 - **Issue:** https://github.com/samcarrington/punters-club/issues/3
-- **Scope:** The *data backing* for a "next show" module — config, enrichment script, generated data contract, scheduled refresh workflow, and a minimal consuming component. **Out of scope (explicit future TODOs):** visual/UX design of the card and its placement/page UI.
+- **Scope:** The _data backing_ for a "next show" module — config, enrichment script, generated data contract, scheduled refresh workflow, and a minimal consuming component. **Out of scope (explicit future TODOs):** visual/UX design of the card and its placement/page UI.
 
 ## Problem
 
@@ -38,14 +38,14 @@ Verified against a live probe and the official docs (docs.theeventscalendar.com/
 
 ## Files
 
-| File | Role |
-| --- | --- |
-| `src/data/next-show-config.json` | Committed, human-edited config: title patterns, guest overrides, lookahead. |
-| `src/lib/next-show.ts` | Shared types + pure helpers (normalize event, match, select). |
-| `scripts/enrich-next-show.ts` | Fetch → filter → select soonest → write generated JSON, with resilient fallback. |
-| `src/data/next-show.generated.json` | The single resolved record the site reads at build. |
-| `src/components/NextShow.astro` | Minimal consumer of the generated JSON (visual design deferred — see TODO). |
-| `.github/workflows/next-show-refresh.yml` | Daily scheduled refresh that opens/updates a PR on change. |
+| File                                      | Role                                                                             |
+| ----------------------------------------- | -------------------------------------------------------------------------------- |
+| `src/data/next-show-config.json`          | Committed, human-edited config: title patterns, guest overrides, lookahead.      |
+| `src/lib/next-show.ts`                    | Shared types + pure helpers (normalize event, match, select).                    |
+| `scripts/enrich-next-show.ts`             | Fetch → filter → select soonest → write generated JSON, with resilient fallback. |
+| `src/data/next-show.generated.json`       | The single resolved record the site reads at build.                              |
+| `src/components/NextShow.astro`           | Minimal consumer of the generated JSON (visual design deferred — see TODO).      |
+| `.github/workflows/next-show-refresh.yml` | Daily scheduled refresh that opens/updates a PR on change.                       |
 
 ## Config contract — `next-show-config.json`
 
@@ -53,13 +53,15 @@ Verified against a live probe and the official docs (docs.theeventscalendar.com/
 {
   "endpoint": "https://www.radiowaters.co.uk/wp-json/tribe/events/v1/events",
   "titlePatterns": ["punters?['’]?\\s+club"],
-  "guestAppearances": [{ "slug": "saturday-night-in-with", "date": "2026-07-04" }],
+  "guestAppearances": [
+    { "slug": "saturday-night-in-with", "date": "2026-07-04" }
+  ],
   "lookaheadDays": 60
 }
 ```
 
 - `titlePatterns`: case-insensitive regex fragments applied to the **HTML-decoded** event `title` (the API returns entity-encoded titles, e.g. `The Punters&#8217; Club` → decode to `The Punters' Club` first). The pattern must tolerate a straight or curly apostrophe positioned after the `s` — verified live against `The Punters' Club – Summer Holiday Sounds` (2026-08-22). Matches are "our" named shows.
-- `guestAppearances`: **slug + date pairs**. A bare slug is unsafe because guest shows like `saturday-night-in-with` are *recurring station shows* — verified live: that slug appears twice in August 2026 alone (Aug 1 and Aug 29). Only the specific dated instance is us. Each entry is resolved to that exact date and its slug is verified before inclusion.
+- `guestAppearances`: **slug + date pairs**. A bare slug is unsafe because guest shows like `saturday-night-in-with` are _recurring station shows_ — verified live: that slug appears twice in August 2026 alone (Aug 1 and Aug 29). Only the specific dated instance is us. Each entry is resolved to that exact date and its slug is verified before inclusion.
 - `lookaheadDays`: how far ahead to scan (bounds pagination; a month is comfortably < 50 events — August 2026 returned 28 on a single page — but paginate defensively).
 
 ## Generated data contract — `next-show.generated.json`
@@ -83,7 +85,7 @@ Verified against a live probe and the official docs (docs.theeventscalendar.com/
 ```
 
 - **No `generatedAt` / run timestamp in this file.** A per-run timestamp would produce a diff on every scheduled run and make the bot open a PR daily even when the show hasn't changed — defeating the approval model. The file is only rewritten when `status`/`show` change **semantically**. Run time belongs in CI logs / the PR body, not the committed artifact. (The script should compare against the existing file and skip the write when semantically unchanged.)
-- `status`: `"upcoming"` or `"none"`. `"none"` means **"no verified upcoming qualifying show available right now"** — it is *not* an error signal. Upstream-unavailable-with-no-usable-fallback is logged in CI, not encoded as a distinct JSON state; empty-state copy stays neutral either way.
+- `status`: `"upcoming"` or `"none"`. `"none"` means **"no verified upcoming qualifying show available right now"** — it is _not_ an error signal. Upstream-unavailable-with-no-usable-fallback is logged in CI, not encoded as a distinct JSON state; empty-state copy stays neutral either way.
 - **Time:** `startsAtUtc` (UTC) is canonical; `timezone` is the IANA zone for display. Format at build via `Intl.DateTimeFormat('en-GB', { timeZone })` so BST/GMT is always correct.
 - `description`: **plain text, HTML stripped at enrich time.** The WP `description`/`excerpt` are HTML-capable; we normalize to a text excerpt and never carry third-party HTML into the artifact (avoids a future XSS/formatting footgun). If rich formatting is ever wanted, add an explicit sanitizer first.
 - `matchedBy`: `"title"` (named show) or `"guest"` (override) — useful for later UI/debugging and audit.

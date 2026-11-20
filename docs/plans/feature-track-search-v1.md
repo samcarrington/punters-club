@@ -1,4 +1,5 @@
 ---
+
 goal: Add searchable track autocomplete to the static show archive
 version: 1.0
 date_created: 2026-09-03
@@ -31,21 +32,21 @@ Add a progressively enhanced archive search that matches artists and song titles
 
 - GOAL-001: Implement and expose a deterministic search index.
 
-| Task | Description | Completed | Date |
-|------|-------------|-----------|------|
-| TASK-001 | Add typed index construction, text normalization, duplicate grouping, and ranked search in `src/lib/track-search.ts`. | ✅ | 2026-09-03 |
-| TASK-002 | Add unit coverage in `src/lib/track-search.test.ts`. | ✅ | 2026-09-03 |
-| TASK-003 | Add a prerendered JSON route at `src/pages/api/tracks.json.ts` built from `src/data/shows.generated.json`. | ✅ | 2026-09-03 |
+| Task     | Description                                                                                                           | Completed | Date       |
+| -------- | --------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-001 | Add typed index construction, text normalization, duplicate grouping, and ranked search in `src/lib/track-search.ts`. | ✅        | 2026-09-03 |
+| TASK-002 | Add unit coverage in `src/lib/track-search.test.ts`.                                                                  | ✅        | 2026-09-03 |
+| TASK-003 | Add a prerendered JSON route at `src/pages/api/tracks.json.ts` built from `src/data/shows.generated.json`.            | ✅        | 2026-09-03 |
 
 ### Implementation Phase 2
 
 - GOAL-002: Add the accessible archive search interface and validate production output.
 
-| Task | Description | Completed | Date |
-|------|-------------|-----------|------|
-| TASK-004 | Add `src/components/TrackSearch.astro` with lazy fetch, dynamic results, status announcements, escape handling, and safe DOM rendering. | ✅ | 2026-09-03 |
-| TASK-005 | Render the search on `src/pages/shows/index.astro` and style it in `src/styles/global.css`. | ✅ | 2026-09-03 |
-| TASK-006 | Run tests, typecheck, lint, and production build; verify `dist/api/tracks.json`. | ✅ | 2026-09-03 |
+| Task     | Description                                                                                                                             | Completed | Date       |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-004 | Add `src/components/TrackSearch.astro` with lazy fetch, dynamic results, status announcements, escape handling, and safe DOM rendering. | ✅        | 2026-09-03 |
+| TASK-005 | Render the search on `src/pages/shows/index.astro` and style it in `src/styles/global.css`.                                             | ✅        | 2026-09-03 |
+| TASK-006 | Run tests, typecheck, lint, and production build; verify `dist/api/tracks.json`.                                                        | ✅        | 2026-09-03 |
 
 ## 3. Alternatives
 

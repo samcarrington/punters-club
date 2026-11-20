@@ -1,6 +1,9 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { NEXT_SHOW, SCHEMA } from "../src/lib/constants";
+import type { NextShowResult } from "../src/lib/next-show";
+
 type ListItem = {
   position?: unknown;
   item?: unknown;
@@ -28,22 +31,61 @@ const jsonLdScripts =
     /type=["']application\/ld\+json["']/i.test(tag),
   ) ?? [];
 
-if (jsonLdScripts.length !== 1) {
-  fail(`expected exactly one JSON-LD script, found ${jsonLdScripts.length}`);
+const nextShow = readJson<NextShowResult>(
+  join("src", "data", "next-show.generated.json"),
+);
+const expectedEventCount = nextShow.status === NEXT_SHOW.upcomingStatus ? 1 : 0;
+const expectedScriptCount = 1 + expectedEventCount;
+if (jsonLdScripts.length !== expectedScriptCount) {
+  fail(
+    `expected ${expectedScriptCount} JSON-LD scripts, found ${jsonLdScripts.length}`,
+  );
 }
 
-const scriptBody = jsonLdScripts[0]
-  ?.replace(/^<script\b[^>]*>/i, "")
-  .replace(/<\/script>$/i, "");
-if (!scriptBody) fail("JSON-LD script is empty");
+const documents = jsonLdScripts.map((script) => {
+  const scriptBody = script
+    .replace(/^<script\b[^>]*>/i, "")
+    .replace(/<\/script>$/i, "");
+  if (!scriptBody.trim()) fail("JSON-LD script is empty");
 
-const structuredData = JSON.parse(scriptBody) as {
-  "@context"?: unknown;
-  mainEntity?: unknown;
-};
+  const document: unknown = JSON.parse(scriptBody);
+  if (!document || typeof document !== "object" || Array.isArray(document)) {
+    fail("expected JSON-LD script to contain an object");
+  }
+  const entity = document as Record<string, unknown>;
+  if (entity["@context"] !== SCHEMA.context) {
+    fail("expected @context to be https://schema.org");
+  }
+  return entity;
+});
 
-if (structuredData["@context"] !== "https://schema.org") {
-  fail("expected @context to be https://schema.org");
+const collectionPages = documents.filter(
+  (document) => document["@type"] === "CollectionPage",
+);
+if (collectionPages.length !== 1) {
+  fail(`expected exactly one CollectionPage, found ${collectionPages.length}`);
+}
+const structuredData = collectionPages[0] ?? fail("missing CollectionPage");
+
+const events = documents.filter((document) => document["@type"] === "Event");
+if (events.length !== expectedEventCount) {
+  fail(`expected ${expectedEventCount} Event entries, found ${events.length}`);
+}
+if (nextShow.status === NEXT_SHOW.upcomingStatus) {
+  const event = events[0] ?? fail("missing next-show Event");
+  const expectedFields = {
+    name: nextShow.show.title,
+    url: nextShow.show.url,
+    startDate: nextShow.show.startsAtUtc?.trim() || undefined,
+    endDate: nextShow.show.endsAtUtc?.trim() || undefined,
+    eventStatus: SCHEMA.eventScheduled,
+    eventAttendanceMode: SCHEMA.onlineEventAttendanceMode,
+  };
+  for (const [field, expected] of Object.entries(expectedFields)) {
+    if (event[field] !== expected) {
+      fail(`next-show Event ${field} does not match generated data`);
+    }
+  }
 }
 
 const mainEntity = structuredData.mainEntity;

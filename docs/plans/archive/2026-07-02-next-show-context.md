@@ -1,6 +1,6 @@
 # Next Show Backing — Execution Context
 
-> Companion to the **spec** (`docs/superpowers/specs/2026-07-02-next-show-backing-design.md`) and the **plan** (`docs/plans/2026-07-02-next-show-backing.md`). Those two are authoritative and self-contained for *what* and *how*. This doc captures the surrounding decisions, verified facts, and repo conventions a fresh session needs so it doesn't have to re-derive or re-probe anything.
+> Companion to the **spec** (`docs/superpowers/specs/2026-07-02-next-show-backing-design.md`) and the **plan** (`docs/plans/2026-07-02-next-show-backing.md`). Those two are authoritative and self-contained for _what_ and _how_. This doc captures the surrounding decisions, verified facts, and repo conventions a fresh session needs so it doesn't have to re-derive or re-probe anything.
 
 ## How to run this work
 
@@ -37,7 +37,7 @@ Concrete live evidence (drives test fixtures in plan Tasks 3–4):
 
 - **Titles are HTML-entity-encoded.** Real example: `The Punters&#8217; Club &#8211; Summer Holiday Sounds` → decode to `The Punters’ Club – Summer Holiday Sounds`. The apostrophe is a **curly** `’` (U+2019) sitting **after** the `s`. Hence the tolerant pattern `punters?['’]?\s+club` applied to **decoded** text.
 - **Recurring-slug proof:** slug `saturday-night-in-with` appears **twice in August 2026 alone** (Aug 1 and Aug 29). Only a specific dated instance is "ours" → guest overrides are **slug + date**, never slug alone.
-- **The new August show** (`the-punters-club-summer-holiday-sounds`, 2026-08-22 19:00 local / `2026-08-22T18:00:00Z`, `Europe/London`, poster present) is found by both the month-window query and `search=punter` (which returns exactly it). It is correctly the next *named* show (no July named listing).
+- **The new August show** (`the-punters-club-summer-holiday-sounds`, 2026-08-22 19:00 local / `2026-08-22T18:00:00Z`, `Europe/London`, poster present) is found by both the month-window query and `search=punter` (which returns exactly it). It is correctly the next _named_ show (no July named listing).
 - **Guest example** for the config seed: slug `saturday-night-in-with`, date `2026-07-04`, 19:00 local / `2026-07-04T18:00:00Z`.
 
 ## Decision log (condensed, with rationale)
