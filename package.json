@@ -20,14 +20,14 @@
     "lint:fix": "biome check --write ."
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.3",
+    "@biomejs/biome": "2.6.8",
     "@iconify-json/gridicons": "1.2.5",
-    "@iconify-json/lucide": "1.2.147",
-    "@vitest/coverage-v8": "5.0.5",
-    "astro": "7.4.2",
+    "@iconify-json/lucide": "1.2.157",
+    "@vitest/coverage-v8": "5.1.1",
+    "astro": "7.4.13",
     "tsx": "4.23.15",
     "typescript": "7.0.2",
-    "vitest": "5.0.5"
+    "vitest": "5.1.1"
   },
   "packageManager": "pnpm@11.28.8",
   "dependencies": {
