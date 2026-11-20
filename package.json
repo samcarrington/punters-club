@@ -2,6 +2,7 @@
   "name": "punters-club",
   "private": true,
   "type": "module",
+  "version": "1.5.0",
   "scripts": {
     "dev": "astro dev",
     "enrich:shows": "tsx scripts/enrich-shows.ts",
