@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "version": "1.5.0",
+  "license": "MIT",
   "scripts": {
     "dev": "astro dev",
     "enrich:shows": "tsx scripts/enrich-shows.ts",
